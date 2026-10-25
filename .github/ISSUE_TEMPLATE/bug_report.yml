@@ -1,0 +1,71 @@
+name: Bug report
+description: Report a reproducible problem in Pulse 249
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a problem. Do not include real credentials, private keys, SNMP communities, access tokens, customer data, or confidential network configuration.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the problem clearly and concisely.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide the smallest reproducible sequence you can.
+      placeholder: |
+        1. Go to ...
+        2. Configure ...
+        3. Run ...
+        4. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Release, branch, or commit SHA where the issue occurs.
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, deployment method, browser, database, relevant device/vendor, and other useful context. Redact sensitive values.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs or screenshots
+      description: Remove secrets and confidential infrastructure details before attaching anything.
+
+  - type: checkboxes
+    id: security
+    attributes:
+      label: Security confirmation
+      options:
+        - label: I have removed credentials, private keys, tokens, SNMP communities, and confidential network information from this report.
+          required: true
