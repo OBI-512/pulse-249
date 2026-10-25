@@ -1,0 +1,66 @@
+name: Feature request
+description: Propose a capability, integration, device/vendor, or workflow improvement
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Pulse 249. Please describe the operational problem first, then the proposed solution.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or operational need
+      description: What problem are you trying to solve, and who is affected?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed capability
+      description: Describe the behavior you would like Pulse 249 to provide.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Monitoring
+        - Discovery
+        - Inventory / topology
+        - Configuration management
+        - Secure remote access
+        - Device / vendor support
+        - Capacity / scalability
+        - Reporting / dashboards
+        - Security / access control
+        - Deployment / operations
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: devices
+    attributes:
+      label: Relevant devices, vendors, or protocols
+      description: If applicable, list the vendor/model/protocol. Do not include credentials or confidential infrastructure information.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or workarounds
+      description: Explain any current workaround or alternative you have considered.
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I may be able to help test this feature.
+        - label: I may be able to contribute code or documentation for this feature.
