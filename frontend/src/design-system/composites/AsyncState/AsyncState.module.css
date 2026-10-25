@@ -1,0 +1,2 @@
+.empty { padding: 28px 12px; text-align: center; color: var(--nms-muted); border: 1px dashed var(--nms-border-strong); border-radius: 7px; background: var(--nms-surface-2); }
+.compact { padding: 12px; }

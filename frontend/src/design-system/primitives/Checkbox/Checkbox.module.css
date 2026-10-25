@@ -1,0 +1,4 @@
+.label { display: inline-flex; flex-direction: row; align-items: center; gap: 7px; color: var(--nms-text); font-size: 12px; font-weight: 700; cursor: pointer; }
+.control { appearance: auto; width: 16px; height: 16px; min-height: 0; margin: 0; padding: 0; accent-color: var(--nms-accent); flex: 0 0 16px; cursor: pointer; box-shadow: none; }
+.control:focus-visible { outline: 2px solid color-mix(in srgb, var(--nms-accent) 45%, transparent); outline-offset: 2px; }
+.control:disabled, .control:disabled + span { opacity: .55; cursor: not-allowed; }

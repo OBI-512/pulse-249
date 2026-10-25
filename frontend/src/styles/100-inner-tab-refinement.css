@@ -1,0 +1,1632 @@
+
+/* Refined inner-workspace navigation: visual hierarchy only. */
+.view-tabs,
+.device-workspace-tabs,
+.log-tabs {
+  display:flex;
+  width:fit-content;
+  max-width:100%;
+  gap:7px;
+  padding:6px;
+  margin:0 0 14px;
+  border:1px solid color-mix(in srgb,var(--nms-border) 82%,transparent);
+  border-radius:15px;
+  background:linear-gradient(120deg,color-mix(in srgb,var(--nms-primary,#326fa8) 5%,var(--nms-surface)) 0%,var(--nms-surface) 78%);
+  box-shadow:0 6px 18px rgba(8,24,42,.045);
+}
+.view-tabs button,
+.device-workspace-tabs button,
+.log-tabs button {
+  position:relative;
+  min-height:38px;
+  padding:8px 15px 8px 18px;
+  border:1px solid transparent!important;
+  border-radius:11px!important;
+  background:transparent!important;
+  color:var(--nms-text-2)!important;
+  font-weight:750;
+  box-shadow:none!important;
+  transition:background .16s ease,color .16s ease,transform .16s ease;
+}
+.view-tabs button::before,
+.device-workspace-tabs button::before,
+.log-tabs button::before {
+  content:"";
+  position:absolute;
+  left:6px;
+  top:9px;
+  bottom:9px;
+  width:3px;
+  border-radius:999px;
+  background:transparent;
+}
+.view-tabs button:hover:not(:disabled),
+.device-workspace-tabs button:hover:not(:disabled),
+.log-tabs button:hover:not(:disabled) {
+  background:color-mix(in srgb,var(--nms-primary,#326fa8) 7%,transparent)!important;
+  color:var(--nms-text-strong)!important;
+}
+.view-tabs button.active,
+.device-workspace-tabs button.active,
+.log-tabs button:not(.secondary) {
+  color:var(--nms-text-strong)!important;
+  background:linear-gradient(110deg,color-mix(in srgb,var(--nms-primary,#326fa8) 13%,var(--nms-surface)) 0%,color-mix(in srgb,var(--nms-primary,#326fa8) 4%,var(--nms-surface)) 100%)!important;
+  border-color:color-mix(in srgb,var(--nms-primary,#326fa8) 19%,var(--nms-border))!important;
+}
+.view-tabs button.active::before,
+.device-workspace-tabs button.active::before,
+.log-tabs button:not(.secondary)::before {
+  background:var(--nms-primary,#326fa8);
+}
+.service-derived-context{margin:10px 0 12px}
+@media(max-width:760px){
+  .view-tabs,.device-workspace-tabs,.log-tabs{width:100%;overflow-x:auto}
+  .view-tabs button,.device-workspace-tabs button,.log-tabs button{white-space:nowrap;flex:0 0 auto}
+}
+
+
+/* C4 UAT GLOBAL INNER TAB COLOR SYSTEM 20260826 */
+
+/*
+ * Deterministic project palette:
+ * 1 blue
+ * 2 teal
+ * 3 indigo
+ * 4 violet
+ * 5 amber
+ * 6 green
+ *
+ * Colors repeat predictably for larger tab groups.
+ */
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) {
+  --inner-tab-accent: #2f7fc4;
+
+  display: flex !important;
+  align-items: stretch;
+  gap: 0 !important;
+
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px 6px !important;
+
+  overflow: hidden;
+
+  border: 1px solid var(--nms-border) !important;
+  border-radius: 14px;
+
+  background: var(--nms-surface) !important;
+
+  box-shadow:
+    0 5px 16px rgba(7, 18, 31, .045),
+    inset 0 0 0 1px color-mix(
+      in srgb,
+      var(--nms-border) 32%,
+      transparent
+    );
+}
+
+
+/* ------------------------------------------------------------
+   Stable tab color sequence
+   ------------------------------------------------------------ */
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) > :nth-child(6n + 1) {
+  --inner-tab-accent: #2f7fc4;
+}
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) > :nth-child(6n + 2) {
+  --inner-tab-accent: #1b7f89;
+}
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) > :nth-child(6n + 3) {
+  --inner-tab-accent: #586cc4;
+}
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) > :nth-child(6n + 4) {
+  --inner-tab-accent: #8059b8;
+}
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) > :nth-child(6n + 5) {
+  --inner-tab-accent: #bd8126;
+}
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) > :nth-child(6n + 6) {
+  --inner-tab-accent: #34886d;
+}
+
+
+/* ------------------------------------------------------------
+   Tab body
+   ------------------------------------------------------------ */
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button {
+  position: relative;
+  isolation: isolate;
+
+  min-height: 42px;
+  min-width: 145px;
+
+  padding: 9px 22px 9px 24px !important;
+
+  overflow: hidden;
+
+  border: 0 !important;
+  border-radius: 9px !important;
+
+  background: transparent !important;
+
+  color: color-mix(
+    in srgb,
+    var(--inner-tab-accent) 48%,
+    var(--nms-text-2)
+  ) !important;
+
+  box-shadow: none !important;
+
+  font-weight: 760;
+
+  transition:
+    background .16s ease,
+    color .16s ease,
+    box-shadow .16s ease;
+}
+
+
+/*
+ * Vertical delimiter.
+ * Strongest at the center and softly fades at both ends.
+ */
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  content: "";
+
+  position: absolute;
+  z-index: 1;
+
+  left: 8px;
+  top: 0;
+  bottom: 0;
+
+  width: 2px;
+
+  border-radius: 999px;
+
+  background: var(--inner-tab-accent);
+
+  opacity: .68;
+
+  pointer-events: none;
+}
+
+
+/*
+ * Upper accent:
+ * begins solid on the left and fades before reaching
+ * the right edge of the tab.
+ */
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::after {
+  content: "";
+
+  position: absolute;
+  z-index: 1;
+
+  top: 0;
+  left: 8px;
+  right: 5px;
+
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    90deg,
+    var(--inner-tab-accent) 0%,
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 72%,
+      transparent
+    ) 47%,
+    transparent 94%
+  );
+
+  opacity: .68;
+
+  pointer-events: none;
+}
+
+
+/* Hover keeps each tab's own identity. */
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button:hover:not(:disabled) {
+  background: color-mix(
+    in srgb,
+    var(--inner-tab-accent) 8%,
+    var(--nms-surface)
+  ) !important;
+
+  color: color-mix(
+    in srgb,
+    var(--inner-tab-accent) 62%,
+    var(--nms-text-strong)
+  ) !important;
+
+  filter: none;
+  transform: none;
+}
+
+
+/* ------------------------------------------------------------
+   Selected tab
+   ------------------------------------------------------------ */
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active,
+
+.log-tabs button:not(.secondary),
+
+.permission-tab-shell.active > button {
+  background: linear-gradient(
+    110deg,
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 22%,
+      var(--nms-surface)
+    ) 0%,
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 8%,
+      var(--nms-surface)
+    ) 100%
+  ) !important;
+
+  color: color-mix(
+    in srgb,
+    var(--inner-tab-accent) 57%,
+    var(--nms-text-strong)
+  ) !important;
+
+  box-shadow:
+    inset 0 0 0 1px color-mix(
+      in srgb,
+      var(--inner-tab-accent) 30%,
+      transparent
+    ),
+    0 5px 13px color-mix(
+      in srgb,
+      var(--inner-tab-accent) 12%,
+      transparent
+    ) !important;
+
+  font-weight: 850;
+}
+
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active::before,
+
+.log-tabs button:not(.secondary)::before,
+
+.permission-tab-shell.active > button::before {
+  width: 3px;
+  opacity: 1;
+}
+
+
+:where(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active::after,
+
+.log-tabs button:not(.secondary)::after,
+
+.permission-tab-shell.active > button::after {
+  height: 4px;
+  opacity: 1;
+}
+
+
+/* ------------------------------------------------------------
+   Consistent page / H1-H2 identity
+   ------------------------------------------------------------ */
+
+.page-heading {
+  --section-accent: #2f7fc4;
+}
+
+/* Operational / alarm */
+.alarm-page .page-heading {
+  --section-accent: #bd5562;
+}
+
+/* Maintenance / scheduled work */
+.maintenance-page .page-heading {
+  --section-accent: #b87c26;
+}
+
+/* Discovery / review workflow */
+.candidate-page .page-heading {
+  --section-accent: #7759b7;
+}
+
+/* Customer / service domain */
+.customer-page .page-heading {
+  --section-accent: #34886d;
+}
+
+/* Device operations */
+.device-page .page-heading {
+  --section-accent: #337cba;
+}
+
+/* Geographic management */
+.network-page .page-heading {
+  --section-accent: #278996;
+}
+
+/* Logical grouping */
+.group-page .page-heading {
+  --section-accent: #5d69bd;
+}
+
+/* Network topology */
+.topology-page .page-heading {
+  --section-accent: #287fa0;
+}
+
+/* Administration */
+.settings-page .page-heading {
+  --section-accent: #536db5;
+}
+
+.user-management-page .page-heading {
+  --section-accent: #7359aa;
+}
+
+/* Destructive / retention workspace */
+.recycle-bin-page .page-heading {
+  --section-accent: #ad6d35;
+}
+
+
+/*
+ * Only application page headings are affected.
+ * Login, authorization and password H1/H2 presentation stays untouched.
+ */
+.page-heading h1,
+.page-heading h2 {
+  position: relative;
+
+  padding-left: 11px;
+
+  border-left: 3px solid var(--section-accent);
+
+  color: color-mix(
+    in srgb,
+    var(--section-accent) 38%,
+    var(--nms-text-strong)
+  ) !important;
+}
+
+
+/* ------------------------------------------------------------
+   Responsive inner navigation
+   ------------------------------------------------------------ */
+
+@media (max-width: 760px) {
+  :where(
+    .view-tabs,
+    .device-workspace-tabs,
+    .log-tabs,
+    .settings-view-tabs
+  ) {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  :where(
+    .view-tabs,
+    .device-workspace-tabs,
+    .log-tabs,
+    .settings-view-tabs
+  ) button {
+    flex: 0 0 auto;
+    min-width: 135px;
+    white-space: nowrap;
+  }
+}
+/* INNER TAB VERTICAL DELIMITER SPECIFICITY FIX 20260826 */
+
+/*
+ * Each tab forms an L-shaped accent:
+ * vertical line rises from the bottom-left and meets
+ * the horizontal top accent.
+ */
+.view-tabs button::before,
+.device-workspace-tabs button::before,
+.log-tabs button::before,
+.settings-view-tabs button::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 2 !important;
+
+  left: 8px !important;
+  top: 0 !important;
+  bottom: 0 !important;
+
+  width: 3px !important;
+  height: auto !important;
+
+  border-radius: 999px !important;
+
+  background: linear-gradient(
+    0deg,
+    var(--inner-tab-accent) 0%,
+    var(--inner-tab-accent) 82%,
+    color-mix(in srgb, var(--inner-tab-accent) 80%, transparent) 94%,
+    var(--inner-tab-accent) 100%
+  ) !important;
+
+  opacity: .78 !important;
+  pointer-events: none !important;
+}
+
+.view-tabs button.active::before,
+.device-workspace-tabs button.active::before,
+.settings-view-tabs button.active::before,
+.log-tabs button:not(.secondary)::before {
+  opacity: 1 !important;
+  width: 3px !important;
+}
+
+/* INNER TAB ROUNDED LEFT-EDGE ACCENT 20260826 */
+
+/*
+ * Trace the real rounded left edge of every inner tab.
+ * The existing horizontal top accent remains unchanged.
+ */
+.view-tabs button::before,
+.device-workspace-tabs button::before,
+.log-tabs button::before,
+.settings-view-tabs button::before {
+  content: "" !important;
+
+  position: absolute !important;
+  z-index: 2 !important;
+
+  inset: 0 !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  border: 0 !important;
+  border-left: 3px solid var(--inner-tab-accent) !important;
+
+  border-radius: 9px !important;
+
+  background: transparent !important;
+
+  opacity: .78 !important;
+
+  pointer-events: none !important;
+}
+
+.view-tabs button.active::before,
+.device-workspace-tabs button.active::before,
+.settings-view-tabs button.active::before,
+.log-tabs button:not(.secondary)::before {
+  border-left-width: 3px !important;
+  opacity: 1 !important;
+}
+
+/* ============================================================
+   INNER TAB CONNECTED EDGE + ACTIVE GRADIENT FILL OVERRIDE
+   2026-08-26
+   Only styling change. No logic changes.
+   ============================================================ */
+
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button {
+  position: relative;
+  overflow: hidden;
+}
+
+/* unified accent variables */
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button {
+  --tab-accent-rgb: 91, 148, 217;
+}
+
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button:nth-child(1) {
+  --tab-accent-rgb: 91, 148, 217;
+}
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button:nth-child(2) {
+  --tab-accent-rgb: 83, 186, 188;
+}
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button:nth-child(3) {
+  --tab-accent-rgb: 103, 120, 222;
+}
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button:nth-child(4) {
+  --tab-accent-rgb: 145, 103, 212;
+}
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button:nth-child(5) {
+  --tab-accent-rgb: 219, 120, 162;
+}
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button:nth-child(6) {
+  --tab-accent-rgb: 235, 156, 92;
+}
+
+/* remove any previous disconnected short vertical accent */
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 8px;
+  width: calc(100% - 22px);
+  height: calc(50% - 4px);
+  border-top: 3px solid rgba(var(--tab-accent-rgb), 0.95);
+  border-left: 3px solid rgba(var(--tab-accent-rgb), 0.95);
+  border-top-left-radius: 14px;
+  box-sizing: border-box;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* keep the soft fading top sweep and make it connect visually with the contour */
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 18px;
+  top: 8px;
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--tab-accent-rgb), 0.95) 0%,
+    rgba(var(--tab-accent-rgb), 0.42) 42%,
+    rgba(var(--tab-accent-rgb), 0.10) 78%,
+    rgba(var(--tab-accent-rgb), 0.00) 100%
+  );
+  border-top-left-radius: 10px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* active tab fill */
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button.active,
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button[aria-selected="true"] {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(var(--tab-accent-rgb), 0.18) 0%,
+      rgba(var(--tab-accent-rgb), 0.11) 32%,
+      rgba(var(--tab-accent-rgb), 0.05) 62%,
+      rgba(var(--tab-accent-rgb), 0.015) 82%,
+      rgba(var(--tab-accent-rgb), 0.00) 100%
+    ) !important;
+}
+
+/* make active state slightly stronger */
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button.active::before,
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button[aria-selected="true"]::before {
+  border-top-color: rgba(var(--tab-accent-rgb), 1);
+  border-left-color: rgba(var(--tab-accent-rgb), 1);
+}
+
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button.active::after,
+:is(.view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs) button[aria-selected="true"]::after {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--tab-accent-rgb), 1) 0%,
+    rgba(var(--tab-accent-rgb), 0.52) 42%,
+    rgba(var(--tab-accent-rgb), 0.14) 78%,
+    rgba(var(--tab-accent-rgb), 0.00) 100%
+  );
+}
+
+
+/* FINAL CONNECTED INNER-TAB CONTOUR 20260826 */
+
+/*
+ * One continuous accent:
+ * top gradient -> rounded top-left corner -> left edge ->
+ * rounded bottom-left termination.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 4 !important;
+
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  right: auto !important;
+
+  width: 18px !important;
+  height: auto !important;
+
+  box-sizing: border-box !important;
+
+  border: 0 !important;
+  border-left: 3px solid var(--inner-tab-accent) !important;
+  border-top: 3px solid var(--inner-tab-accent) !important;
+  border-bottom: 3px solid transparent !important;
+
+  border-radius: 9px 0 0 9px !important;
+
+  background: transparent !important;
+  opacity: .82 !important;
+
+  pointer-events: none !important;
+}
+
+
+/*
+ * Continue directly from the curved contour.
+ * It overlaps the first section slightly so there can be no gap.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 5 !important;
+
+  left: 10px !important;
+  right: 5px !important;
+  top: 0 !important;
+
+  width: auto !important;
+  height: 3px !important;
+
+  border: 0 !important;
+  border-radius: 0 999px 999px 0 !important;
+
+  background: linear-gradient(
+    90deg,
+    var(--inner-tab-accent) 0%,
+    color-mix(in srgb, var(--inner-tab-accent) 70%, transparent) 45%,
+    color-mix(in srgb, var(--inner-tab-accent) 25%, transparent) 75%,
+    transparent 100%
+  ) !important;
+
+  opacity: .82 !important;
+  pointer-events: none !important;
+}
+
+
+/*
+ * Selected tab fill follows exactly the same fade positions:
+ * 0% -> 45% -> 75% -> 100%.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active,
+
+html body .log-tabs button:not(.secondary),
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"] {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--inner-tab-accent) 16%, var(--nms-surface)) 0%,
+    color-mix(in srgb, var(--inner-tab-accent) 10%, var(--nms-surface)) 45%,
+    color-mix(in srgb, var(--inner-tab-accent) 4%, var(--nms-surface)) 75%,
+    var(--nms-surface) 100%
+  ) !important;
+}
+
+
+/* Stronger contour only for selected tab. */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active::before,
+
+html body .log-tabs button:not(.secondary)::before,
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"]::before {
+  opacity: 1 !important;
+}
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active::after,
+
+html body .log-tabs button:not(.secondary)::after,
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"]::after {
+  opacity: 1 !important;
+}
+
+/* ============================================================
+   EXACT INNER TAB ACCENT -- FINAL OVERRIDE
+   Only inner-tab appearance.
+   ============================================================ */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+
+/*
+ * LEFT EDGE:
+ * Starts at bottom-left, follows the real rounded edge,
+ * and reaches the top-left corner.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  content: "" !important;
+
+  position: absolute !important;
+  z-index: 4 !important;
+
+  inset: 0 !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  border: 0 !important;
+  border-left: 3px solid var(--inner-tab-accent) !important;
+
+  border-radius: 10px 0 0 10px !important;
+
+  background: transparent !important;
+
+  opacity: .82 !important;
+
+  pointer-events: none !important;
+}
+
+
+/*
+ * TOP EDGE:
+ * Begins at the extreme left.
+ * Because the button clips to its rounded shape, this line
+ * joins the curved left border with no visual gap.
+ *
+ * Then it fades progressively before the right edge.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::after {
+  content: "" !important;
+
+  position: absolute !important;
+  z-index: 5 !important;
+
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+
+  width: auto !important;
+  height: 3px !important;
+
+  border: 0 !important;
+
+  background: linear-gradient(
+    90deg,
+    var(--inner-tab-accent) 0%,
+    var(--inner-tab-accent) 12%,
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 72%,
+      transparent
+    ) 45%,
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 28%,
+      transparent
+    ) 72%,
+    transparent 94%
+  ) !important;
+
+  opacity: .82 !important;
+
+  pointer-events: none !important;
+}
+
+
+/*
+ * SELECTED TAB:
+ * Same accent color.
+ * Same left-to-right fade progression as the top line.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active,
+
+html body .log-tabs button:not(.secondary),
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"] {
+  background: linear-gradient(
+    90deg,
+
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 24%,
+      var(--nms-surface)
+    ) 0%,
+
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 24%,
+      var(--nms-surface)
+    ) 12%,
+
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 17%,
+      var(--nms-surface)
+    ) 45%,
+
+    color-mix(
+      in srgb,
+      var(--inner-tab-accent) 7%,
+      var(--nms-surface)
+    ) 72%,
+
+    var(--nms-surface) 94%
+  ) !important;
+}
+
+
+/* Selected accent is fully visible. */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active::before,
+
+html body .log-tabs button:not(.secondary)::before,
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"]::before {
+  opacity: 1 !important;
+}
+
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active::after,
+
+html body .log-tabs button:not(.secondary)::after,
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"]::after {
+  opacity: 1 !important;
+}
+
+
+/* ============================================================
+   Top-left inner-tab corner thickness fix only
+   Keeps the current design, only strengthens the top-left join.
+   ============================================================ */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  background:
+    linear-gradient(var(--inner-tab-accent), var(--inner-tab-accent))
+    left top / 16px 3px no-repeat !important;
+}
+
+
+/* ============================================================
+   INNER TAB STROKE TAPER
+   Vertical = 4px
+   Horizontal = 3px
+   Top-left curve transitions naturally from 4px -> 3px.
+   Nothing else changed.
+   ============================================================ */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  content: "" !important;
+
+  position: absolute !important;
+  z-index: 5 !important;
+
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  right: auto !important;
+
+  width: 18px !important;
+  height: auto !important;
+
+  box-sizing: border-box !important;
+
+  border: 0 !important;
+
+  /* slightly stronger vertical stroke */
+  border-left: 4px solid var(--inner-tab-accent) !important;
+
+  /* horizontal thickness */
+  border-top: 3px solid var(--inner-tab-accent) !important;
+
+  /*
+   * Browser interpolates the unequal 4px/3px borders
+   * through this rounded corner:
+   * vertical 4px -> curved taper -> horizontal 3px.
+   */
+  border-radius: 10px 0 0 10px !important;
+
+  background: transparent !important;
+
+  opacity: .82 !important;
+  pointer-events: none !important;
+}
+
+
+/*
+ * Horizontal gradient remains 3px.
+ * Overlap with the curved corner prevents any seam.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::after {
+  left: 12px !important;
+  top: 0 !important;
+
+  height: 3px !important;
+
+  background: linear-gradient(
+    90deg,
+    var(--inner-tab-accent) 0%,
+    var(--inner-tab-accent) 12%,
+    color-mix(in srgb, var(--inner-tab-accent) 72%, transparent) 45%,
+    color-mix(in srgb, var(--inner-tab-accent) 28%, transparent) 72%,
+    transparent 94%
+  ) !important;
+}
+
+
+/* Preserve the exact same contour dimensions when selected. */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .settings-view-tabs
+) button.active::before,
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"]::before,
+
+html body .log-tabs button:not(.secondary)::before {
+  width: 18px !important;
+
+  border-left: 4px solid var(--inner-tab-accent) !important;
+  border-top: 3px solid var(--inner-tab-accent) !important;
+
+  border-radius: 10px 0 0 10px !important;
+
+  background: transparent !important;
+
+  opacity: 1 !important;
+}
+
+
+/* ============================================================
+   INNER TAB SEAM FIX ONLY
+   Fix the mismatch between the top-left corner stroke
+   and the horizontal top stroke.
+   No other styling changes.
+   ============================================================ */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  /* make the corner stroke fully opaque so it matches the top line */
+  opacity: 1 !important;
+}
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::after {
+  /* overlap slightly into the rounded corner so the join looks like one line */
+  left: 9px !important;
+  top: 0 !important;
+  height: 3px !important;
+  opacity: 1 !important;
+
+  background: linear-gradient(
+    90deg,
+    var(--inner-tab-accent) 0%,
+    var(--inner-tab-accent) 18%,
+    color-mix(in srgb, var(--inner-tab-accent) 78%, transparent) 46%,
+    color-mix(in srgb, var(--inner-tab-accent) 34%, transparent) 72%,
+    transparent 95%
+  ) !important;
+}
+
+
+/* ============================================================
+   INNER TAB JOINT MICRO-TUNE ONLY
+   Preserve existing bottom-left, horizontal fade and selected fill.
+   Only smooth the top-left transition.
+   ============================================================ */
+
+/*
+ * Keep the curved component very short.
+ * Vertical remains 4px; horizontal portion remains 3px.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  width: 13px !important;
+
+  border-left: 4px solid var(--inner-tab-accent) !important;
+  border-top: 3px solid var(--inner-tab-accent) !important;
+
+  border-radius: 10px 0 0 10px !important;
+
+  opacity: 1 !important;
+}
+
+
+/*
+ * Begin the horizontal gradient with only a 1px overlap.
+ * Same exact solid accent at the connection point.
+ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::after {
+  left: 12px !important;
+  top: 0 !important;
+  height: 3px !important;
+
+  opacity: 1 !important;
+
+  background: linear-gradient(
+    90deg,
+    var(--inner-tab-accent) 0%,
+    var(--inner-tab-accent) 14%,
+    color-mix(in srgb, var(--inner-tab-accent) 78%, transparent) 46%,
+    color-mix(in srgb, var(--inner-tab-accent) 34%, transparent) 72%,
+    transparent 95%
+  ) !important;
+}
+
+
+/* FINAL-INNER-TAB-ACCENT-20260826 */
+
+/* ============================================================
+   INNER TAB ACCENT SYSTEM
+   - Fills the left-bottom highlighted cap area
+   - Keeps contour for selected + unselected
+   - Adds visible hover feedback
+   ============================================================ */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button {
+  position: relative !important;
+  overflow: hidden !important;
+  transition:
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease !important;
+
+  --inner-tab-accent: #2f7fc4;
+}
+
+/* deterministic colors */
+html body :is(.view-tabs,.device-workspace-tabs,.log-tabs,.settings-view-tabs) button:nth-child(6n + 1) { --inner-tab-accent: #2f7fc4; }
+html body :is(.view-tabs,.device-workspace-tabs,.log-tabs,.settings-view-tabs) button:nth-child(6n + 2) { --inner-tab-accent: #1b7f89; }
+html body :is(.view-tabs,.device-workspace-tabs,.log-tabs,.settings-view-tabs) button:nth-child(6n + 3) { --inner-tab-accent: #586cc4; }
+html body :is(.view-tabs,.device-workspace-tabs,.log-tabs,.settings-view-tabs) button:nth-child(6n + 4) { --inner-tab-accent: #8059b8; }
+html body :is(.view-tabs,.device-workspace-tabs,.log-tabs,.settings-view-tabs) button:nth-child(6n + 5) { --inner-tab-accent: #bd8126; }
+html body :is(.view-tabs,.device-workspace-tabs,.log-tabs,.settings-view-tabs) button:nth-child(6n + 6) { --inner-tab-accent: #34886d; }
+
+/* ------------------------------------------------------------
+   LEFT CAP / VERTICAL + CURVE + FILLED BOTTOM-LEFT AREA
+   This fills the highlighted area you marked.
+   ------------------------------------------------------------ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 5 !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 18px !important;
+  box-sizing: border-box !important;
+
+  /* FILL for the left cap area, including the bottom-left highlighted part */
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--inner-tab-accent) 24%, var(--nms-surface)) 0%,
+    color-mix(in srgb, var(--inner-tab-accent) 18%, var(--nms-surface)) 62%,
+    color-mix(in srgb, var(--inner-tab-accent) 8%, transparent) 84%,
+    transparent 100%
+  ) !important;
+
+  border-left: 4px solid var(--inner-tab-accent) !important;
+  border-top: 3px solid var(--inner-tab-accent) !important;
+  border-radius: 12px 0 0 12px !important;
+
+  pointer-events: none !important;
+}
+
+/* ------------------------------------------------------------
+   TOP HORIZONTAL ACCENT
+   ------------------------------------------------------------ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::after {
+  content: "" !important;
+  position: absolute !important;
+  z-index: 6 !important;
+  left: 14px !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: 3px !important;
+
+  background: linear-gradient(
+    90deg,
+    var(--inner-tab-accent) 0%,
+    var(--inner-tab-accent) 16%,
+    color-mix(in srgb, var(--inner-tab-accent) 78%, transparent) 46%,
+    color-mix(in srgb, var(--inner-tab-accent) 34%, transparent) 72%,
+    transparent 95%
+  ) !important;
+
+  pointer-events: none !important;
+}
+
+/* ------------------------------------------------------------
+   UNSELECTED
+   ------------------------------------------------------------ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button:not(.active):not([aria-selected="true"]) {
+  background: transparent !important;
+}
+
+/* ------------------------------------------------------------
+   SELECTED
+   Only the button fill differs.
+   ------------------------------------------------------------ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button.active,
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"],
+html body .log-tabs button:not(.secondary) {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--inner-tab-accent) 24%, var(--nms-surface)) 0%,
+    color-mix(in srgb, var(--inner-tab-accent) 22%, var(--nms-surface)) 16%,
+    color-mix(in srgb, var(--inner-tab-accent) 14%, var(--nms-surface)) 48%,
+    color-mix(in srgb, var(--inner-tab-accent) 7%,  var(--nms-surface)) 74%,
+    var(--nms-surface) 96%
+  ) !important;
+}
+
+/* ------------------------------------------------------------
+   HOVER EFFECT
+   Visible hover feedback for selected and unselected tabs.
+   ------------------------------------------------------------ */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--inner-tab-accent) 34%, transparent),
+    0 10px 22px -16px color-mix(in srgb, var(--inner-tab-accent) 55%, transparent),
+    0 0 18px -10px color-mix(in srgb, var(--inner-tab-accent) 65%, transparent) !important;
+}
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button:not(.active):not([aria-selected="true"]):hover {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--inner-tab-accent) 10%, var(--nms-surface)) 0%,
+    color-mix(in srgb, var(--inner-tab-accent) 7%, var(--nms-surface)) 45%,
+    transparent 100%
+  ) !important;
+}
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button:hover::before {
+  filter: saturate(1.08) brightness(1.03) !important;
+}
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button:hover::after {
+  filter: saturate(1.08) brightness(1.03) !important;
+}
+
+/* ============================================================
+   SOLID LEFT TAB CAP
+   Selected + unselected
+   Only the left highlighted area is changed.
+   ============================================================ */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+
+  /* 100% SOLID -- no transparency, no gradient */
+  background: var(--inner-tab-accent) !important;
+
+  opacity: 1 !important;
+}
+
+
+/* ============================================================
+   SOLID LEFT CAP -- NARROWER
+   Applies identically to selected and unselected tabs.
+   ============================================================ */
+
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before {
+  width: 14px !important;
+
+  /* Always completely solid */
+  background: var(--inner-tab-accent) !important;
+  opacity: 1 !important;
+}
+
+/* Selected state must not alter the cap */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button.active::before,
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"]::before,
+html body .log-tabs button:not(.secondary)::before {
+  width: 14px !important;
+  background: var(--inner-tab-accent) !important;
+  opacity: 1 !important;
+}
+
+
+/* LEFT CAP WIDTH ONLY */
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button::before,
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button.active::before,
+html body :is(
+  .view-tabs,
+  .device-workspace-tabs,
+  .log-tabs,
+  .settings-view-tabs
+) button[aria-selected="true"]::before,
+html body .log-tabs button:not(.secondary)::before {
+  width: 10px !important;
+}
+
+
+/* USER-MANAGEMENT-FIXED-PERMISSIONS-TAB-20260826 */
+
+/*
+   Permissions is now a standard inner tab.
+   When no user is selected it remains visible but disabled.
+*/
+
+html body .user-management-page .management-tabs > button:disabled,
+html body .user-management-page .management-tabs > button:disabled:hover {
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  background: transparent !important;
+}
+
+html body .user-management-page .management-tabs > button:disabled:hover::before,
+html body .user-management-page .management-tabs > button:disabled:hover::after {
+  filter: none !important;
+}
+
+/* ============================================================
+   DEVICE CONTEXT -- EVEN THREE-CARD FINAL ROW
+   ------------------------------------------------------------
+   AP edit layout:
+
+   Row 1:
+   Network | City | Location | Sector
+
+   Row 2:
+   Physical Sector | Parent CPE | Customer
+
+   The final three cards share the complete available width.
+   ============================================================ */
+
+@media (min-width: 1181px) {
+
+  .derived-context:has(> div:nth-child(7):last-child) {
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+  }
+
+  /* First four cards = four equal columns */
+  .derived-context:has(> div:nth-child(7):last-child) > div {
+    grid-column: span 3;
+  }
+
+  /* Last three cards = three equal columns across full width */
+  .derived-context:has(> div:nth-child(7):last-child) > div:nth-child(n + 5) {
+    grid-column: span 4;
+  }
+
+}
+
+/* DEVICE CONTEXT AUTO DISTRIBUTION START */
+@media (min-width: 1181px) {
+  .derived-context {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+    gap: 14px;
+    align-items: stretch;
+  }
+
+  .derived-context > div {
+    min-width: 0;
+  }
+
+  /* 1 item */
+  .derived-context:has(> div:nth-child(1):last-child) > div {
+    grid-column: 1 / -1;
+  }
+
+  /* 2 items */
+  .derived-context:has(> div:nth-child(2):last-child) > div {
+    grid-column: span 6;
+  }
+
+  /* 3 items */
+  .derived-context:has(> div:nth-child(3):last-child) > div {
+    grid-column: span 4;
+  }
+
+  /* 4 items */
+  .derived-context:has(> div:nth-child(4):last-child) > div {
+    grid-column: span 3;
+  }
+
+  /* 5 items = 4 + 1 */
+  .derived-context:has(> div:nth-child(5):last-child) > div:nth-child(-n+4) {
+    grid-column: span 3;
+  }
+  .derived-context:has(> div:nth-child(5):last-child) > div:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  /* 6 items = 4 + 2 */
+  .derived-context:has(> div:nth-child(6):last-child) > div:nth-child(-n+4) {
+    grid-column: span 3;
+  }
+  .derived-context:has(> div:nth-child(6):last-child) > div:nth-child(n+5) {
+    grid-column: span 6;
+  }
+
+  /* 7 items = 4 + 3 */
+  .derived-context:has(> div:nth-child(7):last-child) > div:nth-child(-n+4) {
+    grid-column: span 3;
+  }
+  .derived-context:has(> div:nth-child(7):last-child) > div:nth-child(n+5) {
+    grid-column: span 4;
+  }
+
+  /* 8 items = 4 + 4 */
+  .derived-context:has(> div:nth-child(8):last-child) > div {
+    grid-column: span 3;
+  }
+}
+/* DEVICE CONTEXT AUTO DISTRIBUTION END */
+
+/* VLAN UI refinement: keep expanded device context readable and separated. */
+.device-page .derived-context {
+  margin-bottom: 22px;
+}
+
+@media (min-width: 1181px) {
+  /* 9 items = 4 + 4 + 1 */
+  .derived-context:has(> div:nth-child(9):last-child) > div:nth-child(-n+8) {
+    grid-column: span 3;
+  }
+  .derived-context:has(> div:nth-child(9):last-child) > div:nth-child(9) {
+    grid-column: 1 / -1;
+  }
+}

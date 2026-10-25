@@ -1,0 +1,100 @@
+/* FTTW Design System — canonical theme refinement tokens.
+ * FR2 extraction only: declaration order and values are preserved exactly
+ * from 60-theme-refinements.css to keep visual output unchanged.
+ */
+
+html[data-theme="operations"] {
+  --nms-content-title: #11243d;
+  --nms-content-title-2: #19324f;
+  --nms-nav-text: #2f4965;
+}
+
+html[data-theme="light"] {
+  /* The Light header itself is white; use its dark header-text family so
+     content titles remain readable while still participating in the theme. */
+  --nms-content-title: #153250;
+  --nms-content-title-2: #1c4d78;
+  --nms-nav-text: #304a64;
+}
+
+html[data-theme="night"] {
+  /* A literal #071321 header color would disappear on the Night workspace. */
+  --nms-content-title: #7dbcf5;
+  --nms-content-title-2: #58a8ef;
+  --nms-nav-text: #d3dfec;
+}
+
+html[data-theme="operations"] {
+  --nms-content-title: #11243d;
+  --nms-content-title-2: #19324f;
+  --nms-tab-text: #4d6178;
+  --nms-tab-hover-text: #11243d;
+  --nms-tab-hover-bg: #eef4fa;
+  --nms-tab-active-bg: #11243d;
+  --nms-tab-active-text: #ffffff;
+  --nms-nav-capsule: linear-gradient(135deg, #11243d, #19324f);
+  --nms-nav-text: #f2f7fd;
+  --nms-nav-icon: #dce8f6;
+  --nms-nav-hover-text: #ffffff;
+  --nms-nav-active-text: #ffffff;
+  --nms-nav-hover-bg: rgba(255,255,255,.075);
+  --nms-nav-active-bg: color-mix(in srgb, #58a8ef 24%, rgba(255,255,255,.05));
+  --nms-nav-active-border: color-mix(in srgb, #58a8ef 62%, rgba(255,255,255,.16));
+  --nms-nav-active-icon-bg: color-mix(in srgb, #58a8ef 36%, rgba(255,255,255,.08));
+  --nms-table-head: #eef4fa;
+  --nms-table-hover: #f5f9fc;
+  --nms-table-selected: #e7f2fc;
+  --nms-scroll-track: #eef2f6;
+  --nms-scroll-thumb: #aab9c8;
+  --nms-scroll-thumb-hover: #8096ab;
+}
+
+html[data-theme="light"] {
+  --nms-content-title: #1c4d78;
+  --nms-content-title-2: #2876ad;
+  --nms-tab-text: #53667c;
+  --nms-tab-hover-text: #1c4d78;
+  --nms-tab-hover-bg: #eaf4fd;
+  --nms-tab-active-bg: #247ac9;
+  --nms-tab-active-text: #ffffff;
+  --nms-nav-capsule: #ffffff;
+  --nms-nav-text: #304a64;
+  --nms-nav-icon: #5c7188;
+  --nms-nav-hover-text: #1c4d78;
+  --nms-nav-active-text: #0c62ad;
+  --nms-nav-hover-bg: #f5faff;
+  --nms-nav-active-bg: #eaf4fd;
+  --nms-nav-active-border: #bcd8ee;
+  --nms-nav-active-icon-bg: #dceefd;
+  --nms-table-head: #eaf4fd;
+  --nms-table-hover: #f5faff;
+  --nms-table-selected: #e3f1fc;
+  --nms-scroll-track: #eef3f7;
+  --nms-scroll-thumb: #a7b9ca;
+  --nms-scroll-thumb-hover: #8198ae;
+}
+
+html[data-theme="night"] {
+  --nms-content-title: #7dbcf5;
+  --nms-content-title-2: #58a8ef;
+  --nms-tab-text: #b8c7d8;
+  --nms-tab-hover-text: #f5f9ff;
+  --nms-tab-hover-bg: #162b40;
+  --nms-tab-active-bg: #58a8ef;
+  --nms-tab-active-text: #071321;
+  --nms-nav-capsule: linear-gradient(135deg, #071321, #0e1e31);
+  --nms-nav-text: #edf5ff;
+  --nms-nav-icon: #bfd0e2;
+  --nms-nav-hover-text: #ffffff;
+  --nms-nav-active-text: #ffffff;
+  --nms-nav-hover-bg: rgba(255,255,255,.07);
+  --nms-nav-active-bg: color-mix(in srgb, #58a8ef 24%, rgba(255,255,255,.04));
+  --nms-nav-active-border: color-mix(in srgb, #7dbcf5 58%, rgba(255,255,255,.14));
+  --nms-nav-active-icon-bg: color-mix(in srgb, #58a8ef 34%, rgba(255,255,255,.06));
+  --nms-table-head: #142b42;
+  --nms-table-hover: #162d47;
+  --nms-table-selected: #193754;
+  --nms-scroll-track: #102235;
+  --nms-scroll-thumb: #3e5a73;
+  --nms-scroll-thumb-hover: #58758f;
+}

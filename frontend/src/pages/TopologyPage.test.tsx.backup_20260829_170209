@@ -1,0 +1,41 @@
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import { FeedbackProvider } from "../components/common/FeedbackSystem";
+import type { City, Location, Network } from "../types";
+import { TopologyPage } from "./TopologyPage";
+
+const network: Network = { id: "n1", name: "North Network", code: "NORTH", status: "ACTIVE" };
+const city: City = { id: "c1", network_id: "n1", name: "Metro", code: "MET", status: "ACTIVE", service_vlan_id: 120 };
+const location: Location = { id: "l1", city_id: "c1", name: "Central POP", code: "POP-01", status: "ACTIVE", network_name: "North Network", city_name: "Metro" };
+
+describe("TopologyPage location-based physical topology", () => {
+  it("preserves Sector View and adds Location View without exposing downstream selectors", () => {
+    render(<FeedbackProvider><TopologyPage
+      token="token"
+      permissions={["topology.read", "device.read"]}
+      sourceNetworks={[network]}
+      networks={[network]}
+      cities={[city]}
+      locations={[location]}
+      sectors={[]}
+      groups={[]}
+      topology={null}
+      onLoad={vi.fn()}
+      onLoadGroup={vi.fn()}
+      onTestAccessibility={vi.fn()}
+      onDeleteDevice={vi.fn(async () => true)}
+    /></FeedbackProvider>);
+
+    expect(screen.getByRole("tab", { name: "Hierarchy Tree" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Sector View" })).toBeInTheDocument();
+    const locationTab = screen.getByRole("tab", { name: "Location View" });
+    expect(locationTab).toBeInTheDocument();
+
+    fireEvent.click(locationTab);
+    expect(screen.getByRole("heading", { name: "Location View" })).toBeInTheDocument();
+    expect(screen.getByText(/Direct physical infrastructure only/)).toBeInTheDocument();
+    expect(screen.getByText("Show Location Topology")).toBeInTheDocument();
+    expect(screen.queryByText("C-VLAN")).not.toBeInTheDocument();
+    expect(screen.queryByText(/^Sector$/)).not.toBeInTheDocument();
+  });
+});

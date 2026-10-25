@@ -1,0 +1,322 @@
+/* Phase 13 UI scale foundation 2: fixed chrome, hover-help titles, reusable paging */
+/* Global layout token declarations moved to ../design-system/tokens/layout.css in FR2. */
+.app-header { position:sticky; top:0; z-index:1200; }
+.workspace-nav-strip { position:sticky; top:var(--nms-fixed-header-height); z-index:1180; }
+
+.hover-help-title {
+  position:relative;
+  display:inline-block;
+  max-width:100%;
+  cursor:help;
+}
+.hover-help-title[data-help=""] { cursor:default; }
+.hover-help-title::after { display:none!important; content:none!important; }
+.hover-help-overlay {
+  --hover-help-arrow-left: 18px;
+  position:fixed;
+  z-index:2400;
+  width:max-content;
+  max-width:min(440px,calc(100vw - 16px));
+  padding:5px 8px;
+  border:1px solid color-mix(in srgb, var(--nms-border) 82%, transparent);
+  border-radius:6px;
+  background:color-mix(in srgb, var(--nms-surface) 96%, var(--nms-surface-2) 4%);
+  box-shadow:0 4px 14px color-mix(in srgb, var(--nms-text-strong) 9%, transparent);
+  color:color-mix(in srgb, var(--nms-text-2) 88%, var(--nms-muted) 12%);
+  font-size:12px;
+  font-weight:400;
+  line-height:1.35;
+  letter-spacing:0;
+  text-transform:none;
+  white-space:normal;
+  pointer-events:none;
+  isolation:isolate;
+  animation:nmsHoverHelpIn .12s ease-out both;
+}
+.hover-help-overlay::before,
+.hover-help-overlay::after {
+  content:"";
+  position:absolute;
+  left:var(--hover-help-arrow-left);
+  width:0;
+  height:0;
+  transform:translateX(-50%);
+  pointer-events:none;
+}
+.hover-help-overlay[data-placement="above"] { transform-origin:center bottom; }
+.hover-help-overlay[data-placement="above"]::before {
+  top:100%;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:5px solid color-mix(in srgb, var(--nms-border) 82%, transparent);
+}
+.hover-help-overlay[data-placement="above"]::after {
+  top:calc(100% - 1px);
+  border-left:4px solid transparent;
+  border-right:4px solid transparent;
+  border-top:4px solid color-mix(in srgb, var(--nms-surface) 96%, var(--nms-surface-2) 4%);
+}
+.hover-help-overlay[data-placement="below"] { transform-origin:center top; }
+.hover-help-overlay[data-placement="below"]::before {
+  bottom:100%;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-bottom:5px solid color-mix(in srgb, var(--nms-border) 82%, transparent);
+}
+.hover-help-overlay[data-placement="below"]::after {
+  bottom:calc(100% - 1px);
+  border-left:4px solid transparent;
+  border-right:4px solid transparent;
+  border-bottom:4px solid color-mix(in srgb, var(--nms-surface) 96%, var(--nms-surface-2) 4%);
+}
+
+@media (max-width:700px) {
+  .hover-help-overlay { max-width:min(330px,calc(100vw - 16px)); }
+}
+
+.recycle-batch-toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:15px 17px; }
+.recycle-selection-summary { display:flex; align-items:baseline; gap:7px; }
+.recycle-selection-summary strong { font-size:1.35rem; color:var(--nms-accent-strong); }
+.recycle-selection-summary span { color:var(--nms-muted); font-size:.82rem; }
+.selection-column { width:44px; text-align:center!important; }
+@media (max-width:700px) { .recycle-batch-toolbar { align-items:flex-start; flex-direction:column; } }
+.pagination-table-row > td { padding:0!important; border-bottom:0!important; background:var(--nms-surface)!important; }
+.pagination-table-row:hover > td { background:var(--nms-surface)!important; }
+
+/* Phase 13 scale/navigation final overrides: keep both chrome rows pinned and keep title help unclipped. */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+}
+.workspace-nav-strip {
+  position: sticky;
+  top: var(--nms-fixed-header-height);
+  z-index: 1180;
+}
+.app-menu-drawer { top: var(--nms-fixed-header-height); }
+.app-menu-backdrop { inset: var(--nms-fixed-header-height) 0 0; }
+.batch-filter-panel,
+.management-command-panel,
+.management-results-panel { overflow: visible; }
+
+/* Phase 17 — high-volume customer workspace and lazy selectors */
+.customer-workspace{grid-template-columns:minmax(520px,.95fr) minmax(560px,1.05fr);align-items:start}
+.customer-list-panel,.customer-detail-panel{min-width:0}
+.customer-list-table{table-layout:fixed;width:100%}
+.customer-list-table th:nth-child(1),.customer-list-table td:nth-child(1){width:42%}
+.customer-list-table th:nth-child(2),.customer-list-table td:nth-child(2){width:28%}
+.customer-list-table th:nth-child(3),.customer-list-table td:nth-child(3){width:30%}
+.customer-list-table td{vertical-align:middle}
+.table-secondary{display:block;margin-top:3px;color:var(--nms-text-2);font-size:.76rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.customer-status-actions{align-items:flex-end;flex-wrap:wrap;justify-content:flex-end}
+.compact-select{display:grid;gap:4px;min-width:150px;color:var(--nms-text-2);font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
+.compact-select select{min-height:34px;text-transform:none;letter-spacing:normal;color:var(--nms-text)}
+.search-select{display:grid;grid-template-columns:minmax(150px,.7fr) minmax(240px,1.3fr);gap:8px;align-items:center;margin-top:6px}
+.search-select input,.search-select select{min-width:0;width:100%}
+.parent-device-search-select{max-width:100%}
+@media(max-width:1100px){.customer-workspace{grid-template-columns:1fr}.search-select{grid-template-columns:1fr}}
+
+/* Phase 18 — feedback polish and engineer-review workflow */
+.feedback-toast .feedback-icon{
+  width:42px;
+  min-width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  padding:0;
+  border-radius:12px;
+  line-height:1;
+  box-sizing:border-box;
+}
+.feedback-toast .feedback-icon svg{
+  width:22px;
+  height:22px;
+  display:block;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.feedback-success .feedback-icon{
+  background:color-mix(in srgb,var(--nms-success) 14%,var(--nms-surface));
+  color:var(--nms-success);
+  border:1px solid color-mix(in srgb,var(--nms-success) 35%,transparent);
+}
+.candidate-workflow{
+  display:grid;
+  grid-template-columns:auto minmax(26px,1fr) auto minmax(26px,1fr) auto;
+  align-items:center;
+  gap:10px;
+  margin:0 0 18px;
+  padding:12px 14px;
+  border:1px solid var(--nms-border);
+  border-radius:14px;
+  background:var(--nms-surface-2);
+}
+.candidate-workflow>div{display:flex;align-items:center;gap:8px;color:var(--nms-text-muted);font-size:.8rem}
+.candidate-workflow>div>span{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--nms-border);font-size:.72rem;font-weight:800;background:var(--nms-surface)}
+.candidate-workflow>div.active{color:var(--nms-text-strong)}
+.candidate-workflow>div.active>span{background:var(--nms-accent-soft);border-color:color-mix(in srgb,var(--nms-accent) 35%,var(--nms-border));color:var(--nms-accent)}
+.candidate-workflow>i{display:block;height:1px;background:var(--nms-border)}
+.inline-search-status{display:block;margin-top:5px}
+.field-error{color:var(--nms-danger);font-size:.76rem;font-weight:700}
+.candidate-review-fieldset input[readonly]{background:var(--nms-surface-2);color:var(--nms-text-muted);cursor:not-allowed}
+@media(max-width:760px){.candidate-workflow{grid-template-columns:1fr}.candidate-workflow>i{display:none}}
+
+/* Phase 20 — global current-view identity */
+.app-header{grid-template-columns:minmax(310px,1fr) auto minmax(310px,1fr)!important}
+.header-current-view{justify-self:center;display:inline-flex;align-items:center;gap:9px;min-width:0;max-width:320px;padding:7px 13px;border:1px solid color-mix(in srgb,var(--nms-header-muted) 20%,transparent);border-radius:12px;background:color-mix(in srgb,var(--nms-header-text) 5%,transparent);color:var(--nms-header-text);white-space:nowrap}
+.header-current-view-icon{display:grid;place-items:center;width:31px;height:31px;flex:0 0 31px;border-radius:9px;color:var(--nms-accent);background:color-mix(in srgb,var(--nms-accent) 14%,transparent)}
+.header-current-view-icon .shell-icon{width:17px;height:17px}
+.header-current-view strong{overflow:hidden;text-overflow:ellipsis;font-size:12.5px;letter-spacing:-.01em}
+@media(max-width:980px){.app-header{grid-template-columns:minmax(230px,1fr) auto minmax(230px,1fr)!important}.header-current-view{max-width:220px}}
+@media(max-width:760px){.app-header{grid-template-columns:1fr auto!important}.header-current-view{position:absolute;left:50%;transform:translateX(-50%);max-width:180px;padding:6px 9px}.header-current-view-icon{width:28px;height:28px;flex-basis:28px}.header-current-view strong{font-size:11px}.brand-block>div:last-child{display:none}.header-health{display:none}}
+
+/* Phase 20 — integrated searchable comboboxes */
+.search-select{display:block;margin-top:6px}
+
+/* Phase 20 — customer and logs query controls */
+.customer-filter-comboboxes{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr));gap:10px;margin:2px 0 12px}
+.customer-filter-comboboxes>label,.log-filter-grid>label,.log-time-row>label{display:grid;gap:5px;min-width:0;color:var(--nms-text-2);font-size:10.5px;font-weight:650}
+.customer-filter-comboboxes>label>span{font-size:10.5px}
+.filter-clear-row{display:flex;justify-content:flex-end;min-height:24px;margin:-3px 0 6px}
+.log-control-panel{display:grid;gap:14px;overflow:visible}
+.log-tabs{margin:0}
+.log-time-row{display:flex;align-items:end;gap:10px;flex-wrap:wrap}
+.log-time-row>label{min-width:180px}
+.log-time-row input,.log-time-row select{min-height:40px}
+.log-filter-grid{display:grid;grid-template-columns:repeat(3,minmax(190px,1fr));gap:10px;align-items:end}
+.log-filter-grid .log-keyword{grid-column:span 2}
+.request-id-link{padding:2px 4px;border:0;background:transparent;color:var(--nms-accent-strong);box-shadow:none;font-size:11px;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--nms-accent) 30%,transparent);text-underline-offset:2px}
+.request-id-link:hover:not(:disabled){filter:none;background:var(--nms-accent-soft);transform:none}
+@media(max-width:1100px){.customer-filter-comboboxes,.log-filter-grid{grid-template-columns:repeat(2,minmax(180px,1fr))}}
+@media(max-width:700px){.customer-filter-comboboxes,.log-filter-grid{grid-template-columns:1fr}.log-filter-grid .log-keyword{grid-column:auto}}
+
+/* Phase 20 — composed entity selectors */
+.topology-source-controls{display:grid;grid-template-columns:150px minmax(280px,520px) auto;align-items:end;gap:10px}
+.topology-target-combobox,.nested-group-combobox{min-width:0}
+.nested-group-combobox{min-width:min(100%,320px)}
+@media(max-width:760px){.topology-source-controls{grid-template-columns:1fr}.topology-source-controls>button{justify-self:start}}
+
+/* Phase 22 — Networks/Geography and Groups management workspaces */
+.management-page{display:grid;gap:14px;min-width:0}
+.management-tabs{margin:0;display:flex;gap:6px;flex-wrap:wrap}
+.management-split{display:grid;grid-template-columns:minmax(0,2fr) minmax(320px,1fr);gap:14px;align-items:start}
+.management-list-panel,.management-editor-panel{min-width:0}
+.management-editor-panel{position:sticky;top:132px;max-height:calc(100vh - 154px);overflow:auto}
+.management-filter-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;align-items:end;margin-bottom:10px}
+.management-filter-row>input,.management-filter-row>select{min-width:0;width:100%}
+.management-table-wrap{max-width:100%;overflow:auto}
+.management-table-wrap table{min-width:820px}
+.management-editor-panel>label,.management-editor-panel .form-grid>label{display:grid;gap:5px;margin-bottom:10px}
+.editor-actions{margin-top:14px;padding-top:12px;border-top:1px solid var(--nms-border)}
+.panel-subsection{margin-top:18px;padding-top:16px;border-top:1px solid var(--nms-border)}
+.inline-notice{margin-bottom:12px;padding:10px 12px;border:1px solid var(--nms-border);border-radius:10px;background:var(--nms-surface-2);color:var(--nms-text-2);font-size:.78rem;line-height:1.45}
+.table-link{display:inline;padding:0;border:0;background:transparent!important;color:var(--nms-accent-strong)!important;box-shadow:none!important;font:inherit;font-weight:650;text-align:left;text-decoration:none}
+.table-link:hover:not(:disabled){filter:none;transform:none;text-decoration:underline;text-underline-offset:2px}
+.cell-subtext{display:block;margin-top:3px;color:var(--nms-muted);font-size:.7rem;font-weight:400}
+.group-breadcrumb{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--nms-border)}
+.group-breadcrumb>span{display:inline-flex;align-items:center;gap:6px}
+.group-breadcrumb b{color:var(--nms-muted);font-weight:500}
+.group-member-add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end;margin:8px 0 10px}
+.group-item-row{background:color-mix(in srgb,var(--nms-accent) 4%,var(--nms-surface))}
+.select-col{width:38px!important;min-width:38px!important;text-align:center}
+@media(max-width:1150px){.management-split{grid-template-columns:1fr}.management-editor-panel{position:static;max-height:none}.management-table-wrap table{min-width:760px}}
+@media(max-width:700px){.management-filter-row{grid-template-columns:1fr}.group-member-add{grid-template-columns:1fr}}
+
+
+/* CUSTOMER_VLAN_TABLE_VISIBILITY_FIX_20260827 */
+.customer-workspace{
+  grid-template-columns:minmax(760px,1.7fr) minmax(420px,.8fr) !important;
+  align-items:start;
+}
+.customer-workspace > *{min-width:0}
+.customer-workspace .table-wrap{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+}
+.customer-list-table{
+  width:100% !important;
+  min-width:740px !important;
+  table-layout:fixed;
+}
+.customer-list-table th:nth-child(1),.customer-list-table td:nth-child(1){width:28%}
+.customer-list-table th:nth-child(2),.customer-list-table td:nth-child(2){width:20%}
+.customer-list-table th:nth-child(3),.customer-list-table td:nth-child(3){width:26%}
+.customer-list-table th:nth-child(4),.customer-list-table td:nth-child(4){width:13%;text-align:center;white-space:nowrap}
+.customer-list-table th:nth-child(5),.customer-list-table td:nth-child(5){width:13%;text-align:center;white-space:nowrap}
+.form-grid.six{grid-template-columns:repeat(6,minmax(0,1fr))}
+@media(max-width:1400px){
+  .form-grid.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:1280px){
+  .customer-workspace{grid-template-columns:1fr !important}
+}
+@media(max-width:760px){
+  .form-grid.six{grid-template-columns:1fr}
+}
+.customer-detail-heading{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.customer-code-line{
+  margin-top:2px;
+}
+
+.customer-status-under-name{
+  margin-top:14px;
+}
+
+/* TELEMETRY_COMPACT_FILTER_TOOLBARS_20260830 */
+.telemetry-filter-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.telemetry-filter-row>input,
+.telemetry-filter-row>select{
+  flex:0 0 auto;
+  min-width:0;
+}
+
+.telemetry-filter-row--profiles>input{
+  width:min(360px,100%);
+}
+
+.telemetry-filter-row--profiles>select{
+  width:210px;
+}
+
+.telemetry-filter-row--states>input{
+  width:min(320px,100%);
+}
+
+.telemetry-filter-row--states>select:nth-of-type(1){
+  width:210px;
+}
+
+.telemetry-filter-row--states>select:nth-of-type(2){
+  width:180px;
+}
+
+.telemetry-filter-row--states>select:nth-of-type(3){
+  width:190px;
+}
+
+@media(max-width:760px){
+  .telemetry-filter-row>input,
+  .telemetry-filter-row>select{
+    width:100%;
+    flex:1 1 100%;
+  }
+}

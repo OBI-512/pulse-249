@@ -1,0 +1,3 @@
+.root { min-width: 0; }
+.content { display: grid; gap: var(--space-4, 16px); min-width: 0; }
+.compact .content { gap: var(--space-3, 12px); }

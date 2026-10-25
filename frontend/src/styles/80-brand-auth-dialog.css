@@ -1,0 +1,435 @@
+/* ===== FTTW PROJECT LOGO START ===== */
+
+/*
+ * One real image asset is used throughout the application:
+ *
+ * /branding/logo.png
+ */
+
+/* Application header */
+.brand-logo {
+  display: block;
+  flex: 0 0 auto;
+
+  width: auto;
+  height: 36px;
+  max-width: 72px;
+
+  object-fit: contain;
+  object-position: center;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.brand-block {
+  gap: 11px;
+}
+
+
+/* Application footer - bottom left */
+.footer-brand-logo {
+  display: block;
+  flex: 0 0 auto;
+
+  width: auto;
+  height: 29px;
+  max-width: 58px;
+
+  object-fit: contain;
+  object-position: center;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.footer-product {
+  align-items: center;
+}
+
+
+/* Responsive shared header/footer */
+@media (max-width: 760px) {
+
+  .brand-logo {
+    height: 32px;
+    max-width: 64px;
+  }
+
+  .footer-brand-logo {
+    height: 27px;
+    max-width: 54px;
+  }
+}
+
+/* ===== FTTW PROJECT LOGO END ===== */
+
+
+/* ===== FTTW FOOTER REAL LOGO START ===== */
+
+/*
+ * Real project logo in bottom-left application footer.
+ * Replaces the generated three-dot footer mark.
+ */
+.footer-brand-logo {
+  display: block;
+  flex: 0 0 auto;
+
+  width: auto;
+  height: 34px;
+  max-width: 72px;
+
+  object-fit: contain;
+  object-position: center;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.footer-product {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 760px) {
+  .footer-brand-logo {
+    height: 30px;
+    max-width: 64px;
+  }
+}
+
+/* ===== FTTW FOOTER REAL LOGO END ===== */
+/* ===== FTTW PHASE27 AUTHORIZED USE START ===== */
+
+/*
+ * Shared modal branding.
+ * The logo is added by CSS so every existing DialogSystem/ModalShell/error
+ * dialog receives the same branding without changing their behavior.
+ * Toasts do not use .dialog-header and therefore remain logo-free.
+ */
+.dialog-header {
+  display: grid !important;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  column-gap: 12px;
+  row-gap: 2px;
+  align-items: start !important;
+  justify-content: initial !important;
+}
+
+.dialog-header::before {
+  content: "";
+  display: block;
+  width: 38px;
+  height: 38px;
+  grid-column: 1;
+  grid-row: 1;
+  background: url('/branding/logo.png') center / contain no-repeat;
+}
+
+.dialog-header > :first-child {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.dialog-header > .dialog-close {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
+}
+
+/* Mandatory post-authentication authorization acknowledgement. */
+.authorized-use-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 30000;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  overflow: auto;
+  color: #10213a;
+  background:
+    radial-gradient(circle at 16% 16%, rgba(44, 119, 218, .18), transparent 34%),
+    radial-gradient(circle at 85% 22%, rgba(46, 155, 227, .13), transparent 31%),
+    linear-gradient(145deg, #061326 0%, #0b203a 58%, #102d4d 100%);
+}
+
+.authorized-use-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .54;
+  background-image:
+    linear-gradient(rgba(92, 156, 224, .055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92, 156, 224, .055) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(circle at center, #000 14%, transparent 76%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 14%, transparent 76%);
+}
+
+.authorized-use-card {
+  position: relative;
+  width: min(650px, 100%);
+  padding: 30px 32px 28px;
+  border: 1px solid rgba(202, 219, 237, .92);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, .985);
+  box-shadow: 0 28px 80px rgba(0, 8, 30, .42), 0 2px 8px rgba(0, 14, 43, .12);
+}
+
+.authorized-use-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid #e3ebf4;
+}
+
+.authorized-use-logo {
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  object-fit: contain;
+}
+
+.authorized-use-brand-copy {
+  margin-top: 4px;
+  color: #142943;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.authorized-use-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.authorized-use-lock {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: #1768cc;
+  background: #eaf3fe;
+  border: 1px solid #d6e7fa;
+}
+
+.authorized-use-lock svg { width: 23px; height: 23px; }
+
+.authorized-use-heading h1 {
+  margin: 0;
+  color: #10213a;
+  font-size: clamp(25px, 3vw, 31px);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.authorized-use-heading p {
+  margin: 5px 0 0;
+  color: #657a94;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.authorized-use-copy {
+  color: #334a64;
+  font-size: 14px;
+  line-height: 1.62;
+}
+
+.authorized-use-copy > p { margin: 0 0 16px; }
+
+.authorized-use-policy-box {
+  margin: 18px 0;
+  padding: 16px 18px;
+  border: 1px solid #dbe7f3;
+  border-left: 4px solid #2779d6;
+  border-radius: 12px;
+  background: #f5f9fd;
+}
+
+.authorized-use-policy-box strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #173653;
+}
+
+.authorized-use-policy-box ul { margin: 0; padding-left: 20px; }
+.authorized-use-policy-box li + li { margin-top: 5px; }
+
+.authorized-use-warning {
+  color: #7a3c24;
+  font-weight: 700;
+}
+
+.authorized-use-continue {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 5px;
+  border: 0;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  color: #fff;
+  background: linear-gradient(135deg, #123a70 0%, #1b5aa2 100%);
+  box-shadow: 0 9px 22px rgba(16, 67, 125, .25);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+}
+
+.authorized-use-continue svg { width: 19px; height: 19px; }
+.authorized-use-continue:hover { transform: translateY(-1px); filter: brightness(1.06); box-shadow: 0 12px 26px rgba(16, 67, 125, .31); }
+.authorized-use-continue:active { transform: translateY(0); }
+.authorized-use-continue:focus-visible { outline: 3px solid rgba(54, 137, 225, .3); outline-offset: 3px; }
+
+@media (max-width: 620px) {
+  .authorized-use-gate { padding: 14px; }
+  .authorized-use-card { padding: 24px 20px 22px; border-radius: 17px; }
+  .authorized-use-logo { width: 42px; height: 42px; flex-basis: 42px; }
+  .authorized-use-heading { align-items: flex-start; }
+  .dialog-header { grid-template-columns: 30px minmax(0, 1fr) auto; column-gap: 9px; }
+  .dialog-header::before { width: 30px; height: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .authorized-use-continue { transition: none; }
+}
+
+/* ===== FTTW PHASE27 AUTHORIZED USE END ===== */
+
+
+/* ===== FTTW DIALOG STATUS ICON POSITION START ===== */
+
+/*
+ * R5 UAT refinement:
+ * Information/warning feedback and blocking error dialogs use a
+ * triangular exclamation icon on the LEFT of the first text line.
+ *
+ * The previous upper-right boxed error symbol is intentionally removed.
+ */
+
+.feedback-error-card {
+  position: relative;
+}
+
+.feedback-error-card .dialog-header {
+  padding-right: 0;
+  align-items: start !important;
+}
+
+.feedback-error-card .dialog-header::before {
+  align-self: start;
+}
+
+.feedback-error-message-row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  margin: 8px 0 18px;
+}
+
+.feedback-error-message-row .dialog-message {
+  margin: 0;
+}
+
+.feedback-error-card .feedback-error-symbol {
+  position: static;
+  width: 30px;
+  height: 30px;
+  margin: 1px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #dc2626;
+  box-shadow: none;
+  display: grid;
+  place-items: center;
+  transform: none;
+}
+
+.feedback-error-card .feedback-error-symbol svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/*
+ * Information / attention feedback:
+ * triangle only -- no square or rounded-box background.
+ */
+
+.feedback-toast.feedback-info,
+.feedback-toast.feedback-warning {
+  grid-template-columns: 32px minmax(0, 1fr);
+  align-items: start;
+}
+
+.feedback-toast.feedback-info .feedback-icon,
+.feedback-toast.feedback-warning .feedback-icon {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  margin-top: 1px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.feedback-toast.feedback-info .feedback-icon svg,
+.feedback-toast.feedback-warning .feedback-icon svg {
+  width: 30px;
+  height: 30px;
+  stroke-width: 1.8;
+}
+
+@media (max-width: 620px) {
+  .feedback-error-message-row {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .feedback-error-card .feedback-error-symbol,
+  .feedback-error-card .feedback-error-symbol svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* ===== FTTW DIALOG STATUS ICON POSITION END ===== */
+
+

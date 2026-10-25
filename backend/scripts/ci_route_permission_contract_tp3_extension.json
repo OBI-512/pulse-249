@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "routes": [
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/web/tls/inspect",
+      "permission": "device.remote_access.web"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/web/tls/replace",
+      "permission": "device.remote_access.web.trust"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/web/tls/trust",
+      "permission": "device.remote_access.web.trust"
+    }
+  ]
+}

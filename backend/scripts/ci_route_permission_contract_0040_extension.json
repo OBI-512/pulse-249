@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "routes": [
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/web-wizard/start",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/web-wizard/{template_id}/confirm",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/web-wizard/{template_id}/preview",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/web-wizard/{template_id}/test",
+      "permission": "access_template.test"
+    }
+  ]
+}

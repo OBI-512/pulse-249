@@ -1,0 +1,112 @@
+# ============================================================
+# FTTW - LOCAL SECRETS
+# ============================================================
+.env
+.env.snmp
+.env.remote_access
+.env.configuration_artifacts
+.env.configuration_artifact_edge
+.env.configuration_devices
+.env.notifications
+.env.integrations
+.env.access_templates
+
+# Allow safe examples/templates
+!.env.example
+!.env.*.example
+!.env.*.sample
+!.env.*.template
+
+# ============================================================
+# DATABASE / RUNTIME DATA
+# ============================================================
+/data/
+Backup/
+
+*.db
+*.sqlite
+*.sqlite3
+
+# ============================================================
+# PYTHON
+# ============================================================
+__pycache__/
+*.py[cod]
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ============================================================
+# FRONTEND
+# ============================================================
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+node_modules/
+dist/
+build/
+
+# ============================================================
+# CI / TEMPORARY ARTIFACTS
+# ============================================================
+.ci-artifacts/
+.cache/
+.vite/
+ops/windows/.uat-stage4o-r5-*-runtime.ps1
+ops/windows/.uat-stage4o-r6-dev-v3-runtime.ps1
+ops/windows/.uat-stage4p-r1b-*.ps1
+
+# ============================================================
+# LOGS
+# ============================================================
+*.log
+
+# ============================================================
+# ARCHIVES / BACKUPS
+# ============================================================
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+
+# ============================================================
+# OPERATING SYSTEM / IDE
+# ============================================================
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+
+# ============================================================
+# LOCAL GENERATED SOURCE BUNDLES
+# ============================================================
+FTTW_PROJECT_SOURCE_BUNDLE_*.jsonl
+FTTW_PROJECT_SOURCE_PART_*.jsonl
+FTTW_ACCESS_TEMPLATE_SOURCE_BUNDLE_*.txt
+FTTW_ACCESS_TEMPLATE_SUPPLEMENT_*.txt
+# Pulse 249 public-repository exclusions
+AGENTS.md
+Project_Baseline_Progress/
+data/
+*.bak
+ops/windows/uat-*.ps1
+ops/windows/
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+*.dump
+
+# Public configuration examples - keep these exceptions LAST
+!.env.example
+!.env.*.example
+!.env.*.sample
+!.env.*.template

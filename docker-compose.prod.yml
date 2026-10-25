@@ -1,0 +1,406 @@
+services:
+  postgres:
+    image: postgres:16-alpine@sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-fttw}
+      POSTGRES_USER: ${POSTGRES_USER:-fttw}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-fttw} -d ${POSTGRES_DB:-fttw}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - data
+
+  redis:
+    image: redis:7-alpine@sha256:e7723ff73d963f5cc6d9c4643ea3d989527a402a319239054e9472a7fb9219a2
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - data
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    env_file:
+      # Shared Access Template master key. The real file is host-local and git-ignored.
+      - path: ${FTTW_ACCESS_TEMPLATE_ENV_FILE:-./.env.access_templates}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be set}
+      REDIS_URL: redis://redis:6379/0
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080}
+      FTTW_ENV: production
+      SEED_DEMO_DATA: "false"
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: backend
+      ENABLE_DATABASE_RESTORE: "true"
+      REMOTE_ACCESS_ENABLED: ${REMOTE_ACCESS_ENABLED:-false}
+      TELNET_ACCESS_ENABLED: ${TELNET_ACCESS_ENABLED:-false}
+      REMOTE_ACCESS_TICKET_TTL_SECONDS: ${REMOTE_ACCESS_TICKET_TTL_SECONDS:-60}
+      REMOTE_ACCESS_SESSION_MAX_SECONDS: ${REMOTE_ACCESS_SESSION_MAX_SECONDS:-1800}
+      REMOTE_ACCESS_IDLE_TIMEOUT_SECONDS: ${REMOTE_ACCESS_IDLE_TIMEOUT_SECONDS:-900}
+      REMOTE_ACCESS_ALLOWED_ORIGINS: ${REMOTE_ACCESS_ALLOWED_ORIGINS:-http://localhost:8080}
+      REMOTE_ACCESS_WEB_ALLOWED_PORTS: ${REMOTE_ACCESS_WEB_ALLOWED_PORTS:-80,443,8080,8443}
+    expose:
+      - "8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - app_data:/app/data
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import json,urllib.request; d=json.load(urllib.request.urlopen('http://127.0.0.1:8000/api/health',timeout=3)); raise SystemExit(0 if d.get('status') == 'online' else 1)"
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - app
+      - data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        VITE_API_BASE_URL: /api
+        VITE_REMOTE_ACCESS_WEB_ORIGIN: ${REMOTE_ACCESS_WEB_ORIGIN:-}
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PROD_PORT:-8080}:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://127.0.0.1:8080/healthz | grep -q '^ok$'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - app
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    command: python -m app.celery_worker
+    # Optional worker-only SNMP credentials. The file is git-ignored by .env.*
+    # and may define any FTTW_SNMP_* variables referenced as env://NAME.
+    env_file:
+      - path: ${FTTW_SNMP_ENV_FILE:-./.env.snmp}
+        required: false
+      # Access Template SNMP credentials are decrypted only inside the worker.
+      - path: ${FTTW_ACCESS_TEMPLATE_ENV_FILE:-./.env.access_templates}
+        required: false
+      # Optional worker-only notification secrets/destinations. Keep SMTP
+      # credentials and webhook env:// targets out of PostgreSQL/Celery.
+      - path: ${FTTW_NOTIFICATION_ENV_FILE:-./.env.notifications}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be set}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: worker
+      FTTW_ENV: production
+      SEED_DEMO_DATA: "false"
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - app_data:/app/data
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.celery_app.config.celery_app inspect ping -d celery@$${HOSTNAME} --timeout=5 | grep -q pong"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - data
+
+  scheduler:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    command: celery -A app.celery_app.config.celery_app beat --loglevel=INFO --schedule=/tmp/celerybeat-schedule
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be set}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: scheduler
+      FTTW_ENV: production
+      SEED_DEMO_DATA: "false"
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - app_data:/app/data
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /tmp/celerybeat-schedule"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - data
+
+  restore-control:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+    command: celery -A app.celery_app.config.celery_app worker --loglevel=INFO --concurrency=1 -Q restore_control -n restore-control@%h
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be set}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: maintenance
+      FTTW_ENV: production
+      SEED_DEMO_DATA: "false"
+      ENABLE_DATABASE_RESTORE: "true"
+      RESTORE_HEALTH_URL: http://backend:8000/api/health
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    volumes:
+      - app_data:/app/data
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.celery_app.config.celery_app inspect ping -d restore-control@$${HOSTNAME} --timeout=5 | grep -q pong"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - app
+      - data
+
+  configuration-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.configuration-worker.prod
+    restart: unless-stopped
+    command: celery -A app.celery_app.config.celery_app worker --loglevel=INFO --concurrency=1 -Q configuration -n configuration-worker@%h
+    # Device credentials and encryption keys remain server-side and are never
+    # placed in Celery messages or browser responses.
+    env_file:
+      - path: ${FTTW_REMOTE_ACCESS_ENV_FILE:-./.env.remote_access}
+        required: false
+      - path: ${FTTW_ACCESS_TEMPLATE_ENV_FILE:-./.env.access_templates}
+        required: false
+      - path: ${FTTW_CONFIGURATION_DEVICE_ENV_FILE:-./.env.configuration_devices}
+        required: false
+      - path: ${FTTW_CONFIGURATION_ARTIFACT_ENV_FILE:-./.env.configuration_artifacts}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be set}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: configuration-worker
+      FTTW_ENV: production
+      SEED_DEMO_DATA: "false"
+      CONFIGURATION_ARTIFACT_PUBLIC_BASE_URL: ${CONFIGURATION_ARTIFACT_PUBLIC_BASE_URL:-}
+      CONFIGURATION_ARTIFACT_LEASE_TTL_SECONDS: ${CONFIGURATION_ARTIFACT_LEASE_TTL_SECONDS:-90}
+      CONFIGURATION_ARTIFACT_LEASE_MAX_READS: ${CONFIGURATION_ARTIFACT_LEASE_MAX_READS:-4}
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - app_data:/app/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.celery_app.config.celery_app inspect ping -d configuration-worker@$${HOSTNAME} --timeout=5 | grep -q pong"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - data
+      - management
+
+  configuration-artifact-gateway:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.configuration-artifact-gateway.prod
+    restart: unless-stopped
+    env_file:
+      # Artifact encryption key only. No device SSH or Access Template secrets.
+      - path: ${FTTW_CONFIGURATION_ARTIFACT_ENV_FILE:-./.env.configuration_artifacts}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be set}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: configuration-artifact-gateway
+      FTTW_ENV: production
+      SEED_DEMO_DATA: "false"
+    ports:
+      - "${CONFIGURATION_ARTIFACT_GATEWAY_PROD_PORT:-8020}:8020"
+    expose:
+      - "8020"
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      # Existing production artifact storage currently resides inside app_data.
+      # Mount it read-only; the gateway has no write path and no device secrets.
+      - app_data:/app/data:ro
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - data
+      - management
+
+  access-gateway:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.access-gateway.prod
+    restart: unless-stopped
+    env_file:
+      - path: ${FTTW_REMOTE_ACCESS_ENV_FILE:-./.env.remote_access}
+        required: false
+      - path: ${FTTW_ACCESS_TEMPLATE_ENV_FILE:-./.env.access_templates}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be set}
+      PYTHONPATH: /app
+      FTTW_SERVICE_NAME: access-gateway
+      FTTW_ENV: production
+      SEED_DEMO_DATA: "false"
+      REMOTE_ACCESS_ENABLED: ${REMOTE_ACCESS_ENABLED:-false}
+      TELNET_ACCESS_ENABLED: ${TELNET_ACCESS_ENABLED:-false}
+      REMOTE_ACCESS_SESSION_MAX_SECONDS: ${REMOTE_ACCESS_SESSION_MAX_SECONDS:-1800}
+      REMOTE_ACCESS_IDLE_TIMEOUT_SECONDS: ${REMOTE_ACCESS_IDLE_TIMEOUT_SECONDS:-900}
+      REMOTE_ACCESS_ALLOWED_ORIGINS: ${REMOTE_ACCESS_ALLOWED_ORIGINS:-http://localhost:8080}
+      REMOTE_ACCESS_WEB_ALLOWED_PORTS: ${REMOTE_ACCESS_WEB_ALLOWED_PORTS:-80,443,8080,8443}
+      REMOTE_ACCESS_GATEWAY_TLS_ENABLED: ${REMOTE_ACCESS_GATEWAY_TLS_ENABLED:-false}
+      REMOTE_ACCESS_GATEWAY_EXTERNAL_TLS_TERMINATED: ${REMOTE_ACCESS_GATEWAY_EXTERNAL_TLS_TERMINATED:-false}
+    ports:
+      - "${REMOTE_ACCESS_PROD_PORT:-8010}:8010"
+    expose:
+      - "8010"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - app
+      - data
+      - management
+
+volumes:
+  postgres_data:
+  redis_data:
+  app_data:
+
+networks:
+  app:
+  data:
+  management:

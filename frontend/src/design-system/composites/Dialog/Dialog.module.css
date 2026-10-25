@@ -1,0 +1,73 @@
+/* CP2: canonical dialog visual ownership. Legacy class names remain only as compatibility hooks. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--nms-overlay);
+  backdrop-filter: blur(3px);
+}
+.card {
+  width: min(520px, 100%);
+  max-height: min(82vh, 760px);
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid var(--nms-border);
+  border-radius: 16px;
+  background: var(--nms-surface);
+  color: var(--nms-text);
+  box-shadow: var(--nms-shadow-lg);
+}
+.wide { width: min(780px, 100%); }
+.danger { border-top: 4px solid var(--nms-danger); }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+.header h3 {
+  margin: 4px 0 0;
+  font-size: 20px;
+  color: var(--nms-text-strong);
+}
+.close {
+  min-height: 0;
+  padding: 0 5px;
+  border: 0;
+  background: transparent;
+  color: var(--nms-muted);
+  font-size: 25px;
+  line-height: 1;
+  box-shadow: none;
+  transform: none;
+}
+.close:hover:not(:disabled) {
+  filter: none;
+  color: var(--nms-text);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.message {
+  margin: 8px 0 18px;
+  color: var(--nms-text-2);
+  line-height: 1.55;
+  white-space: pre-line;
+}
+.body { display: grid; gap: 14px; }
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--nms-border);
+}
+@media (max-width: 640px) {
+  .backdrop { padding: 12px; align-items: end; }
+  .card, .wide { width: 100%; max-height: 88vh; border-radius: 16px 16px 0 0; }
+}

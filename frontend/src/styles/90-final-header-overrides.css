@@ -1,0 +1,112 @@
+/* ===== FTTW HEADER MENU FINAL POSITION START ===== */
+
+.app-header {
+  position: sticky !important;
+  top: 0 !important;
+}
+
+.app-header-left {
+  padding-left: 50px;
+}
+
+/*
+ * Positioning uses the independent CSS translate property.
+ * transform is explicitly disabled so existing/global hover rules
+ * cannot move the button vertically.
+ */
+.header-menu-button,
+.header-menu-button:hover,
+.header-menu-button:focus,
+.header-menu-button:focus-visible,
+.header-menu-button:active {
+  position: absolute !important;
+  left: 14px !important;
+  top: 50% !important;
+
+  translate: 0 -50% !important;
+  transform: none !important;
+
+  margin: 0 !important;
+}
+
+/* Animation without changing position. */
+.header-menu-button {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease !important;
+}
+
+.header-menu-button:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.18);
+}
+
+.header-menu-button:active {
+  filter: brightness(0.95);
+}
+
+@media (max-width: 700px) {
+  .app-header-left {
+    padding-left: 46px;
+  }
+
+  .header-menu-button,
+  .header-menu-button:hover,
+  .header-menu-button:focus,
+  .header-menu-button:focus-visible,
+  .header-menu-button:active {
+    left: 10px !important;
+  }
+}
+
+/* ===== FTTW HEADER MENU FINAL POSITION END ===== */
+
+
+/* ===== FTTW HEADER NAV STICKY STACK START ===== */
+
+/*
+ * Header stays fixed at the top.
+ * Workspace navigation stays immediately below it.
+ */
+.app-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1200 !important;
+}
+
+.workspace-nav-strip {
+  position: sticky !important;
+  top: 72px !important;
+  z-index: 1190 !important;
+}
+
+/* ===== FTTW HEADER NAV STICKY STACK END ===== */
+
+/* ===== FTTW NAV CAPSULE CONTENT-WIDTH FIX START ===== */
+
+/*
+ * Keep the sticky operational navigation limited to the actual capsule.
+ * The page remains visible/clickable on both sides instead of placing a
+ * full-width sticky strip over content.
+ */
+.workspace-nav-strip {
+  width: fit-content !important;
+  max-width: calc(100% - 24px) !important;
+  min-height: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.workspace-nav-scroll {
+  width: max-content !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+/* ===== FTTW NAV CAPSULE CONTENT-WIDTH FIX END ===== */
+

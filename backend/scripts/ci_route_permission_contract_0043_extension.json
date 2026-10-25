@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "routes": [
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions/{version_id}/activate",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions/{version_id}/approve",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions/{version_id}/clone",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions/{version_id}/clone-family",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions/{version_id}/lifecycle",
+      "permission": "device.configuration.template.read"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions/{version_id}/test",
+      "permission": "device.configuration.template.manage"
+    }
+  ]
+}

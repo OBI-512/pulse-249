@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "purpose": "FR2 token value freeze; update only through an explicit design-token change",
+  "files": {
+    "src/design-system/tokens/theme-base.css": {
+      "sha256": "e59e53063881ac8e50653d109a66dbd4dbd8015a8d4a7816c79f610062716ccb",
+      "bytes": 4801
+    },
+    "src/design-system/tokens/theme-refinements.css": {
+      "sha256": "de48c5f353572fb97caff84ce10e8e40831167b85cf154c94f77eb2280ca980f",
+      "bytes": 3389
+    },
+    "src/design-system/tokens/layout.css": {
+      "sha256": "b75cde6ca108dcd5ab7bf73e0538c1263bea296de6d288d7f3c51cdcf893e8d8",
+      "bytes": 277
+    }
+  }
+}

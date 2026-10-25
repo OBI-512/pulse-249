@@ -1,0 +1,259 @@
+/* Phase 23 — theme-linked content titles and navigation readability */
+/* Theme refinement token declarations moved to ../design-system/tokens/theme-refinements.css in FR2. */
+
+.page-heading h2,
+.panel-header h3,
+.panel-subsection h4,
+.management-command-heading h3,
+.subpanel h3,
+.subpanel h4,
+.consolidated-card h3,
+.command-card h3 {
+  color: var(--nms-content-title, var(--nms-text-strong));
+}
+
+th {
+  color: color-mix(in srgb, var(--nms-content-title-2, var(--nms-text-2)) 82%, var(--nms-muted));
+  background: color-mix(in srgb, var(--nms-accent) 6%, var(--nms-surface-2));
+}
+
+.workspace-nav-item {
+  min-height: 45px;
+  gap: 9px;
+  padding: 7px 14px;
+  color: var(--nms-nav-text);
+  font-size: 13.5px;
+  font-weight: 750;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+.workspace-nav-item > span:last-child { letter-spacing: 0; }
+.workspace-nav-icon { width: 31px; height: 31px; flex-basis: 31px; }
+.workspace-nav-icon .shell-icon { width: 17px; height: 17px; }
+
+.header-current-view {
+  max-width: 360px;
+  padding: 8px 14px;
+}
+.header-current-view strong {
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.customer-panel-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.panel-header .customer-panel-heading .customer-count {
+  display: block;
+  margin-top: 1px;
+  color: var(--nms-muted);
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+  .workspace-nav-item { font-size: 13px; padding-left: 12px; padding-right: 12px; }
+  .header-current-view strong { font-size: 13.5px; }
+}
+@media (max-width: 700px) {
+  .workspace-nav-item { font-size: 12px; }
+  .header-current-view strong { font-size: 12px; }
+}
+
+/* Phase 23 UI refinement — theme identity, internal titles, tabs and navigation contrast */
+
+
+
+/* Internal application titles carry the selected theme identity. */
+.page-heading h2,
+.panel-header h3,
+.panel-subsection h4,
+.management-command-heading h3,
+.overview-section-header h3,
+.subpanel h3,
+.subpanel h4,
+.command-card h3,
+.consolidated-card h3,
+.snmp-config-heading strong,
+.consolidated-card-head h4,
+.evidence-heading h4,
+.live-sector-heading h3,
+.dialog-header h3,
+.theme-menu-title span {
+  color: var(--nms-content-title);
+}
+
+/* Secondary structural headings remain related to the header, but quieter. */
+th,
+legend,
+.drawer-section-title,
+.batch-action-group .field-label {
+  color: var(--nms-content-title-2);
+}
+
+/* Do not recolor the purpose-built dark Overview hero heading. */
+.overview-command-hero h2,
+.overview-command-hero .health-orbit-title strong {
+  color: var(--nms-hero-text);
+}
+
+/* Operational navigation: light labels on dark chrome. Light theme intentionally uses a light capsule. */
+.workspace-nav-scroll {
+  border-color: color-mix(in srgb, var(--nms-nav-icon) 22%, var(--nms-border));
+  background: var(--nms-nav-capsule);
+  box-shadow: 0 9px 24px color-mix(in srgb, var(--nms-header) 18%, transparent), inset 0 1px rgba(255,255,255,.035);
+}
+.workspace-nav-item {
+  color: var(--nms-nav-text);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: .005em;
+  transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.workspace-nav-icon {
+  color: var(--nms-nav-icon);
+  background: color-mix(in srgb, var(--nms-nav-icon) 10%, transparent);
+  transition: color .15s ease, background-color .15s ease;
+}
+.workspace-nav-item:hover:not(:disabled) {
+  color: var(--nms-nav-hover-text);
+  border-color: color-mix(in srgb, var(--nms-nav-icon) 18%, transparent);
+  background: var(--nms-nav-hover-bg);
+  box-shadow: none;
+  transform: none;
+}
+.workspace-nav-item:hover:not(:disabled) .workspace-nav-icon {
+  color: var(--nms-nav-hover-text);
+  background: color-mix(in srgb, var(--nms-nav-hover-text) 10%, transparent);
+}
+.workspace-nav-item.active {
+  color: var(--nms-nav-active-text);
+  border-color: var(--nms-nav-active-border);
+  background: var(--nms-nav-active-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nms-accent) 18%, transparent), 0 4px 12px color-mix(in srgb, var(--nms-header) 20%, transparent);
+}
+.workspace-nav-item.active .workspace-nav-icon {
+  color: var(--nms-nav-active-text);
+  background: var(--nms-nav-active-icon-bg);
+}
+
+/* The current-view indicator is application chrome, so it always uses header contrast colors. */
+.header-current-view { color: var(--nms-header-text); }
+.header-current-view strong {
+  color: var(--nms-header-text);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .005em;
+}
+.header-current-view-icon { color: color-mix(in srgb, var(--nms-header-text) 82%, var(--nms-accent)); }
+
+/* Shared tab language: theme-colored active state and readable inactive states. */
+.view-tabs,
+.device-workspace-tabs {
+  border-color: var(--nms-border);
+  background: var(--nms-surface-2);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--nms-border) 45%, transparent);
+}
+.view-tabs button,
+.view-tabs button.secondary,
+.device-workspace-tabs button,
+.log-tabs button.secondary {
+  color: var(--nms-tab-text);
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+.view-tabs button:hover:not(:disabled),
+.device-workspace-tabs button:hover:not(:disabled),
+.log-tabs button.secondary:hover:not(:disabled) {
+  color: var(--nms-tab-hover-text);
+  border-color: transparent;
+  background: var(--nms-tab-hover-bg);
+  box-shadow: none;
+  transform: none;
+}
+.view-tabs button.active,
+.device-workspace-tabs button.active,
+.log-tabs button:not(.secondary) {
+  color: var(--nms-tab-active-text);
+  border-color: var(--nms-tab-active-bg);
+  background: var(--nms-tab-active-bg);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--nms-tab-active-bg) 18%, transparent);
+}
+
+/* Tables and list-selection surfaces visibly participate in the theme. */
+th {
+  color: var(--nms-content-title-2);
+  background: var(--nms-table-head);
+}
+.clickable-table tbody tr:hover { background: var(--nms-table-hover); }
+.selected-row,
+.management-table tbody tr.selected-row {
+  background: var(--nms-table-selected);
+}
+
+/* Forms, filters and selectors use the theme's surface/border system consistently. */
+input,
+select,
+textarea {
+  color: var(--nms-text);
+  border-color: var(--nms-input-border);
+  background: var(--nms-input);
+}
+select option { color: var(--nms-text); background: var(--nms-surface); }
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--nms-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--nms-accent) 16%, transparent);
+}
+
+/* Theme-aware scrollbars for all scrollable application surfaces. */
+* { scrollbar-color: var(--nms-scroll-thumb) var(--nms-scroll-track); }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: var(--nms-scroll-track); }
+*::-webkit-scrollbar-thumb {
+  background: var(--nms-scroll-thumb);
+  border: 2px solid var(--nms-scroll-track);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--nms-scroll-thumb-hover); }
+
+/* Light theme navigation is intentionally light; Operations/Night stay dark with white labels. */
+html[data-theme="light"] .workspace-nav-scroll {
+  border-color: #d7e3ee;
+  box-shadow: 0 7px 18px rgba(25,50,80,.07), inset 0 1px rgba(255,255,255,.75);
+}
+html[data-theme="light"] .workspace-nav-icon { background: #f1f5f9; }
+html[data-theme="light"] .workspace-nav-item:hover:not(:disabled) .workspace-nav-icon { color: #1c4d78; background: #eaf4fd; }
+html[data-theme="light"] .workspace-nav-item.active .workspace-nav-icon { color: #0c62ad; background: #dceefd; }
+
+/* Night surfaces get a little more separation so the theme changes components, not only the page background. */
+html[data-theme="night"] .panel,
+html[data-theme="night"] .stat-card,
+html[data-theme="night"] .subpanel,
+html[data-theme="night"] .command-card,
+html[data-theme="night"] .consolidated-card {
+  border-color: #294157;
+  background: #102235;
+}
+html[data-theme="night"] .table-wrap,
+html[data-theme="night"] .management-editor-panel {
+  border-color: #294157;
+}
+
+@media (max-width: 900px) {
+  .workspace-nav-item { font-size: 13px; }
+  .header-current-view strong { font-size: 13.5px; }
+}
+@media (max-width: 700px) {
+  .workspace-nav-item { font-size: 12px; }
+  .header-current-view strong { font-size: 12px; }
+}
+

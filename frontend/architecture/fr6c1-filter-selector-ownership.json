@@ -1,0 +1,23 @@
+{
+  "phase": "FR6-C1",
+  "scope": "frontend_only",
+  "canonical_owners": {
+    "clear_filters": "src/design-system/composites/FilterBar",
+    "searchable_select": "src/design-system/composites/SearchableSelect",
+    "local_searchable_select": "src/design-system/composites/SearchableSelect/LocalSearchableCombobox.tsx",
+    "multi_select": "src/design-system/composites/MultiSelect"
+  },
+  "behavior": {
+    "server_side_filtering": "UNCHANGED",
+    "paged_lookup": "UNCHANGED",
+    "incremental_scroll": "UNCHANGED",
+    "debounced_search": "UNCHANGED",
+    "stale_request_protection": "UNCHANGED",
+    "clear_filters_contract": "UNCHANGED",
+    "sorting": "PRESERVED",
+    "authorization": "UNCHANGED"
+  },
+  "style_migration": "DEFERRED_TO_FR6C2",
+  "backend_changes": "NONE",
+  "database_changes": "NONE"
+}

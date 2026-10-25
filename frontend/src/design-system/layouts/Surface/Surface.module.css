@@ -1,0 +1,4 @@
+.panel { min-width: 0; }
+.card { min-width: 0; border: 1px solid var(--nms-border); border-radius: var(--radius-lg, 12px); background: var(--nms-surface); }
+.stack { display: grid; gap: var(--space-4, 16px); min-width: 0; }
+.compact { gap: var(--space-3, 12px); }

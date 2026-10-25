@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "routes": [
+    {
+      "global_scope": "CONFIGURATION_ONLY",
+      "method": "GET",
+      "mode": "TEMPLATE_PACKAGE_EXPLICIT",
+      "path": "/api/template-packages/export/{template_kind}/{template_id}",
+      "permissions": [
+        "access_template.read",
+        "device.configuration.template.read"
+      ]
+    },
+    {
+      "global_scope": "CONFIGURATION_ONLY",
+      "method": "POST",
+      "mode": "TEMPLATE_PACKAGE_EXPLICIT",
+      "path": "/api/template-packages/import",
+      "permissions": [
+        "access_template.manage",
+        "device.configuration.template.manage"
+      ]
+    },
+    {
+      "global_scope": "CONFIGURATION_ONLY",
+      "method": "POST",
+      "mode": "TEMPLATE_PACKAGE_EXPLICIT",
+      "path": "/api/template-packages/preview",
+      "permissions": [
+        "access_template.manage",
+        "device.configuration.template.manage"
+      ]
+    }
+  ]
+}

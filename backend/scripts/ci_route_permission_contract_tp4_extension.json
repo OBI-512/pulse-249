@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "routes": [
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/template-assignment-options/access",
+      "permission": "access_template.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/template-assignment-options/configuration",
+      "permission": "device.configuration.template.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/template-assignment-batches",
+      "permission": "device.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/template-assignment-batches/preview",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/template-assignment-batches/{batch_id}",
+      "permission": "device.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/template-assignment-batches/{batch_id}/apply",
+      "permission": "device.read"
+    }
+  ]
+}

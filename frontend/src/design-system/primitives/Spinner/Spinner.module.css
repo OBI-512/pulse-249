@@ -1,0 +1,6 @@
+.root { display: inline-block; border: 2px solid color-mix(in srgb, var(--nms-accent) 22%, transparent); border-top-color: var(--nms-accent); border-radius: 50%; animation: spin .7s linear infinite; }
+.sm { width: 14px; height: 14px; }
+.md { width: 18px; height: 18px; }
+.lg { width: 24px; height: 24px; border-width: 3px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .root { animation-duration: 1.6s; } }

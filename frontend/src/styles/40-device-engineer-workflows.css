@@ -1,0 +1,165 @@
+/* ========================================================================== */
+/* Targeted development: unified feedback, engineer review, device management */
+/* ========================================================================== */
+
+.feedback-stack{position:fixed;right:24px;top:86px;z-index:1800;display:grid;gap:10px;width:min(420px,calc(100vw - 32px));pointer-events:none}.feedback-toast{pointer-events:auto;display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center;padding:14px 16px;border:1px solid var(--nms-border);border-radius:16px;background:var(--nms-surface);box-shadow:0 18px 48px rgba(9,30,66,.18);animation:feedback-in .2s ease-out}.feedback-toast strong,.feedback-toast span{display:block}.feedback-toast strong{font-size:.95rem;margin-bottom:2px}.feedback-toast span{font-size:.86rem;color:var(--nms-text-2);line-height:1.4}.feedback-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1rem}.feedback-success{border-color:color-mix(in srgb,#22c55e 38%,var(--nms-border))}.feedback-success .feedback-icon{background:rgba(34,197,94,.14);color:#15803d}.feedback-info .feedback-icon{background:rgba(14,165,233,.14);color:#0369a1}.feedback-warning .feedback-icon{background:rgba(245,158,11,.14);color:#b45309}.feedback-error-backdrop{z-index:1900}.feedback-error-card{max-width:520px}.feedback-error-symbol{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:rgba(239,68,68,.12);color:#dc2626;font-size:1.7rem;font-weight:900;margin-bottom:14px}.feedback-error-card .dialog-message{font-size:1rem;line-height:1.6;color:var(--nms-text)}@keyframes feedback-in{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
+
+.candidate-review-fieldset{display:grid;gap:16px}.review-guidance{padding:14px 16px;border:1px dashed var(--nms-border);border-radius:14px;background:var(--nms-surface-2);color:var(--nms-text-2);font-size:.9rem}.review-placement-card{display:grid;gap:12px;padding:16px;border:1px solid var(--nms-border);border-radius:16px;background:linear-gradient(145deg,var(--nms-surface),var(--nms-surface-2))}.review-placement-title{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.review-placement-title strong{font-size:1rem}.review-placement-title span{font-size:.82rem;color:var(--nms-text-2);text-align:right}.derived-context{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.derived-context>div{padding:12px 14px;border-radius:13px;background:var(--nms-surface-2);border:1px solid var(--nms-border)}.derived-context span,.derived-context strong{display:block}.derived-context span{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--nms-text-2);margin-bottom:4px}.derived-context strong{font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.candidate-customer-field{max-width:520px}.optional-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--nms-text-2);margin-left:6px}.candidate-actions{margin-top:18px}
+
+.device-workspace-tabs{display:inline-flex;gap:5px;padding:5px;margin:0 0 18px;border-radius:16px;background:var(--nms-surface-2);border:1px solid var(--nms-border)}.device-workspace-tabs button{background:transparent;color:var(--nms-text-2);border:0;box-shadow:none;padding:10px 16px;border-radius:12px}.device-workspace-tabs button.active{background:var(--nms-surface);color:var(--nms-accent);box-shadow:0 4px 14px rgba(9,30,66,.08)}.device-management-workspace{display:grid;gap:16px}.management-filter-grid{display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:12px}.management-filter-grid label{min-width:0}.filter-summary{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--nms-border);color:var(--nms-text-2);font-size:.84rem}.filter-summary strong{color:var(--nms-text);font-size:1rem}.link-button{margin-left:auto;background:transparent!important;color:var(--nms-accent)!important;border:0!important;box-shadow:none!important;padding:6px 8px!important}.batch-actions-panel{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap}.batch-action-group{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-right:18px;border-right:1px solid var(--nms-border)}.batch-action-group:last-child{border-right:0}.batch-action-group .field-label{width:100%;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--nms-text-2)}.batch-action-group select{min-width:150px}.batch-danger-zone{margin-left:auto}.management-table th:first-child,.management-table td:first-child{width:42px;text-align:center}.management-table td strong,.management-table td small{display:block}.management-table td small{margin-top:3px;color:var(--nms-text-2);font-size:.72rem}.management-table tbody tr.selected-row{background:color-mix(in srgb,var(--nms-accent) 9%,var(--nms-surface))}
+
+@media(max-width:1180px){.management-filter-grid{grid-template-columns:repeat(3,minmax(160px,1fr))}.derived-context{grid-template-columns:repeat(2,minmax(0,1fr))}.batch-danger-zone{margin-left:0}}@media(max-width:760px){.feedback-stack{top:auto;bottom:18px;right:16px}.management-filter-grid{grid-template-columns:1fr}.derived-context{grid-template-columns:1fr}.review-placement-title{display:block}.review-placement-title span{display:block;text-align:left;margin-top:4px}.batch-actions-panel,.batch-action-group{display:grid;grid-template-columns:1fr;width:100%;border-right:0;padding-right:0}.device-workspace-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%}}
+
+/* Targeted device workflow 1: human-friendly recycle status context. */
+.recycle-status-note {
+  display: block;
+  margin-top: 4px;
+  max-width: 280px;
+  color: var(--nms-text-muted);
+  font-size: .78rem;
+  line-height: 1.35;
+}
+
+/* Phase 13 Targeted Device Workflow 2: centered feedback + refined batch management */
+.feedback-stack{
+  top:50%;left:50%;right:auto;bottom:auto;
+  transform:translate(-50%,-50%);
+  width:min(520px,calc(100vw - 32px));
+  gap:12px;
+}
+.feedback-toast{
+  grid-template-columns:52px minmax(0,1fr);
+  gap:14px;
+  min-height:92px;
+  padding:18px 20px;
+  border-radius:20px;
+  border-width:1px;
+  box-shadow:0 24px 70px rgba(9,30,66,.24);
+  backdrop-filter:blur(10px);
+}
+.feedback-toast strong{font-size:1.05rem;line-height:1.25;margin-bottom:4px;color:var(--nms-text-strong)}
+.feedback-toast span{font-size:.92rem;line-height:1.5;color:var(--nms-text-2)}
+.feedback-icon{
+  width:46px;height:46px;
+  border-radius:15px;
+  font-size:1.25rem;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 18%,transparent);
+}
+.feedback-success{
+  border-color:color-mix(in srgb,var(--nms-success) 34%,var(--nms-border));
+  background:linear-gradient(135deg,color-mix(in srgb,var(--nms-success-soft) 72%,var(--nms-surface)),var(--nms-surface) 62%);
+}
+.feedback-success .feedback-icon{background:var(--nms-success-soft);color:var(--nms-success)}
+.feedback-info{background:linear-gradient(135deg,color-mix(in srgb,var(--nms-accent-soft) 58%,var(--nms-surface)),var(--nms-surface) 62%)}
+.feedback-warning{background:linear-gradient(135deg,color-mix(in srgb,var(--nms-warning-soft) 62%,var(--nms-surface)),var(--nms-surface) 62%)}
+.feedback-error-card{max-width:600px;border-radius:22px;padding:24px}
+.feedback-error-symbol{width:60px;height:60px;border-radius:18px;font-size:1.9rem}
+.feedback-error-card .dialog-header h3{font-size:1.3rem}
+.feedback-error-card .dialog-message{font-size:1rem;line-height:1.7;white-space:pre-line}
+.feedback-error-card .dialog-actions button{min-width:112px}
+
+.device-management-workspace{gap:18px}
+.batch-filter-panel,.management-command-panel,.management-results-panel{overflow:hidden}
+.management-panel-header{align-items:center}
+.management-filter-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px 16px;
+}
+.management-filter-grid label{display:grid;gap:7px;font-size:.78rem;font-weight:800}
+.management-filter-grid input,.management-filter-grid select{width:100%;min-width:0}
+.management-filter-summary{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  margin-top:18px;
+  padding:14px 0 0;
+}
+.management-filter-summary>div{display:flex;align-items:baseline;gap:7px}
+.management-filter-summary>div strong{font-size:1.18rem;color:var(--nms-text-strong)}
+.management-filter-summary>div span{font-size:.8rem;color:var(--nms-muted)}
+.management-filter-summary .link-button{margin-left:auto}
+
+
+.management-command-panel{
+  padding:0;
+  border-color:color-mix(in srgb,var(--nms-accent) 18%,var(--nms-border));
+}
+.management-command-heading{
+  display:flex;
+  align-items:center;
+  padding:18px 22px 12px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--nms-accent-soft) 32%,var(--nms-surface)),var(--nms-surface));
+}
+.management-command-heading h3{margin:2px 0 0;font-size:1.12rem;color:var(--nms-text-strong)}
+.management-command-toolbar{
+  display:grid;
+  grid-template-columns:1.12fr 1fr 1fr 1.18fr;
+  gap:10px;
+  padding:14px 18px 18px;
+}
+.management-action-group{
+  min-width:0;
+  padding:12px 14px 13px;
+  border:1px solid var(--nms-border);
+  border-radius:14px;
+  background:color-mix(in srgb,var(--nms-surface-2) 82%,var(--nms-surface));
+}
+.management-action-group>strong{
+  display:block;
+  margin-bottom:8px;
+  font-size:.84rem;
+  line-height:1.2;
+  color:var(--nms-text-strong);
+}
+.management-action-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.management-action-controls select{
+  flex:1 1 132px;
+  min-width:112px;
+  height:40px;
+}
+.management-action-controls button{
+  flex:1 1 auto;
+  min-height:40px;
+  white-space:nowrap;
+}
+.selection-action-group .management-action-controls button{min-width:0}
+.lifecycle-action-group{
+  border-color:color-mix(in srgb,var(--nms-warning) 18%,var(--nms-border));
+  background:color-mix(in srgb,var(--nms-warning-soft) 14%,var(--nms-surface));
+}
+.recycle-action-group{
+  border-color:color-mix(in srgb,var(--nms-danger) 18%,var(--nms-border));
+  background:color-mix(in srgb,var(--nms-danger-soft) 16%,var(--nms-surface));
+}
+.recycle-action-group .management-action-controls{display:block}
+.recycle-batch-button{width:100%;min-height:40px}
+.management-results-panel .panel-header{margin-bottom:14px}
+.management-table th,.management-table td{vertical-align:middle}
+.management-table th:nth-child(8),.management-table td:nth-child(8){min-width:150px}
+.management-table td strong{font-size:.82rem;color:var(--nms-text-strong)}
+.management-table td small{font-size:.7rem}
+
+@media(max-width:1180px){
+  .management-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .management-command-toolbar{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .feedback-stack{top:50%;bottom:auto;left:50%;right:auto;width:min(94vw,520px)}
+  .feedback-toast{min-height:84px;padding:16px;grid-template-columns:46px minmax(0,1fr)}
+  .feedback-icon{width:42px;height:42px}
+  .management-filter-grid{grid-template-columns:1fr}
+  .management-command-heading{align-items:flex-start}
+  .management-command-toolbar{grid-template-columns:1fr;padding:12px}
+  .management-action-controls{display:grid;grid-template-columns:minmax(0,1fr) auto}
+  .selection-action-group .management-action-controls{grid-template-columns:1fr 1fr}
+  .recycle-action-group .management-action-controls{display:block}
+  .management-action-controls select{width:100%;min-width:0}
+  .management-filter-summary{align-items:flex-start;flex-wrap:wrap;gap:12px 18px}
+  .management-filter-summary .link-button{margin-left:0}
+}
+

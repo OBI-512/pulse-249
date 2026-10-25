@@ -1,0 +1,120 @@
+.root {
+  position: relative;
+  width: 100%;
+}
+.trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 38px;
+  border: 1px solid var(--nms-input-border);
+  border-radius: 8px;
+  background: var(--nms-input);
+  color: var(--nms-text);
+  font-weight: 600;
+  text-align: left;
+  padding: 9px 10px;
+  box-shadow: none;
+  transform: none;
+}
+.trigger:hover:not(:disabled) {
+  filter: none;
+  border-color: #98afd0;
+  box-shadow: none;
+  transform: none;
+}
+.trigger:focus-visible {
+  border-color: var(--nms-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--nms-accent) 16%, transparent);
+  outline: 0;
+}
+.menu {
+  position: absolute;
+  z-index: 12000;
+  left: 0;
+  right: 0;
+  top: calc(100% + 6px);
+  padding: 10px;
+  border: 1px solid var(--nms-border);
+  border-radius: 11px;
+  background: var(--nms-surface);
+  color: var(--nms-text);
+  box-shadow: var(--nms-shadow-lg);
+}
+.menu > input { width: 100%; }
+.options {
+  margin-top: 8px;
+  max-height: 290px;
+  overflow: auto;
+  display: grid;
+  gap: 4px;
+}
+.option {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.option:hover { background: var(--nms-surface-hover); }
+.option input {
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  flex: 0 0 16px;
+}
+.option > span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.option strong {
+  color: var(--nms-text);
+  font-size: 12px;
+}
+.option small {
+  color: var(--nms-muted);
+  font-weight: 500;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--nms-accent) 35%, var(--nms-border));
+  border-radius: 999px;
+  background: var(--nms-accent-soft);
+  color: var(--nms-accent-strong);
+  font-size: 10px;
+  font-weight: 800;
+}
+.chip button {
+  min-height: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0 2px;
+  font-size: 13px;
+  box-shadow: none;
+  transform: none;
+}
+.chip button:hover:not(:disabled) {
+  filter: none;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+}
+.empty { padding: 12px; }
+
+:global(html[data-theme="night"]) .menu { border-color: #294157; }

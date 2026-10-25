@@ -1,0 +1,4 @@
+.list, .detail, .dashboard, .settings { min-width: 0; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, .42fr); gap: var(--space-4, 16px); align-items: start; min-width: 0; }
+.primary, .secondary { min-width: 0; }
+@media (max-width: 980px) { .split { grid-template-columns: minmax(0, 1fr); } }

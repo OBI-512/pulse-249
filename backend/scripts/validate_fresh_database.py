@@ -1,0 +1,371 @@
+"""Non-destructive clean-install and isolated pg_dump/pg_restore validation.
+
+It creates two UUID-named temporary databases in the configured PostgreSQL
+server, never touches the configured development database, and always drops
+only those generated databases afterwards.
+"""
+
+from __future__ import annotations
+
+import asyncio
+import json
+import os
+import secrets
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+from datetime import datetime, timezone
+from uuid import uuid4
+
+from sqlalchemy import text
+from sqlalchemy.engine import make_url
+from sqlalchemy.ext.asyncio import create_async_engine
+
+from app.settings import settings
+from migrations.canonical.schema_contract import CANONICAL_REVISION, COLUMNS, CONSTRAINTS, INDEXES, TABLES
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def _database_url(name: str) -> str:
+    return make_url(settings.database_url).set(database=name).render_as_string(hide_password=False)
+
+
+async def _create_database(name: str) -> None:
+    url = make_url(settings.database_url)
+    environment = {**os.environ, "PGPASSWORD": url.password or ""}
+    command = ["psql", "-h", url.host or "localhost", "-p", str(url.port or 5432), "-U", url.username or "", "-d", "postgres", "-v", "ON_ERROR_STOP=1", "-c", f'CREATE DATABASE "{name}"']
+    completed = subprocess.run(command, env=environment, capture_output=True, text=True)
+    if completed.returncode:
+        raise RuntimeError(f"Temporary database create failed: {completed.stderr}")
+
+
+async def _drop_database(name: str) -> None:
+    url = make_url(settings.database_url)
+    environment = {**os.environ, "PGPASSWORD": url.password or ""}
+    terminate = f"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '{name}' AND pid <> pg_backend_pid();"
+    subprocess.run(
+        ["psql", "-h", url.host or "localhost", "-p", str(url.port or 5432), "-U", url.username or "", "-d", "postgres", "-v", "ON_ERROR_STOP=1", "-c", terminate],
+        env=environment,
+        capture_output=True,
+        text=True,
+    )
+    subprocess.run(
+        ["psql", "-h", url.host or "localhost", "-p", str(url.port or 5432), "-U", url.username or "", "-d", "postgres", "-v", "ON_ERROR_STOP=1", "-c", f'DROP DATABASE IF EXISTS "{name}"'],
+        env=environment,
+        capture_output=True,
+        text=True,
+    )
+
+
+def _run(command: list[str], *, database_url: str) -> None:
+    environment = {**os.environ, "DATABASE_URL": database_url, "FTTW_ENV": "validation", "SEED_DEMO_DATA": "false"}
+    completed = subprocess.run(command, cwd=ROOT, env=environment, capture_output=True, text=True)
+    if completed.returncode:
+        raise RuntimeError(f"Command failed: {' '.join(command)}\n{completed.stdout}\n{completed.stderr}")
+
+
+async def _assert_schema(database_url: str) -> dict[str, object]:
+    engine = create_async_engine(database_url)
+    try:
+        async with engine.connect() as db:
+            revision = await db.scalar(text("SELECT version_num FROM alembic_version"))
+            tables = set((await db.scalars(text("SELECT tablename FROM pg_tables WHERE schemaname = 'public'"))).all())
+            constraints = set((await db.scalars(text("SELECT conname FROM pg_constraint WHERE connamespace = 'public'::regnamespace"))).all())
+            indexes = set((await db.scalars(text("SELECT indexname FROM pg_indexes WHERE schemaname = 'public'"))).all())
+            required_permissions = {
+                "settings.secret.read", "discovery.flush", "user.sessions.read", "user.scopes.read", "user.scopes.manage",
+                "alarm.read", "alarm.acknowledge", "alarm.assign", "alarm.clear",
+                "maintenance.read", "maintenance.manage", "notification.read", "notification.manage",
+                "telemetry.read", "telemetry.manage", "data_lifecycle.read", "data_lifecycle.manage",
+                "data_exchange.read", "data_exchange.import", "data_exchange.export",
+                "report.read", "report.manage", "report.export", "report.schedule", "report.sensitive",
+            }
+            permission_codes = set((await db.scalars(text(
+                "SELECT code FROM permissions WHERE code IN "
+                "('settings.secret.read','discovery.flush','user.sessions.read','user.scopes.read','user.scopes.manage',"
+                "'alarm.read','alarm.acknowledge','alarm.assign','alarm.clear',"
+                "'maintenance.read','maintenance.manage','notification.read','notification.manage',"
+                "'telemetry.read','telemetry.manage','data_lifecycle.read','data_lifecycle.manage',"
+                "'data_exchange.read','data_exchange.import','data_exchange.export',"
+                "'report.read','report.manage','report.export','report.schedule','report.sensitive')"
+            ))).all())
+            restricted_role_count = int(await db.scalar(text(
+                "SELECT COUNT(*) FROM roles WHERE code = 'restricted'"
+            )) or 0)
+            restricted_permission_count = int(await db.scalar(text(
+                "SELECT COUNT(*) FROM role_permissions rp "
+                "JOIN roles r ON r.id = rp.role_id WHERE r.code = 'restricted'"
+            )) or 0)
+            admin_scope_permission_count = int(await db.scalar(text(
+                "SELECT COUNT(*) FROM role_permissions rp "
+                "JOIN roles r ON r.id = rp.role_id "
+                "JOIN permissions p ON p.id = rp.permission_id "
+                "WHERE r.code = 'administrator' AND p.code IN ('user.scopes.read','user.scopes.manage')"
+            )) or 0)
+            alarm_role_counts = {
+                role: int(await db.scalar(text(
+                    "SELECT COUNT(*) FROM role_permissions rp "
+                    "JOIN roles r ON r.id = rp.role_id "
+                    "JOIN permissions p ON p.id = rp.permission_id "
+                    "WHERE r.code = :role AND p.code IN ('alarm.read','alarm.acknowledge','alarm.assign','alarm.clear')"
+                ), {"role": role}) or 0)
+                for role in ("administrator", "operator", "administrative_viewer", "viewer")
+            }
+            c3_role_counts = {
+                role: int(await db.scalar(text(
+                    "SELECT COUNT(*) FROM role_permissions rp "
+                    "JOIN roles r ON r.id = rp.role_id "
+                    "JOIN permissions p ON p.id = rp.permission_id "
+                    "WHERE r.code = :role AND p.code IN ('maintenance.read','maintenance.manage','notification.read','notification.manage')"
+                ), {"role": role}) or 0)
+                for role in ("administrator", "operator", "administrative_viewer", "viewer")
+            }
+            user_count = int(await db.scalar(text("SELECT COUNT(*) FROM users")) or 0)
+            global_scope_user_count = int(await db.scalar(text(
+                "SELECT COUNT(DISTINCT user_id) FROM user_resource_scopes WHERE scope_type = 'GLOBAL'"
+            )) or 0)
+            non_global_scope_count = int(await db.scalar(text(
+                "SELECT COUNT(*) FROM user_resource_scopes WHERE scope_type <> 'GLOBAL'"
+            )) or 0)
+            required_settings = {
+                "auth.login_rate_limit", "restore_points.schedule_time", "recycle_bin.retention_days",
+                "auth.password.history_count", "auth.password.min_edit_distance", "auth.password.max_age_days",
+                "auth.password.expiry_warning_days", "auth.session_online_window_minutes",
+                "availability.enabled", "availability.interval_seconds", "availability.failure_threshold",
+                "availability.probe_timeout_seconds", "availability.probe_retries",
+                "availability.dispatch_limit_per_tick", "availability.task_batch_size",
+                "availability.max_outstanding_devices", "availability.worker_concurrency",
+                "availability.lease_seconds", "availability.tcp_ports",
+                "notifications.enabled", "notifications.dispatch_limit_per_tick",
+                "notifications.task_batch_size", "notifications.max_outstanding",
+                "notifications.lease_seconds", "notifications.worker_concurrency",
+                "telemetry.enabled", "telemetry.dispatch_limit_per_tick", "telemetry.task_batch_size",
+                "telemetry.max_outstanding_devices", "telemetry.worker_concurrency", "telemetry.lease_seconds",
+            }
+            setting_keys = set((await db.scalars(text("SELECT key FROM system_settings"))).all())
+            active_device_count = int(await db.scalar(text(
+                "SELECT COUNT(*) FROM devices WHERE deleted_at IS NULL"
+            )) or 0)
+            availability_count = int(await db.scalar(text(
+                "SELECT COUNT(*) FROM device_availability da "
+                "JOIN devices d ON d.id = da.device_id WHERE d.deleted_at IS NULL"
+            )) or 0)
+            missing_columns = {}
+            for table, required in COLUMNS.items():
+                existing = set((await db.scalars(text(
+                    "SELECT column_name FROM information_schema.columns "
+                    "WHERE table_schema='public' AND table_name=:table"
+                ), {"table": table})).all())
+                difference = sorted(required - existing)
+                if difference:
+                    missing_columns[table] = difference
+    finally:
+        await engine.dispose()
+    missing = {
+        "tables": sorted(TABLES - tables),
+        "constraints": sorted(CONSTRAINTS - constraints),
+        "indexes": sorted(INDEXES - indexes),
+    }
+    missing_permissions = sorted(required_permissions - permission_codes)
+    missing_settings = sorted(required_settings - setting_keys)
+    if (
+        revision != CANONICAL_REVISION
+        or any(missing.values())
+        or missing_columns
+        or missing_permissions
+        or missing_settings
+        or restricted_role_count != 1
+        or restricted_permission_count != 0
+        or admin_scope_permission_count != 2
+        or alarm_role_counts != {"administrator": 4, "operator": 4, "administrative_viewer": 1, "viewer": 1}
+        or c3_role_counts != {"administrator": 4, "operator": 3, "administrative_viewer": 2, "viewer": 2}
+        or global_scope_user_count != user_count
+        or non_global_scope_count != 0
+        or availability_count != active_device_count
+    ):
+        raise RuntimeError(
+            f"Canonical schema mismatch revision={revision} missing={missing} "
+            f"missing_columns={missing_columns} missing_permissions={missing_permissions} "
+            f"missing_settings={missing_settings} restricted_role_count={restricted_role_count} "
+            f"restricted_permission_count={restricted_permission_count} "
+            f"admin_scope_permission_count={admin_scope_permission_count} "
+            f"alarm_role_counts={alarm_role_counts} c3_role_counts={c3_role_counts} "
+            f"scope_users={global_scope_user_count}/{user_count} non_global_scope_count={non_global_scope_count} "
+            f"availability_rows={availability_count}/{active_device_count}"
+        )
+    return {"revision": revision, "tables": len(tables), "constraints": len(constraints), "indexes": len(indexes)}
+
+
+async def _seed_phase_d_history(database_url: str) -> dict[str, str]:
+    """Create synthetic Phase-D history only inside the isolated qualification DB.
+
+    Normal bootstrap owns baseline telemetry-profile creation after controlled
+    device types exist.  This qualifier therefore requires a profile instead of
+    manufacturing one and masking a fresh-install bootstrap regression.
+    """
+    engine = create_async_engine(database_url)
+    metric_id = uuid4(); rollup_id = uuid4(); report_job_id = uuid4()
+    try:
+        async with engine.begin() as db:
+            device = (await db.execute(text(
+                "SELECT id AS device_id, device_type_id FROM devices "
+                "WHERE deleted_at IS NULL ORDER BY id LIMIT 1"
+            ))).mappings().first()
+            user_id = await db.scalar(text("SELECT id FROM users WHERE is_active = true ORDER BY id LIMIT 1"))
+            if device is None or user_id is None:
+                raise RuntimeError("Fresh seed did not provide a device/user for Phase-D history qualification.")
+
+            profile_id = await db.scalar(text(
+                "SELECT id FROM telemetry_profiles WHERE device_type_id = :device_type_id LIMIT 1"
+            ), {"device_type_id": device["device_type_id"]})
+            if profile_id is None:
+                raise RuntimeError(
+                    "Normal fresh bootstrap did not provide the device type's telemetry profile."
+                )
+
+            now = datetime.now(timezone.utc)
+            await db.execute(text(
+                "INSERT INTO telemetry_metrics "
+                "(id, device_id, profile_id, metric_key, metric_kind, numeric_value, unit, source, collected_at, metadata, created_at, updated_at) "
+                "VALUES (:id,:device_id,:profile_id,'qualification.metric','GAUGE',42.5,'units','FIXTURE',:now,'{}'::jsonb,:now,:now)"
+            ), {"id": metric_id, "device_id": device["device_id"], "profile_id": profile_id, "now": now})
+            await db.execute(text(
+                "INSERT INTO telemetry_metric_rollups "
+                "(id, device_id, metric_key, unit, bucket_start, bucket_seconds, sample_count, min_value, max_value, avg_value, sum_value, metadata, created_at, updated_at) "
+                "VALUES (:id,:device_id,'qualification.metric','units',date_trunc('hour',CAST(:now AS timestamptz)),3600,1,42.5,42.5,42.5,42.5,'{}'::jsonb,:now,:now)"
+            ), {"id": rollup_id, "device_id": device["device_id"], "now": now})
+            await db.execute(text(
+                "INSERT INTO report_jobs "
+                "(id, owner_user_id, report_type, format, status, filters, include_sensitive, scope_snapshot, scope_fingerprint, permission_snapshot, requested_at, completed_at, row_count, metadata, created_at, updated_at) "
+                "VALUES (:id,:owner,'inventory','CSV','COMPLETED','{}'::jsonb,false,'{}'::jsonb,:fingerprint,'[]'::jsonb,:now,:now,1,CAST(:metadata AS jsonb),:now,:now)"
+            ), {"id": report_job_id, "owner": user_id, "fingerprint": "0" * 64, "metadata": json.dumps({"qualification": True}), "now": now})
+    finally:
+        await engine.dispose()
+    return {"metric_id": str(metric_id), "rollup_id": str(rollup_id), "report_job_id": str(report_job_id)}
+
+
+async def _assert_phase_d_history(database_url: str, ids: dict[str, str]) -> None:
+    engine = create_async_engine(database_url)
+    try:
+        async with engine.connect() as db:
+            checks = (
+                ("telemetry_metrics", ids["metric_id"]),
+                ("telemetry_metric_rollups", ids["rollup_id"]),
+                ("report_jobs", ids["report_job_id"]),
+            )
+            for table, identifier in checks:
+                count = int(await db.scalar(text(f"SELECT COUNT(*) FROM {table} WHERE id = :id"), {"id": identifier}) or 0)
+                if count != 1:
+                    raise RuntimeError(f"Phase-D backup/restore history missing from {table}: {identifier}")
+    finally:
+        await engine.dispose()
+
+
+async def _api_smoke(database_url: str) -> None:
+    from httpx import ASGITransport, AsyncClient
+    from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+    from app.api.deps import get_db
+    from app.main import app
+    from app.security.authorization import authorize_request
+
+    engine = create_async_engine(database_url)
+    factory = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+
+    async def override_db():
+        async with factory() as db:
+            yield db
+
+    async def override_authorization():
+        return None
+
+    old_db = app.dependency_overrides.get(get_db)
+    old_auth = app.dependency_overrides.get(authorize_request)
+    app.dependency_overrides[get_db] = override_db
+    app.dependency_overrides[authorize_request] = override_authorization
+    try:
+        async with AsyncClient(transport=ASGITransport(app=app), base_url="http://fresh") as client:
+            response = await client.get("/api/networks")
+            if response.status_code != 200:
+                raise RuntimeError(f"Fresh API smoke failed: {response.status_code} {response.text}")
+            availability = await client.get("/api/devices/availability/summary")
+            if availability.status_code != 200:
+                raise RuntimeError(f"Fresh availability API smoke failed: {availability.status_code} {availability.text}")
+            alarms = await client.get("/api/alarms/summary")
+            if alarms.status_code != 200:
+                raise RuntimeError(f"Fresh alarm API smoke failed: {alarms.status_code} {alarms.text}")
+            maintenance = await client.get("/api/maintenance-windows?state=ALL")
+            if maintenance.status_code != 200:
+                raise RuntimeError(f"Fresh maintenance API smoke failed: {maintenance.status_code} {maintenance.text}")
+            policies = await client.get("/api/notifications/policies")
+            if policies.status_code != 200:
+                raise RuntimeError(f"Fresh notification policy API smoke failed: {policies.status_code} {policies.text}")
+            deliveries = await client.get("/api/notifications/deliveries")
+            if deliveries.status_code != 200:
+                raise RuntimeError(f"Fresh notification delivery API smoke failed: {deliveries.status_code} {deliveries.text}")
+            telemetry = await client.get("/api/telemetry/profiles")
+            if telemetry.status_code != 200:
+                raise RuntimeError(f"Fresh telemetry API smoke failed: {telemetry.status_code} {telemetry.text}")
+            reports = await client.get("/api/reports/catalog")
+            if reports.status_code != 200:
+                raise RuntimeError(f"Fresh reports API smoke failed: {reports.status_code} {reports.text}")
+    finally:
+        if old_db is None:
+            app.dependency_overrides.pop(get_db, None)
+        else:
+            app.dependency_overrides[get_db] = old_db
+        if old_auth is None:
+            app.dependency_overrides.pop(authorize_request, None)
+        else:
+            app.dependency_overrides[authorize_request] = old_auth
+        await engine.dispose()
+
+
+async def main() -> None:
+    suffix = secrets.token_hex(6)
+    fresh = f"fttw_fresh_{suffix}"
+    restored = f"fttw_restore_{suffix}"
+    dump_path: Path | None = None
+    try:
+        await _create_database(fresh)
+        fresh_url = _database_url(fresh)
+        _run([sys.executable, "-m", "alembic", "upgrade", "head"], database_url=fresh_url)
+        _run([sys.executable, "scripts/seed_demo_data.py"], database_url=fresh_url)
+        schema = await _assert_schema(fresh_url)
+        await _api_smoke(fresh_url)
+        phase_d_history = await _seed_phase_d_history(fresh_url)
+        await _assert_phase_d_history(fresh_url, phase_d_history)
+
+        url = make_url(fresh_url)
+        environment = {**os.environ, "PGPASSWORD": url.password or ""}
+        with tempfile.TemporaryDirectory(prefix="fttw-fresh-") as directory:
+            dump_path = Path(directory) / "fresh.dump"
+            prefix = ["-h", url.host or "localhost", "-p", str(url.port or 5432), "-U", url.username or ""]
+            dump = subprocess.run(["pg_dump", *prefix, "--format=custom", "--no-owner", "--no-privileges", "--file", str(dump_path), fresh], env=environment, capture_output=True, text=True)
+            if dump.returncode or not dump_path.exists() or dump_path.stat().st_size == 0:
+                raise RuntimeError("Isolated pg_dump failed.")
+            await _create_database(restored)
+            restore = subprocess.run(["pg_restore", *prefix, "--no-owner", "--no-privileges", "--dbname", restored, str(dump_path)], env=environment, capture_output=True, text=True)
+            # PostgreSQL 17 clients emit ``SET transaction_timeout`` even
+            # when restoring to the supported PostgreSQL 16 server.  It is a
+            # harmless session-setting incompatibility, so accept only that
+            # exact diagnostic and still verify the complete restored schema.
+            tolerated_client_setting = (
+                "unrecognized configuration parameter \"transaction_timeout\"" in restore.stderr
+                and restore.stderr.count("ERROR:") == 1
+            )
+            if restore.returncode and not tolerated_client_setting:
+                raise RuntimeError(f"Isolated pg_restore failed: {restore.stderr[:1000]}")
+        restored_url = _database_url(restored)
+        restored_schema = await _assert_schema(restored_url)
+        await _assert_phase_d_history(restored_url, phase_d_history)
+        print(json.dumps({"fresh": schema, "restored": restored_schema, "api_smoke": "passed", "phase_d_history_restore": "passed"}, sort_keys=True))
+    finally:
+        await _drop_database(restored)
+        await _drop_database(fresh)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

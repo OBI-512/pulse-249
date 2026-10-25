@@ -1,0 +1,12 @@
+# Optional trusted-edge overlay for deployments where the configuration device
+# cannot reach the isolated artifact gateway directly. This overlay adds only
+# the dedicated edge-attestation secret/settings to the gateway. It does not
+# expose device SSH, Access Template, or configuration-device credentials.
+services:
+  configuration-artifact-gateway:
+    env_file:
+      - path: ${FTTW_CONFIGURATION_ARTIFACT_EDGE_ENV_FILE:-./.env.configuration_artifact_edge}
+        required: false
+    environment:
+      CONFIGURATION_ARTIFACT_TRUSTED_EDGE_PEERS: ${CONFIGURATION_ARTIFACT_TRUSTED_EDGE_PEERS:-}
+      CONFIGURATION_ARTIFACT_EDGE_ATTESTATION_MAX_AGE_SECONDS: ${CONFIGURATION_ARTIFACT_EDGE_ATTESTATION_MAX_AGE_SECONDS:-15}

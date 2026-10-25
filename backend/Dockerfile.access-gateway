@@ -1,0 +1,20 @@
+FROM python:3.12-slim@sha256:2c941e860699f878900b0edc2403613c234d4b32eda3cc9fa7036991a2a63c4a
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+COPY requirements.txt requirements.lock ./
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends openssh-client sshpass \
+    && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir -r requirements.lock
+COPY alembic.ini .
+COPY migrations ./migrations
+COPY app ./app
+RUN groupadd --gid 10002 fttw-gateway \
+    && useradd --uid 10002 --gid 10002 --no-create-home --home-dir /app --shell /usr/sbin/nologin fttw-gateway \
+    && mkdir -p /tmp/fttw-remote \
+    && chown -R 10002:10002 /app /tmp/fttw-remote
+USER 10002:10002
+EXPOSE 8010
+CMD ["python", "-m", "app.remote_gateway.run"]

@@ -1,0 +1,48 @@
+.dialog {
+  max-width: min(1100px, 96vw);
+}
+
+.body {
+  min-height: 520px;
+}
+
+.status {
+  margin-bottom: 0.65rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.terminal {
+  min-height: 430px;
+  max-height: 62vh;
+  overflow: hidden;
+  border: 1px solid var(--nms-border-strong);
+  border-radius: 8px;
+  background: var(--nms-code);
+  color: var(--nms-code-text);
+  cursor: text;
+  outline: none;
+}
+
+.terminal:focus {
+  box-shadow: 0 0 0 2px color-mix(in srgb, currentColor 35%, transparent);
+}
+
+.terminal pre {
+  box-sizing: border-box;
+  width: 100%;
+  height: 430px;
+  max-height: 62vh;
+  margin: 0;
+  padding: 0.85rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.hint {
+  margin: 0.6rem 0 0;
+  font-size: 0.8rem;
+  opacity: 0.72;
+}

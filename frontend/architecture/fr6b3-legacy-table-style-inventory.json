@@ -1,0 +1,179 @@
+{
+  "phase": "FR6-B3",
+  "purpose": "legacy_table_style_retirement_preparation_only",
+  "generated_from": "FR6-B2_DONE",
+  "global_css_files_with_candidates": 10,
+  "candidate_selector_count": 110,
+  "files": [
+    {
+      "file": "src/styles/00-foundation.css",
+      "candidate_selectors": [
+        ".table-wrap",
+        "table",
+        ".clickable-table tbody tr",
+        ".clickable-table tbody tr:hover, .selected-row"
+      ],
+      "count": 4
+    },
+    {
+      "file": "src/styles/10-discovery-dialog-topology.css",
+      "candidate_selectors": [
+        "/* OBI UI refresh: dashboard, discovery, sorting and topology controls */ .content",
+        ".table-sort",
+        "th .table-sort:hover",
+        ".sort-indicator",
+        ".sort-triangle",
+        ".sort-triangle.active",
+        "th .table-sort:focus-visible",
+        ".device-page .table-wrap",
+        ".device-page .table-wrap table"
+      ],
+      "count": 9
+    },
+    {
+      "file": "src/styles/100-inner-tab-refinement.css",
+      "candidate_selectors": [
+        "/* ------------------------------------------------------------ Stable tab color sequence ------------------------------------------------------------ */ :where( .view-tabs, .device-workspace-tabs, .log-tabs, .settings-view-tabs ) > :nth-child(6n + 1)"
+      ],
+      "count": 1
+    },
+    {
+      "file": "src/styles/101-phase-d-data-reporting.css",
+      "candidate_selectors": [
+        ".table-subtext"
+      ],
+      "count": 1
+    },
+    {
+      "file": "src/styles/30-theme-system.css",
+      "candidate_selectors": [
+        "/* Tables and lists */ .table-wrap",
+        "table",
+        ".clickable-table tbody tr:hover, .selected-row",
+        ".table-sort",
+        "th .table-sort:hover",
+        ".sort-triangle.active"
+      ],
+      "count": 6
+    },
+    {
+      "file": "src/styles/40-device-engineer-workflows.css",
+      "candidate_selectors": [
+        ".management-table th:first-child,.management-table td:first-child",
+        ".management-table td strong,.management-table td small",
+        ".management-table td small",
+        ".management-table tbody tr.selected-row",
+        ".management-table th,.management-table td",
+        ".management-table th:nth-child(8),.management-table td:nth-child(8)",
+        ".management-table td strong"
+      ],
+      "count": 7
+    },
+    {
+      "file": "src/styles/50-scale-management-workspaces.css",
+      "candidate_selectors": [
+        ".pagination-viewport",
+        ".pagination-center-track",
+        ".pagination-bar",
+        ".pagination-size",
+        ".pagination-size > span",
+        ".pagination-size select",
+        ".pagination-icon",
+        ".pagination-current",
+        ".pagination-current strong",
+        ".pagination-bar.compact",
+        ".selection-column",
+        ".pagination-table-row > td",
+        ".pagination-table-row:hover > td",
+        ".pagination-table-row .pagination-center-track",
+        ".customer-list-table",
+        ".customer-list-table th:nth-child(1),.customer-list-table td:nth-child(1)",
+        ".customer-list-table th:nth-child(2),.customer-list-table td:nth-child(2)",
+        ".customer-list-table th:nth-child(3),.customer-list-table td:nth-child(3)",
+        ".customer-list-table td",
+        ".table-secondary",
+        ".management-table-wrap",
+        ".management-table-wrap table",
+        ".table-link",
+        ".table-link:hover:not(:disabled)",
+        ".select-col",
+        "/* CUSTOMER_VLAN_TABLE_VISIBILITY_FIX_20260827 */ .customer-workspace",
+        ".customer-workspace .table-wrap",
+        ".customer-list-table th:nth-child(4),.customer-list-table td:nth-child(4)",
+        ".customer-list-table th:nth-child(5),.customer-list-table td:nth-child(5)"
+      ],
+      "count": 29
+    },
+    {
+      "file": "src/styles/60-theme-refinements.css",
+      "candidate_selectors": [
+        "/* Tables and list-selection surfaces visibly participate in the theme. */ th",
+        ".clickable-table tbody tr:hover",
+        ".selected-row, .management-table tbody tr.selected-row",
+        ".table-sort",
+        "th .table-sort:hover",
+        "html[data-theme=\"night\"] .table-wrap, html[data-theme=\"night\"] .management-editor-panel, html[data-theme=\"night\"] .searchable-combobox-menu, html[data-theme=\"night\"] .multi-select-menu"
+      ],
+      "count": 6
+    },
+    {
+      "file": "src/styles/95-alarm-noc.css",
+      "candidate_selectors": [
+        ".alarm-table-wrap",
+        ".alarm-table tbody tr",
+        ".alarm-table td strong,.alarm-table td small",
+        ".alarm-table td small"
+      ],
+      "count": 4
+    },
+    {
+      "file": "src/styles/98-operations-ui-refinement.css",
+      "candidate_selectors": [
+        ".alarm-table-wrap",
+        ".alarm-table",
+        ".alarm-table thead th",
+        ".alarm-table th",
+        ".alarm-table td",
+        ".alarm-table tbody tr",
+        ".alarm-table tbody tr:hover",
+        ".alarm-table tbody tr.selected-row",
+        ".alarm-table td small",
+        ".maintenance-page .table-wrap",
+        ".maintenance-page table",
+        ".maintenance-page .server-pagination",
+        "/* Let the inventory table use its wider workspace naturally. */ .device-page .inventory-panel .table-wrap",
+        "/* Match existing project sortable-header presentation. */ .alarm-page .table-sort, .maintenance-page .table-sort",
+        "/* Universal complete-table export */ .table-export-control",
+        ".table-export-control > summary",
+        ".table-export-control > summary::-webkit-details-marker",
+        ".table-export-control > summary.disabled",
+        ".table-export-menu",
+        ".table-export-menu button",
+        ".table-toolbar-actions",
+        "/* BEGIN universal table export text menu */ /* * Shared export popup. * Excel / CSV remain semantic buttons internally, * but are intentionally rendered as simple clickable text. */ .table-export-menu",
+        "/* Text-only export choices */ .table-export-menu > button",
+        "/* Very subtle interaction only \u2014 not a visible button box */ .table-export-menu > button:hover:not(:disabled)",
+        "/* Quiet separator between Excel and CSV */ .table-export-menu > button + button",
+        "/* Keyboard accessibility without making it look like a normal button */ .table-export-menu > button:focus-visible",
+        "/* Disabled / exporting state */ .table-export-menu > button:disabled",
+        "/* END universal table export text menu */ /* BEGIN compact universal export popup */ /* * Compact content-sized export popup. * Options remain semantic buttons for accessibility, * but visually behave as simple clickable text. */ .table-export-menu",
+        ".table-export-menu > button",
+        ".table-export-menu > button:hover:not(:disabled)",
+        "/* Very light separation without making individual buttons */ .table-export-menu > button + button",
+        ".table-export-menu > button:focus-visible",
+        ".table-export-menu > button:disabled",
+        "/* END compact universal export popup */ /* BEGIN standard export menu */ /* Export menu trigger: compact secondary action */ .table-export-trigger",
+        ".table-export-trigger::-webkit-details-marker",
+        ".table-export-trigger::marker",
+        ".table-export-trigger:hover:not(.disabled)",
+        ".table-export-trigger:focus-visible",
+        "/* CSS chevron \u2014 avoids Unicode/encoding problems */ .table-export-chevron",
+        "/* Point upward while the menu is open */ .table-export-control[open] .table-export-chevron",
+        "/* Compact popup sized by its longest item */ .table-export-menu",
+        "/* Text-only menu choices */ .table-export-menu > button",
+        "/* Standard menu-item hover */ .table-export-menu > button:hover:not(:disabled)"
+      ],
+      "count": 43
+    }
+  ]
+}

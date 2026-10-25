@@ -1,0 +1,214 @@
+import { type PointerEvent as ReactPointerEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { apiFetch } from "../../api/client";
+import { useFeedback } from "../../components/common/FeedbackSystem";
+import { EmptyState } from "../../design-system/composites/AsyncState";
+import { LocalSearchableCombobox } from "../../design-system/composites/SearchableSelect";
+import { Button } from "../../design-system/primitives";
+import type { City, Location, Network, TopologyDevice } from "../../types";
+import { friendlyError } from "../../utils/feedback";
+import { LiveDeviceNode } from "./LiveDeviceNode";
+
+const STANDARD_ZOOM = 1;
+const MIN_ZOOM = 0.05;
+const MIN_FIT_ZOOM = 0.02;
+const MAX_ZOOM = 1.8;
+const SIDE_PADDING = 130;
+const NODE_COLUMN_WIDTH = 250;
+const NODE_ROW_HEIGHT = 205;
+const MAX_COLUMNS = 5;
+const ROOT_Y = 115;
+const FIRST_DEVICE_Y = 355;
+
+export function LocationPhysicalTopology({
+  token,
+  refreshKey,
+  permissions,
+  networks,
+  cities,
+  locations,
+  onTestAccessibility,
+  onDeleteDevice,
+}: {
+  token: string;
+  refreshKey: number;
+  permissions: string[];
+  networks: Network[];
+  cities: City[];
+  locations: Location[];
+  onTestAccessibility: (deviceId: string) => void | Promise<void>;
+  onDeleteDevice: (deviceId: string, displayName: string) => Promise<boolean>;
+}) {
+  const [networkId, setNetworkId] = useState("");
+  const [serviceVlanId, setServiceVlanId] = useState("");
+  const [cityId, setCityId] = useState("");
+  const [locationId, setLocationId] = useState("");
+  const [devices, setDevices] = useState<TopologyDevice[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [zoom, setZoom] = useState(STANDARD_ZOOM);
+  const [fitMode, setFitMode] = useState(false);
+  const [panning, setPanning] = useState(false);
+  const loadInFlight = useRef(false);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const panRef = useRef<{ pointerId: number; startX: number; startY: number; scrollLeft: number; scrollTop: number } | null>(null);
+  const feedback = useFeedback();
+  const canDelete = permissions.includes("device.delete");
+
+  const cityById = useMemo(() => new Map(cities.map((city) => [city.id, city])), [cities]);
+  const filteredCities = useMemo(() => cities.filter((city) => (!networkId || city.network_id === networkId) && (!serviceVlanId || String(city.service_vlan_id ?? "") === serviceVlanId)), [cities, networkId, serviceVlanId]);
+  const filteredLocations = useMemo(() => locations.filter((location) => {
+    const city = cityById.get(location.city_id);
+    if (cityId && location.city_id !== cityId) return false;
+    if (networkId && city?.network_id !== networkId) return false;
+    if (serviceVlanId && String(city?.service_vlan_id ?? "") !== serviceVlanId) return false;
+    return true;
+  }), [locations, cityById, cityId, networkId, serviceVlanId]);
+
+  const networkOptions = useMemo(() => networks.map((item) => ({ id: item.id, label: item.name, description: item.code, data: item })), [networks]);
+  const serviceVlanOptions = useMemo(() => Array.from(new Set(cities.filter((city) => !networkId || city.network_id === networkId).map((city) => city.service_vlan_id).filter((value): value is number => value != null))).sort((a, b) => a - b).map((value) => ({ id: String(value), label: String(value), description: "Service VLAN" })), [cities, networkId]);
+  const cityOptions = useMemo(() => filteredCities.map((item) => ({ id: item.id, label: item.name, description: item.code, data: item })), [filteredCities]);
+  const locationOptions = useMemo(() => filteredLocations.map((item) => ({ id: item.id, label: item.name, description: [item.city_name, item.network_name].filter(Boolean).join(" / ") || item.code, data: item })), [filteredLocations]);
+  const selectedLocation = locations.find((item) => item.id === locationId) || null;
+  const selectedCity = selectedLocation ? cityById.get(selectedLocation.city_id) : undefined;
+  const selectedNetwork = selectedCity ? networks.find((item) => item.id === selectedCity.network_id) : undefined;
+
+  useEffect(() => {
+    let nextNetwork = networks.some((item) => item.id === networkId) ? networkId : "";
+    let nextCity = cities.some((item) => item.id === cityId) ? cityId : "";
+    let nextLocation = locations.some((item) => item.id === locationId) ? locationId : "";
+    if (!nextNetwork && networks.length === 1) nextNetwork = networks[0].id;
+    if (!nextCity && cities.length === 1) nextCity = cities[0].id;
+    if (!nextLocation && locations.length === 1) nextLocation = locations[0].id;
+    const location = locations.find((item) => item.id === nextLocation);
+    if (location) nextCity = location.city_id;
+    const city = cities.find((item) => item.id === nextCity);
+    if (city) {
+      nextNetwork = city.network_id;
+      if (city.service_vlan_id != null && String(city.service_vlan_id) !== serviceVlanId) setServiceVlanId(String(city.service_vlan_id));
+    }
+    if (nextNetwork !== networkId) setNetworkId(nextNetwork);
+    if (nextCity !== cityId) setCityId(nextCity);
+    if (nextLocation !== locationId) { setLocationId(nextLocation); setDevices(null); }
+  }, [networks, cities, locations, networkId, serviceVlanId, cityId, locationId]);
+
+  const loadLocation = useCallback(async ({ silent = false }: { silent?: boolean } = {}) => {
+    if (!locationId || loadInFlight.current) return;
+    loadInFlight.current = true;
+    if (!silent) setLoading(true);
+    try {
+      setDevices(await apiFetch<TopologyDevice[]>(`/topology/locations/${locationId}/devices?live=true`, {}, token));
+    } catch (error) {
+      feedback.error(friendlyError(error, "Unable to load the physical Location topology."));
+    } finally {
+      loadInFlight.current = false;
+      if (!silent) setLoading(false);
+    }
+  }, [locationId, token, feedback]);
+
+  useEffect(() => {
+    if (!locationId || !devices || !autoRefresh) return;
+    const timer = window.setInterval(() => void loadLocation({ silent: true }), 5000);
+    return () => window.clearInterval(timer);
+  }, [locationId, devices, autoRefresh, loadLocation]);
+
+  useEffect(() => {
+    if (refreshKey <= 0 || !locationId || !devices) return;
+    void loadLocation({ silent: true });
+  }, [refreshKey, locationId, devices, loadLocation]);
+
+  useEffect(() => {
+    setZoom(STANDARD_ZOOM);
+    setFitMode(false);
+  }, [locationId]);
+
+  const count = devices?.length || 0;
+  const columns = Math.max(1, Math.min(MAX_COLUMNS, count));
+  const rows = Math.max(1, Math.ceil(count / MAX_COLUMNS));
+  const canvasWidth = Math.max(1000, columns * NODE_COLUMN_WIDTH + SIDE_PADDING * 2);
+  const canvasHeight = Math.max(620, FIRST_DEVICE_Y + Math.max(0, rows - 1) * NODE_ROW_HEIGHT + 185);
+  const rootX = canvasWidth / 2;
+
+  const positionFor = (index: number) => {
+    const row = Math.floor(index / MAX_COLUMNS);
+    const rowStart = row * MAX_COLUMNS;
+    const rowCount = Math.min(MAX_COLUMNS, count - rowStart);
+    const rowWidth = rowCount * NODE_COLUMN_WIDTH;
+    const startX = (canvasWidth - rowWidth) / 2 + NODE_COLUMN_WIDTH / 2;
+    return { x: startX + (index - rowStart) * NODE_COLUMN_WIDTH, y: FIRST_DEVICE_Y + row * NODE_ROW_HEIGHT };
+  };
+
+  const setZoomKeepingViewportCenter = (nextZoom: number) => {
+    const viewport = scrollRef.current;
+    const bounded = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, Math.round(nextZoom * 1000) / 1000));
+    const logicalCenterX = viewport ? (viewport.scrollLeft + viewport.clientWidth / 2) / Math.max(zoom, 0.001) : rootX;
+    const logicalCenterY = viewport ? (viewport.scrollTop + viewport.clientHeight / 2) / Math.max(zoom, 0.001) : canvasHeight / 2;
+    setFitMode(false);
+    setZoom(bounded);
+    window.requestAnimationFrame(() => {
+      if (!viewport) return;
+      viewport.scrollLeft = Math.max(0, logicalCenterX * bounded - viewport.clientWidth / 2);
+      viewport.scrollTop = Math.max(0, logicalCenterY * bounded - viewport.clientHeight / 2);
+    });
+  };
+
+  const adjustZoom = (direction: number) => {
+    const step = zoom < 0.25 ? 0.025 : zoom < 0.6 ? 0.05 : 0.1;
+    setZoomKeepingViewportCenter(zoom + direction * step);
+  };
+
+  const fitTopology = () => {
+    const viewport = scrollRef.current;
+    if (!viewport) return;
+    const rawFit = Math.min(1, Math.max(220, viewport.clientWidth - 28) / canvasWidth, Math.max(220, viewport.clientHeight - 28) / canvasHeight) * 0.97;
+    setFitMode(true);
+    setZoom(Math.max(MIN_FIT_ZOOM, Math.min(1, Math.floor(rawFit * 1000) / 1000)));
+    window.requestAnimationFrame(() => { viewport.scrollLeft = 0; viewport.scrollTop = 0; });
+  };
+
+  const beginPan = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0) return;
+    const target = event.target as HTMLElement;
+    if (target.closest(".live-device-node, .context-menu, button, a, input, select, textarea")) return;
+    const viewport = scrollRef.current;
+    if (!viewport) return;
+    panRef.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, scrollLeft: viewport.scrollLeft, scrollTop: viewport.scrollTop };
+    setPanning(true);
+    viewport.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  };
+  const movePan = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const pan = panRef.current; const viewport = scrollRef.current;
+    if (!pan || !viewport || pan.pointerId !== event.pointerId) return;
+    viewport.scrollLeft = pan.scrollLeft - (event.clientX - pan.startX);
+    viewport.scrollTop = pan.scrollTop - (event.clientY - pan.startY);
+    event.preventDefault();
+  };
+  const endPan = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const pan = panRef.current; const viewport = scrollRef.current;
+    if (!pan || pan.pointerId !== event.pointerId) return;
+    panRef.current = null; setPanning(false);
+    if (viewport?.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+  };
+
+  return <>
+    <section className="panel live-sector-controls">
+      <div className="panel-header"><div><h3 className="hover-help-title" data-help="Select a Location to see the physical infrastructure installed directly at that site. Downstream CPE/AP branches remain in Sector View.">Location View</h3><span>Direct physical infrastructure only; logical Sector objects and downstream CPE/AP nodes are not expanded here.</span></div></div>
+      <div className="form-grid four">
+        <label>Network<LocalSearchableCombobox value={networkId} options={networkOptions} disabled={networks.length === 1} onChange={(option) => { setNetworkId(option?.id || ""); setServiceVlanId(""); setCityId(""); setLocationId(""); setDevices(null); }} placeholder="Search network..." emptyText="No networks are available in your assigned area." /></label>
+        <label>S-VLAN<LocalSearchableCombobox value={serviceVlanId} options={serviceVlanOptions} onChange={(option) => { setServiceVlanId(option?.id || ""); setCityId(""); setLocationId(""); setDevices(null); }} placeholder="All S-VLANs / search..." emptyText="No S-VLANs are available in the selected network." /></label>
+        <label>City<LocalSearchableCombobox value={cityId} options={cityOptions} disabled={cities.length === 1} onChange={(option) => { const city = option?.data; setCityId(option?.id || ""); if (city?.network_id) setNetworkId(city.network_id); if (city?.service_vlan_id != null) setServiceVlanId(String(city.service_vlan_id)); setLocationId(""); setDevices(null); }} placeholder="Search city..." emptyText="No cities are available in the selected area." /></label>
+        <label>Location<LocalSearchableCombobox value={locationId} options={locationOptions} disabled={locations.length === 1} onChange={(option) => { const location = option?.data; const city = location ? cityById.get(location.city_id) : undefined; setLocationId(option?.id || ""); if (location) setCityId(location.city_id); if (city?.network_id) setNetworkId(city.network_id); if (city?.service_vlan_id != null) setServiceVlanId(String(city.service_vlan_id)); setDevices(null); }} placeholder="Search location..." emptyText="No locations are available in the selected area." /></label>
+      </div>
+      <Button unstyled onClick={() => void loadLocation()} disabled={!locationId || loading}>{loading ? "Loading…" : "Show Location Topology"}</Button>
+    </section>
+
+    {devices == null ? <EmptyState text="Select a Location to render its directly associated physical infrastructure." /> : <section className="panel live-sector-panel">
+      <div className="live-sector-heading"><div><div className="eyebrow">{selectedNetwork?.name || "Network"} / {selectedCity?.name || "City"}</div><h3>{selectedLocation?.name || "Location"}</h3><span>{selectedLocation?.code || ""} · {devices.length} direct physical device(s)</span></div><div className="live-sector-actions"><div className="live-status-legend"><span><i className="legend-dot up"/>UP</span><span><i className="legend-dot down"/>DOWN</span><span><i className="legend-dot degraded"/>DEGRADED</span><span><i className="legend-dot unknown"/>UNKNOWN</span></div><div className="live-toolbar"><Button unstyled type="button" className="secondary small" onClick={() => adjustZoom(-1)} disabled={zoom <= MIN_ZOOM}>−</Button><Button unstyled type="button" className="secondary small zoom-readout" onClick={() => setZoomKeepingViewportCenter(STANDARD_ZOOM)} title="Reset to 100%">{Math.round(zoom * 100)}%</Button><Button unstyled type="button" className="secondary small" onClick={() => adjustZoom(1)} disabled={zoom >= MAX_ZOOM}>+</Button><Button unstyled type="button" className={`secondary small${fitMode ? " active-fit" : ""}`} onClick={fitTopology}>Fit</Button><Button unstyled type="button" className="secondary small" onClick={() => setAutoRefresh((current) => !current)}>{autoRefresh ? "Pause live refresh" : "Resume live refresh"}</Button><Button unstyled type="button" className="secondary small" onClick={() => void loadLocation({ silent: true })}>Refresh now</Button></div></div></div>
+      {devices.length === 0 ? <EmptyState text="No directly associated physical devices are installed at this Location." /> : <div ref={scrollRef} className={`live-topology-scroll${panning ? " is-panning" : ""}`} onPointerDown={beginPan} onPointerMove={movePan} onPointerUp={endPan} onPointerCancel={endPan} onWheel={(event) => { if (event.ctrlKey) { event.preventDefault(); adjustZoom(event.deltaY < 0 ? 1 : -1); } }}><div className="live-topology-stage" style={{ width: canvasWidth * zoom, height: canvasHeight * zoom }}><div className="live-topology-canvas" style={{ width: canvasWidth, height: canvasHeight, transform: `scale(${zoom})` }}>
+        <svg className="live-connectors" width={canvasWidth} height={canvasHeight} viewBox={`0 0 ${canvasWidth} ${canvasHeight}`} aria-hidden="true">{devices.map((item, index) => { const point = positionFor(index); return <path key={item.id} d={`M ${rootX} ${ROOT_Y + 62} C ${rootX} ${ROOT_Y + 175}, ${point.x} ${point.y - 145}, ${point.x} ${point.y - 62}`} />; })}</svg>
+        <div className="live-node-position" style={{ left: rootX, top: ROOT_Y }}><div className="live-device-node live-location-root" aria-label={`Location ${selectedLocation?.name || ""}`}><span className="live-device-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 42s13-12 13-24a13 13 0 1 0-26 0c0 12 13 24 13 24Z"/><circle cx="24" cy="18" r="5"/></svg></span><span className="live-device-copy"><strong>{selectedLocation?.name || "Location"}</strong><span>{selectedLocation?.code || "Physical site"}</span></span><span /></div></div>
+        {devices.map((item, index) => { const point = positionFor(index); return <LiveDeviceNode key={item.id} item={item} x={point.x} y={point.y} canDelete={canDelete} onTestAccessibility={onTestAccessibility} onDeleteDevice={onDeleteDevice} onAfterDelete={() => void loadLocation({ silent: true })} />; })}
+      </div></div></div>}
+    </section>}
+  </>;
+}

@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "routes": [
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/clone",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/revisions",
+      "permission": "access_template.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/revisions",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/revisions/{revision_id}",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/revisions/{revision_id}/activate",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/revisions/{revision_id}/approve",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/revisions/{revision_id}/test",
+      "permission": "access_template.test"
+    }
+  ]
+}

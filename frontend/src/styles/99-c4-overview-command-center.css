@@ -1,0 +1,335 @@
+/* C4 Overview Command Center — final human-UAT presentation layer. */
+
+/* ---------- Command hero ---------- */
+.noc-dashboard .noc-command-hero{
+  display:grid;
+  grid-template-columns:minmax(390px,.78fr) minmax(650px,1.22fr);
+  gap:24px;
+  align-items:center;
+  padding:24px 27px;
+  border-radius:20px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(56,153,222,.17),transparent 34%),
+    linear-gradient(135deg,#163b5d 0%,#102d49 53%,#0c2238 100%);
+  border:1px solid rgba(114,185,236,.25);
+  box-shadow:0 18px 42px rgba(4,14,27,.18);
+  color:#eff8ff;
+}
+.noc-command-copy{min-width:0;align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+.noc-dashboard .noc-live-line{display:flex;align-items:center;gap:8px;color:#9bd9ff;font-size:10.5px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.noc-dashboard .noc-live-dot{width:8px;height:8px;border-radius:50%;background:#42d28d;box-shadow:0 0 0 5px rgba(66,210,141,.12),0 0 18px rgba(66,210,141,.35)}
+.noc-dashboard .noc-command-hero h2{margin:10px 0 18px;color:#f5fbff;font-size:clamp(28px,2.6vw,40px);line-height:1.06;letter-spacing:-.035em}
+.noc-dashboard .noc-command-hero h2.hover-help-title{cursor:help}
+.noc-dashboard .noc-command-hero>div>p{display:none}
+.noc-dashboard .noc-command-hero small{display:block;margin-top:13px;color:#9fb9cf;font-size:11px}
+.noc-dashboard .noc-command-hero small strong{margin-left:5px;color:#dcecf8}
+
+.noc-command-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px!important;max-width:610px}
+.noc-command-actions button{
+  position:relative;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:48px!important;
+  padding:8px 14px 8px 48px!important;
+  border-radius:11px!important;
+  font-size:12px!important;
+  font-weight:800;
+  text-align:center;
+  box-shadow:0 6px 16px rgba(3,14,28,.12);
+  overflow:hidden;
+}
+.noc-command-actions button.secondary.light{border-color:rgba(185,219,242,.3)!important;background:rgba(255,255,255,.055)!important;color:#eef8ff!important}
+.noc-command-actions button.secondary.light:hover{background:rgba(255,255,255,.105)!important;border-color:rgba(185,219,242,.48)!important}
+.noc-action-icon{position:absolute;left:13px;top:50%;display:grid;place-items:center;width:29px;height:29px;transform:translateY(-50%);color:currentColor}
+.noc-action-icon .dashboard-icon{width:27px!important;height:27px!important;stroke-width:1.75}
+.noc-action-label{display:block;width:100%;text-align:center}
+
+/* ---------- Four availability gauges ---------- */
+.noc-gauge-cluster{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(116px,1fr)) minmax(165px,1.28fr);
+  gap:11px;
+  align-items:end;
+  justify-items:center;
+  min-width:0;
+  padding:5px 0;
+}
+.noc-gauge{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-width:0;color:#eef8ff;text-align:center}
+.noc-gauge-ring{display:grid;place-items:center;border-radius:50%;padding:8px;box-shadow:0 8px 24px rgba(0,0,0,.16),0 0 25px rgba(50,148,217,.07)}
+.noc-gauge-small .noc-gauge-ring{width:142px;height:142px}
+.noc-gauge-primary .noc-gauge-ring{width:188px;height:188px;padding:11px;box-shadow:0 10px 30px rgba(0,0,0,.2),0 0 34px rgba(66,199,138,.10)}
+.noc-gauge-core{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:linear-gradient(155deg,#163854,#102b45 74%);box-shadow:inset 0 0 0 1px rgba(190,222,245,.08),inset 0 12px 28px rgba(255,255,255,.025)}
+.noc-gauge strong{font-size:27px;line-height:1;color:#f5fbff;letter-spacing:-.04em}
+.noc-gauge-primary strong{font-size:38px}
+.noc-gauge span{margin-top:3px;color:#91b9d4;font-size:9px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+.noc-gauge small{margin-top:3px!important;color:#afc7d8!important;font-size:10px!important}
+.noc-gauge b{margin-top:8px;color:#d9e9f5;font-size:11px;font-weight:800;white-space:nowrap}
+.noc-gauge-primary b{font-size:12.5px;color:#f2f9ff}
+
+/* ---------- Six summary cards ---------- */
+.noc-dashboard .noc-metric-grid{display:grid;grid-template-columns:repeat(6,minmax(140px,1fr));gap:10px}
+.noc-dashboard .noc-metric{
+  --metric-accent:#4a92d2;
+  position:relative;
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  min-height:92px;
+  padding:14px 14px;
+  border-radius:15px;
+  border:1px solid color-mix(in srgb,var(--metric-accent) 25%,var(--nms-border,var(--border)));
+  background:linear-gradient(118deg,color-mix(in srgb,var(--metric-accent) 10%,var(--nms-surface,var(--panel))) 0%,var(--nms-surface,var(--panel)) 63%);
+  box-shadow:0 7px 20px rgba(7,18,31,.055);
+  overflow:hidden;
+}
+.noc-dashboard .noc-metric::after{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--metric-accent);opacity:.92}
+.noc-dashboard .noc-metric-icon{
+  width:50px!important;
+  height:50px!important;
+  flex:0 0 50px;
+  display:grid;
+  place-items:center;
+
+  /* no surrounding box */
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+
+  /* same accent color as the card */
+  color:var(--metric-accent)!important;
+}
+.noc-dashboard .noc-metric-icon .dashboard-icon{
+  width:44px!important;
+  height:44px!important;
+  color:var(--metric-accent)!important;
+  stroke:currentColor!important;
+  stroke-width:1.8;
+}
+.noc-dashboard .noc-metric>div{display:flex;flex-direction:column;min-width:0}
+.noc-dashboard .noc-metric>div>span{color:var(--nms-text-2,var(--muted));font-size:11.5px;font-weight:700}
+.noc-dashboard .noc-metric strong{margin-top:1px;color:var(--nms-text-strong,currentColor);font-size:26px;line-height:1.05;letter-spacing:-.03em}
+.noc-dashboard .noc-metric small{margin-top:4px;color:var(--nms-muted,var(--muted));font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.noc-dashboard .noc-metric.tone-blue{--metric-accent:#3d8fd2}
+.noc-dashboard .noc-metric.tone-green{--metric-accent:#2daf78}
+.noc-dashboard .noc-metric.tone-red{--metric-accent:#df5562}
+.noc-dashboard .noc-metric.tone-amber{--metric-accent:#d99a2b}
+.noc-dashboard .noc-metric.tone-violet{--metric-accent:#8b6bd1}
+.noc-dashboard .noc-metric.tone-alarm{--metric-accent:#c84e67}
+
+/* ---------- Alarm severity strip ---------- */
+.noc-dashboard .noc-alarm-severity-strip{display:grid;grid-template-columns:repeat(5,minmax(90px,1fr)) auto;gap:9px;align-items:center;padding:9px 11px!important;border-radius:14px!important}
+.noc-dashboard .noc-alarm-severity-strip>div{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:45px;padding:7px 11px;border:1px solid transparent!important;border-radius:10px}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(1){background:color-mix(in srgb,#e04859 10%,var(--nms-surface,var(--panel)));border-color:color-mix(in srgb,#e04859 22%,transparent)!important}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(2){background:color-mix(in srgb,#ee772f 11%,var(--nms-surface,var(--panel)));border-color:color-mix(in srgb,#ee772f 24%,transparent)!important}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(3){background:color-mix(in srgb,#e3aa24 10%,var(--nms-surface,var(--panel)));border-color:color-mix(in srgb,#e3aa24 22%,transparent)!important}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(4){background:color-mix(in srgb,#c29d1f 9%,var(--nms-surface,var(--panel)));border-color:color-mix(in srgb,#c29d1f 20%,transparent)!important}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(5){background:color-mix(in srgb,#3e86c9 9%,var(--nms-surface,var(--panel)));border-color:color-mix(in srgb,#3e86c9 20%,transparent)!important}
+.noc-dashboard .noc-alarm-severity-strip span{font-size:11px;color:var(--nms-text-2,var(--muted));font-weight:700}
+.noc-dashboard .noc-alarm-severity-strip strong{font-size:20px}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(1) strong{color:#df4154}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(2) strong{color:#e96827}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(3) strong{color:#d89b0f}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(4) strong{color:#aa8611}
+.noc-dashboard .noc-alarm-severity-strip>div:nth-child(5) strong{color:#3279b9}
+
+/* ---------- Fixed 2 x 2 insight deck ---------- */
+.noc-insight-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
+.noc-dashboard .noc-insight-card{height:350px;min-height:350px;display:flex;flex-direction:column;min-width:0;padding:17px 19px!important;border-radius:15px!important;overflow:hidden}
+.noc-dashboard .noc-insight-card .panel-heading{flex:0 0 auto;margin-bottom:9px}
+.noc-dashboard .noc-insight-card .panel-heading h3{margin:0;font-size:16px}
+.noc-scroll-list{min-height:0;overflow-y:auto;overflow-x:hidden;padding-right:5px;scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--nms-accent,#3488c7) 35%,transparent) transparent}
+.noc-scroll-list::-webkit-scrollbar{width:6px}
+.noc-scroll-list::-webkit-scrollbar-thumb{border-radius:999px;background:color-mix(in srgb,var(--nms-accent,#3488c7) 36%,transparent)}
+.noc-dashboard .noc-breakdown-row{display:grid;grid-template-columns:minmax(125px,.68fr) minmax(230px,1.55fr) 48px;gap:12px;align-items:center;padding:9px 2px;border-bottom:1px solid var(--nms-border,var(--border))}
+.noc-dashboard .noc-breakdown-row:last-child{border-bottom:0}
+.noc-dashboard .noc-breakdown-label{display:flex;flex-direction:column;min-width:0}
+.noc-dashboard .noc-breakdown-label strong{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.noc-dashboard .noc-breakdown-label span{margin-top:2px;color:var(--nms-muted,var(--muted));font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.noc-dashboard .noc-breakdown-state{min-width:0}
+.noc-dashboard .noc-breakdown-state small{display:block;margin-top:5px;color:var(--nms-muted,var(--muted));font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.noc-dashboard .noc-breakdown-total{text-align:right;font-size:18px}
+.noc-dashboard .noc-outage-list{display:flex;flex-direction:column}
+.noc-dashboard .noc-outage-row{display:grid;grid-template-columns:11px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 2px;border-bottom:1px solid var(--nms-border,var(--border))}
+.noc-dashboard .noc-outage-row:last-child{border-bottom:0}
+.noc-dashboard .noc-outage-row>div{display:flex;flex-direction:column;min-width:0}
+.noc-dashboard .noc-outage-row strong{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.noc-dashboard .noc-outage-row span,.noc-dashboard .noc-outage-row small{color:var(--nms-muted,var(--muted));font-size:10.8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.noc-dashboard .noc-outage-dot.status-offline{box-shadow:0 0 0 4px rgba(224,93,102,.08)}
+.noc-dashboard .noc-current-status{font-size:10px!important;font-weight:850!important;letter-spacing:.04em}
+
+/* ---------- Operational workload ---------- */
+.noc-dashboard .noc-workload-panel{padding:16px 18px!important;border-radius:15px!important}
+.noc-dashboard .noc-workload-panel .panel-heading{margin-bottom:9px}
+.noc-dashboard .noc-workload-panel .panel-heading h3{margin:0;font-size:16px}
+.noc-dashboard .noc-workload-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.noc-dashboard .noc-workload-grid>button{
+  --workload-accent:#438dcc;
+  position:relative;
+  display:grid;
+  grid-template-columns:44px 1fr;
+  grid-template-rows:auto auto auto;
+  column-gap:11px;
+  align-items:center;
+  min-width:0;
+  min-height:96px;
+  padding:12px 13px;
+  border:1px solid color-mix(in srgb,var(--workload-accent) 24%,var(--nms-border,var(--border)));
+  border-radius:12px;
+  background:linear-gradient(120deg,color-mix(in srgb,var(--workload-accent) 9%,var(--nms-surface,var(--panel))),var(--nms-surface,var(--panel)) 68%);
+  color:inherit;
+  text-align:left;
+  cursor:pointer;
+  transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease;
+}
+.noc-dashboard .noc-workload-grid>button:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--workload-accent) 45%,var(--nms-border,var(--border)));box-shadow:0 10px 22px color-mix(in srgb,var(--workload-accent) 9%,transparent)}
+.noc-workload-icon{grid-row:1/4;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:color-mix(in srgb,var(--workload-accent) 13%,transparent);color:var(--workload-accent)}
+.noc-workload-icon .dashboard-icon{width:25px!important;height:25px!important}
+.noc-dashboard .noc-workload-grid>button>span:not(.noc-workload-icon){font-size:11px;color:var(--nms-text-2,var(--muted));font-weight:750}
+.noc-dashboard .noc-workload-grid strong{font-size:23px;line-height:1.05}
+.noc-dashboard .noc-workload-grid small{color:var(--nms-muted,var(--muted));font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.noc-dashboard .workload-candidates{--workload-accent:#5b7dd6!important}
+.noc-dashboard .workload-discovery{--workload-accent:#2e9e86!important}
+.noc-dashboard .workload-networks{--workload-accent:#3b8bc9!important}
+.noc-dashboard .workload-locations{--workload-accent:#9168cf!important}
+
+/* ---------- Settings / Polling pipeline administrative tab ---------- */
+.settings-page .page-heading{margin-bottom:12px}
+.settings-view-tabs{display:inline-flex;align-items:center;gap:5px;margin:0 0 13px;padding:5px;border:1px solid var(--nms-border);border-radius:12px;background:var(--nms-surface-2);box-shadow:0 5px 14px rgba(7,18,31,.035)}
+.settings-view-tabs button{min-height:35px;padding:7px 13px;border:0;border-radius:8px;background:transparent;color:var(--nms-text-2);box-shadow:none;font-size:12px;font-weight:800}
+.settings-view-tabs button:hover{background:color-mix(in srgb,var(--nms-accent) 7%,transparent)}
+.settings-view-tabs button.active{background:linear-gradient(135deg,color-mix(in srgb,var(--nms-accent) 86%,#1c6fa8),var(--nms-accent));color:#fff;box-shadow:0 5px 13px color-mix(in srgb,var(--nms-accent) 20%,transparent)}
+.settings-polling-panel{padding:0!important;border-radius:17px!important;overflow:hidden}
+.settings-polling-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:23px 25px;background:radial-gradient(circle at 92% 12%,rgba(66,199,138,.10),transparent 30%),linear-gradient(135deg,#173d60,#102b45);color:#eef8ff}
+.settings-polling-hero h3{margin:3px 0 4px;color:#f5fbff;font-size:26px;letter-spacing:-.025em}
+.settings-polling-hero p{max-width:760px;margin:0;color:#b4cada;font-size:12px;line-height:1.5}
+.settings-polling-eyebrow{color:#8fd7ff;font-size:10px;font-weight:850;letter-spacing:.13em}
+.settings-polling-hero .noc-health-pill{flex:0 0 auto;padding:8px 12px;font-size:11px;background:rgba(255,255,255,.08)}
+.settings-polling-hero .noc-health-pill.good{color:#65e4a6;border:1px solid rgba(101,228,166,.22)}
+.settings-polling-hero .noc-health-pill.warn{color:#f0c45e;border:1px solid rgba(240,196,94,.22)}
+.settings-polling-hero .noc-health-pill.bad{color:#ff7e87;border:1px solid rgba(255,126,135,.22)}
+.settings-polling-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:17px 18px 10px}
+.settings-polling-kpis article{display:flex;flex-direction:column;min-width:0;padding:14px 15px;border:1px solid var(--nms-border);border-radius:12px;background:linear-gradient(120deg,color-mix(in srgb,var(--nms-accent) 5%,var(--nms-surface)),var(--nms-surface));box-shadow:0 5px 14px rgba(7,18,31,.035)}
+.settings-polling-kpis span{color:var(--nms-muted);font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.settings-polling-kpis strong{margin:2px 0;font-size:25px;line-height:1.05}
+.settings-polling-kpis small{color:var(--nms-muted);font-size:10.5px}
+.settings-polling-runtime{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;padding:8px 18px 19px}
+.settings-polling-runtime>div{display:flex;flex-direction:column;min-width:0;padding:11px 12px;border-radius:10px;background:var(--nms-surface-2);border:1px solid color-mix(in srgb,var(--nms-border) 80%,transparent)}
+.settings-polling-runtime span{color:var(--nms-muted);font-size:10.5px}
+.settings-polling-runtime strong{margin-top:4px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.settings-polling-empty{margin:0 18px 18px;padding:16px;border-radius:10px;background:var(--nms-surface-2);text-align:center}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1450px){
+  .noc-dashboard .noc-command-hero{grid-template-columns:minmax(360px,.76fr) minmax(570px,1.24fr)}
+  .noc-gauge-small .noc-gauge-ring{width:112px;height:112px}
+  .noc-gauge-primary .noc-gauge-ring{width:150px;height:150px}
+  .noc-gauge strong{font-size:24px}.noc-gauge-primary strong{font-size:34px}
+  .noc-command-actions{grid-template-columns:1fr;max-width:330px}
+  .noc-command-actions button{min-height:40px!important}
+  .noc-dashboard .noc-metric-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:1100px){
+  .noc-dashboard .noc-command-hero{grid-template-columns:1fr}
+  .noc-gauge-cluster{grid-template-columns:repeat(4,1fr);justify-self:stretch}
+  .noc-command-actions{grid-template-columns:repeat(3,1fr);max-width:none}
+  .noc-insight-grid{grid-template-columns:1fr}
+  .noc-dashboard .noc-insight-card{height:330px;min-height:330px}
+  .noc-dashboard .noc-workload-grid{grid-template-columns:repeat(2,1fr)}
+  .settings-polling-kpis,.settings-polling-runtime{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:760px){
+  .noc-dashboard .noc-command-hero{padding:19px}
+  .noc-gauge-cluster{grid-template-columns:repeat(2,1fr)}
+  .noc-command-actions{grid-template-columns:1fr}
+  .noc-dashboard .noc-metric-grid{grid-template-columns:1fr 1fr}
+  .noc-dashboard .noc-alarm-severity-strip{grid-template-columns:1fr 1fr}
+  .noc-dashboard .noc-breakdown-row{grid-template-columns:1fr 42px}
+  .noc-dashboard .noc-breakdown-state{grid-column:1/-1}
+  .noc-dashboard .noc-workload-grid{grid-template-columns:1fr}
+  .noc-gauge-primary .noc-gauge-ring,.noc-gauge-small .noc-gauge-ring{width:118px;height:118px}
+  .noc-gauge-primary strong{font-size:29px}
+  .settings-polling-hero{align-items:flex-start;flex-direction:column}
+  .settings-polling-kpis,.settings-polling-runtime{grid-template-columns:1fr}
+  .settings-view-tabs{display:flex}.settings-view-tabs button{flex:1}
+}
+
+/* OVERVIEW GAUGE ALIGNMENT 20260826 */
+
+/* Desktop: keep all four gauges together and centered. */
+@media (min-width: 1451px) {
+  .noc-gauge-cluster {
+    grid-template-columns: repeat(3, 142px) 188px;
+    gap: 6px;
+    justify-content: center;
+    justify-self: center;
+    width: max-content;
+    max-width: 100%;
+  }
+}
+
+/* Medium desktop: preserve the same centered composition. */
+@media (min-width: 1101px) and (max-width: 1450px) {
+  .noc-gauge-cluster {
+    grid-template-columns: repeat(3, 112px) 150px;
+    gap: 6px;
+    justify-content: center;
+    justify-self: center;
+    width: max-content;
+    max-width: 100%;
+  }
+}
+
+
+/* OVERVIEW GAUGE RIGHT ALIGNMENT 20260826 */
+
+/* Keep the full gauge assembly on the right side of the hero. */
+.noc-gauge-cluster {
+  justify-self: end !important;
+  justify-content: end !important;
+  align-items: center !important;
+  margin-left: auto !important;
+  margin-right: 20px;
+}
+
+/* Desktop spacing: compact and visually balanced. */
+@media (min-width: 1451px) {
+  .noc-gauge-cluster {
+    grid-template-columns: var(--noc-gauge-columns-desktop, repeat(3, 142px) 188px) !important;
+    column-gap: 10px !important;
+  }
+}
+
+/* Medium desktop. */
+@media (min-width: 1101px) and (max-width: 1450px) {
+  .noc-gauge-cluster {
+    grid-template-columns: var(--noc-gauge-columns-medium, repeat(3, 116px) 154px) !important;
+    column-gap: 8px !important;
+    margin-right: 10px;
+  }
+}
+
+/* ENH-4 permission-aware gauge reflow: never reserve holes for unauthorized categories.
+ * Desktop/medium layouts feed the existing guarded priority declarations through
+ * CSS custom properties, avoiding any increase in global style-debt counts. */
+@media (min-width: 1451px) {
+  .noc-gauge-cluster.noc-gauge-count-1 { --noc-gauge-columns-desktop: 188px; }
+  .noc-gauge-cluster.noc-gauge-count-2 { --noc-gauge-columns-desktop: 142px 188px; }
+  .noc-gauge-cluster.noc-gauge-count-3 { --noc-gauge-columns-desktop: repeat(2,142px) 188px; }
+  .noc-gauge-cluster.noc-gauge-count-4 { --noc-gauge-columns-desktop: repeat(3,142px) 188px; }
+}
+@media (min-width: 1101px) and (max-width: 1450px) {
+  .noc-gauge-cluster.noc-gauge-count-1 { --noc-gauge-columns-medium: 154px; }
+  .noc-gauge-cluster.noc-gauge-count-2 { --noc-gauge-columns-medium: 116px 154px; }
+  .noc-gauge-cluster.noc-gauge-count-3 { --noc-gauge-columns-medium: repeat(2,116px) 154px; }
+  .noc-gauge-cluster.noc-gauge-count-4 { --noc-gauge-columns-medium: repeat(3,116px) 154px; }
+}
+@media (min-width: 761px) and (max-width: 1100px) {
+  .noc-gauge-cluster.noc-gauge-count-1 { grid-template-columns: minmax(150px,188px); }
+  .noc-gauge-cluster.noc-gauge-count-2 { grid-template-columns: repeat(2,minmax(142px,1fr)); }
+  .noc-gauge-cluster.noc-gauge-count-3 { grid-template-columns: repeat(3,minmax(130px,1fr)); }
+  .noc-gauge-cluster.noc-gauge-count-4 { grid-template-columns: repeat(4,minmax(116px,1fr)); }
+}
+

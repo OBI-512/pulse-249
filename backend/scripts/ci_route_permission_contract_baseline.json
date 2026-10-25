@@ -1,0 +1,1754 @@
+{
+  "recycle_preview": [
+    {
+      "entity_type": "CITY",
+      "permission": "geo.delete"
+    },
+    {
+      "entity_type": "CUSTOMER",
+      "permission": "customer.delete"
+    },
+    {
+      "entity_type": "CUSTOMER_SERVICE",
+      "permission": "customer.delete"
+    },
+    {
+      "entity_type": "DEVICE",
+      "permission": "device.delete"
+    },
+    {
+      "entity_type": "DEVICE_GROUP",
+      "permission": "group.delete"
+    },
+    {
+      "entity_type": "DEVICE_INTERFACE",
+      "permission": "device.delete"
+    },
+    {
+      "entity_type": "DEVICE_IP",
+      "permission": "device.delete"
+    },
+    {
+      "entity_type": "DEVICE_RELATIONSHIP",
+      "permission": "relationship.delete"
+    },
+    {
+      "entity_type": "LOCATION",
+      "permission": "geo.delete"
+    },
+    {
+      "entity_type": "NETWORK",
+      "permission": "network.delete"
+    },
+    {
+      "entity_type": "SECTOR",
+      "permission": "geo.delete"
+    }
+  ],
+  "route_count": 280,
+  "routes": [
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates",
+      "permission": "access_template.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/effective/{device_id}/{protocol}",
+      "permission": "access_template.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}",
+      "permission": "access_template.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/assignments",
+      "permission": "access_template.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/assignments",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/assignments/{assignment_id}",
+      "permission": "access_template.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/{template_id}/test",
+      "permission": "access_template.test"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/resource-scope-options",
+      "permission": "user.scopes.read"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/security-options",
+      "permission": "user.read"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/sessions/online",
+      "permission": "user.sessions.read"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/settings",
+      "permission": "settings.read"
+    },
+    {
+      "global_scope": true,
+      "method": "PUT",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/settings/{key}",
+      "permission": "settings.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users",
+      "permission": "user.read"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users",
+      "permission": "user.create"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/page",
+      "permission": "user.read"
+    },
+    {
+      "global_scope": true,
+      "method": "DELETE",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/{user_id}",
+      "permission": "user.deactivate"
+    },
+    {
+      "global_scope": true,
+      "method": "PATCH",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/{user_id}",
+      "permission": "user.update"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/{user_id}/password-reset",
+      "permission": "user.password.reset"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/{user_id}/resource-scopes",
+      "permission": "user.scopes.read"
+    },
+    {
+      "global_scope": true,
+      "method": "PUT",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/{user_id}/resource-scopes",
+      "permission": "user.scopes.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/{user_id}/sessions",
+      "permission": "user.sessions.read"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/{user_id}/sessions/revoke-all",
+      "permission": "user.sessions.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "DELETE",
+      "mode": "ADMIN_EXPLICIT",
+      "path": "/api/admin/users/{user_id}/sessions/{session_id}",
+      "permission": "user.sessions.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/alarms/page",
+      "permission": "alarm.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/alarms/summary",
+      "permission": "alarm.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/alarms/{alarm_id}",
+      "permission": "alarm.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/alarms/{alarm_id}/acknowledge",
+      "permission": "alarm.acknowledge"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/alarms/{alarm_id}/clear",
+      "permission": "alarm.clear"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/alarms/{alarm_id}/events",
+      "permission": "alarm.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/alarms/{alarm_id}/history",
+      "permission": "alarm.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/alarms/{alarm_id}/owner",
+      "permission": "alarm.assign"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/assignment-options/customer-service-sectors",
+      "permission": "customer.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/assignment-options/locations",
+      "permission": "geo.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/assignment-options/logical-sectors",
+      "permission": "geo.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/assignment-options/parent-devices",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/assignment-options/physical-sectors",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/assignment-options/sectors",
+      "permission": "geo.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/audit",
+      "permission": "audit.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/audit/export",
+      "permission": "audit.export"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/audit/filter-options/{kind}",
+      "permission": "audit.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/audit/{audit_id}",
+      "permission": "audit.read"
+    },
+    {
+      "method": "POST",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/login",
+      "permission": null
+    },
+    {
+      "method": "POST",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/logout",
+      "permission": null
+    },
+    {
+      "method": "GET",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/me",
+      "permission": null
+    },
+    {
+      "method": "GET",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/password-policy",
+      "permission": null
+    },
+    {
+      "method": "POST",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/password/change",
+      "permission": null
+    },
+    {
+      "method": "POST",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/password/change-required",
+      "permission": null
+    },
+    {
+      "method": "POST",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/session/activity",
+      "permission": null
+    },
+    {
+      "method": "POST",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/session/client-metadata",
+      "permission": null
+    },
+    {
+      "method": "POST",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/session/extend",
+      "permission": null
+    },
+    {
+      "method": "GET",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/session/status",
+      "permission": null
+    },
+    {
+      "method": "GET",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/sessions",
+      "permission": null
+    },
+    {
+      "method": "POST",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/sessions/revoke-others",
+      "permission": null
+    },
+    {
+      "method": "DELETE",
+      "mode": "AUTH_FLOW",
+      "path": "/api/auth/sessions/{session_id}",
+      "permission": null
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/cities/page",
+      "permission": "geo.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/cities/{city_id}",
+      "permission": "geo.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/cities/{city_id}",
+      "permission": "geo.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/cities/{city_id}",
+      "permission": "geo.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/cities/{city_id}/locations",
+      "permission": "geo.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/cities/{city_id}/locations",
+      "permission": "geo.create"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates",
+      "permission": "device.configuration.template.read"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}",
+      "permission": "device.configuration.template.read"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "PUT",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions/{version_id}",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "global_scope": true,
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-templates/{template_id}/versions/{version_id}/publish",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/customers",
+      "permission": "customer.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/customers",
+      "permission": "customer.create"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/customers/filter-options/{kind}",
+      "permission": "customer.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/customers/page",
+      "permission": "customer.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/customers/service-options",
+      "permission": "customer.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/customers/services/{service_id}",
+      "permission": "customer.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/customers/services/{service_id}",
+      "permission": "customer.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/customers/services/{service_id}",
+      "permission": "customer.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/customers/services/{service_id}/topology",
+      "permission": "customer.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/customers/{customer_id}",
+      "permission": "customer.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/customers/{customer_id}",
+      "permission": "customer.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/customers/{customer_id}",
+      "permission": "customer.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/customers/{customer_id}/services",
+      "permission": "customer.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/customers/{customer_id}/services",
+      "permission": "customer.create"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/data-exchange/exports",
+      "permission": "data_exchange.export"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/data-exchange/imports",
+      "permission": "data_exchange.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/data-exchange/imports/{entity_type}/preview",
+      "permission": "data_exchange.import"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/data-exchange/imports/{job_id}",
+      "permission": "data_exchange.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/data-exchange/imports/{job_id}/confirm",
+      "permission": "data_exchange.import"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/data-exchange/templates/{entity_type}",
+      "permission": "data_exchange.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/data-lifecycle/capacity",
+      "permission": "data_lifecycle.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/data-lifecycle/policies",
+      "permission": "data_lifecycle.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/data-lifecycle/policies/{policy_id}",
+      "permission": "data_lifecycle.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/data-lifecycle/runs",
+      "permission": "data_lifecycle.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates",
+      "permission": "candidate.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/placement-options/locations",
+      "permission": "candidate.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/placement-options/logical-sectors",
+      "permission": "candidate.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/summary",
+      "permission": "candidate.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/{candidate_id}",
+      "permission": "candidate.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/{candidate_id}",
+      "permission": "candidate.review"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/{candidate_id}/approve",
+      "permission": "candidate.review"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/{candidate_id}/audit",
+      "permission": "candidate.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/{candidate_id}/register",
+      "permission": "candidate.register"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/{candidate_id}/reject",
+      "permission": "candidate.review"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-candidates/{candidate_id}/reopen",
+      "permission": "candidate.review"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups",
+      "permission": "group.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups",
+      "permission": "group.create"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/eligible-children/page",
+      "permission": "group.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/page",
+      "permission": "group.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}",
+      "permission": "group.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}",
+      "permission": "group.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}",
+      "permission": "group.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/children",
+      "permission": "group.read"
+    },
+    {
+      "method": "PUT",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/children",
+      "permission": "group.membership.manage"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/children/{child_group_id}",
+      "permission": "group.membership.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/children/{child_group_id}",
+      "permission": "group.membership.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/devices",
+      "permission": "group.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/devices/page",
+      "permission": "group.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/devices/{device_id}",
+      "permission": "group.membership.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/devices/{device_id}",
+      "permission": "group.membership.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/devices/{device_id}/move",
+      "permission": "group.membership.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/effective-devices",
+      "permission": "group.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/eligible-devices",
+      "permission": "group.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/eligible-devices/page",
+      "permission": "group.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/items/page",
+      "permission": "group.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-groups/{group_id}/parent",
+      "permission": "group.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-relationships",
+      "permission": "relationship.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/device-relationships",
+      "permission": "relationship.create"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/device-relationships/{relationship_id}",
+      "permission": "relationship.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/device-summary/{device_id}",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices",
+      "permission": "device.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices",
+      "permission": "device.create"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/availability/page",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/availability/summary",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/inventory",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/inventory/page",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/management",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/management/page",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/management/vlan-options",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/operational-summary",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/types",
+      "permission": "device.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}",
+      "permission": "device.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}",
+      "permission": "device.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}",
+      "permission": "device.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/availability",
+      "permission": "device.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/availability",
+      "permission": "device.update"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/apply",
+      "permission": "device.configuration.apply"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/binding",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "PUT",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/binding",
+      "permission": "device.configuration.template.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/capture",
+      "permission": "device.configuration.capture"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/diff",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/operations",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/operations/{operation_id}",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/restore",
+      "permission": "device.configuration.restore"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/snapshots",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/state",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/configuration/verify",
+      "permission": "device.configuration.capture"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/decommission",
+      "permission": "device.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/interfaces",
+      "permission": "device.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/interfaces",
+      "permission": "device.update"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/interfaces/{interface_id}",
+      "permission": "device.delete"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/interfaces/{interface_id}",
+      "permission": "device.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/ips",
+      "permission": "device.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/ips",
+      "permission": "device.update"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/ips/{ip_id}",
+      "permission": "device.delete"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/ips/{ip_id}",
+      "permission": "device.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/placement",
+      "permission": "placement.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/placement",
+      "permission": "placement.update"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/reactivate",
+      "permission": "device.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access",
+      "permission": "device.remote_access.ssh"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/sessions/{session_id}",
+      "permission": "device.remote_access.ssh"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/ssh-sessions",
+      "permission": "device.remote_access.ssh"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/telnet-sessions",
+      "permission": "device.remote_access.telnet"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/telnet-sessions/{session_id}",
+      "permission": "device.remote_access.telnet"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/web",
+      "permission": "device.remote_access.web"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/web-sessions",
+      "permission": "device.remote_access.web"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/remote-access/web-sessions/{session_id}",
+      "permission": "device.remote_access.web"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/status",
+      "permission": "device.update"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/devices/{device_id}/test-accessibility",
+      "permission": "device.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/batch/jobs",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/batch/jobs",
+      "permission": "discovery.run"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/batch/jobs/{job_id}",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/flush",
+      "permission": "discovery.flush"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/flush/preview",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/jobs",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/jobs/page",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/jobs/{job_id}",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/jobs/{job_id}/aggregate",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/jobs/{job_id}/results",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/methods",
+      "permission": "discovery.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/discovery/run",
+      "permission": "discovery.run"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/geography/scope-options",
+      "permission": "geo.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/locations/page",
+      "permission": "geo.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/locations/{location_id}",
+      "permission": "geo.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/locations/{location_id}",
+      "permission": "geo.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/locations/{location_id}",
+      "permission": "geo.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/locations/{location_id}/sectors",
+      "permission": "geo.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/locations/{location_id}/sectors",
+      "permission": "geo.create"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/maintenance-windows",
+      "permission": "maintenance.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/maintenance-windows",
+      "permission": "maintenance.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/maintenance-windows/targets",
+      "permission": "maintenance.read"
+    },
+    {
+      "method": "PUT",
+      "mode": "CENTRAL",
+      "path": "/api/maintenance-windows/{window_id}",
+      "permission": "maintenance.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/maintenance-windows/{window_id}/cancel",
+      "permission": "maintenance.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/networks",
+      "permission": "network.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/networks",
+      "permission": "network.create"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/networks/page",
+      "permission": "network.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/networks/{network_id}",
+      "permission": "network.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/networks/{network_id}",
+      "permission": "network.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/networks/{network_id}",
+      "permission": "network.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/networks/{network_id}/cities",
+      "permission": "geo.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/networks/{network_id}/cities",
+      "permission": "geo.create"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/notifications/deliveries",
+      "permission": "notification.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/notifications/policies",
+      "permission": "notification.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/notifications/policies",
+      "permission": "notification.manage"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/notifications/policies/{policy_id}",
+      "permission": "notification.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/onboarding/candidates",
+      "permission": "onboarding.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/onboarding/candidates",
+      "permission": "onboarding.create"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/onboarding/candidates/{candidate_id}",
+      "permission": "onboarding.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/onboarding/probe",
+      "permission": "onboarding.create"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/onboarding/register",
+      "permission": "onboarding.register"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/operational-logs",
+      "permission": "logs.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/operational-logs/export",
+      "permission": "logs.export"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/operational-logs/filter-options/{kind}",
+      "permission": "logs.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/operational-logs/page",
+      "permission": "logs.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/operations-dashboard",
+      "permission": "device.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/physical-movements/access-points/{access_point_device_id}",
+      "permission": "physical_movement.access_point"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/physical-movements/cpes/{cpe_device_id}",
+      "permission": "physical_movement.cpe"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/physical-movements/sectors/{sector_id}",
+      "permission": "physical_movement.sector"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/recycle-bin",
+      "permission": "recycle_bin.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/recycle-bin/items",
+      "permission": "recycle_bin.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/recycle-bin/preview",
+      "permission": "recycle_bin.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/recycle-bin/{batch_id}",
+      "permission": "recycle_bin.purge"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/recycle-bin/{batch_id}",
+      "permission": "recycle_bin.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/recycle-bin/{batch_id}/restore",
+      "permission": "recycle_bin.restore"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/reports/catalog",
+      "permission": "report.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/reports/definitions",
+      "permission": "report.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/reports/definitions",
+      "permission": "report.manage"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/reports/definitions/{definition_id}",
+      "permission": "report.manage"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/reports/definitions/{definition_id}",
+      "permission": "report.manage"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/reports/definitions/{definition_id}/permanent",
+      "permission": "report.manage"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/reports/definitions/{definition_id}/restore",
+      "permission": "report.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/reports/deliveries",
+      "permission": "report.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/reports/jobs",
+      "permission": "report.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/reports/jobs",
+      "permission": "report.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/reports/jobs/{job_id}",
+      "permission": "report.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/reports/jobs/{job_id}/download",
+      "permission": "report.export"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/reports/run",
+      "permission": "report.export"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/reports/schedules",
+      "permission": "report.schedule"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/reports/schedules",
+      "permission": "report.schedule"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/reports/schedules/{schedule_id}",
+      "permission": "report.schedule"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/reports/schedules/{schedule_id}",
+      "permission": "report.schedule"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/reports/schedules/{schedule_id}/permanent",
+      "permission": "report.schedule"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/reports/schedules/{schedule_id}/restore",
+      "permission": "report.schedule"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/restore-points",
+      "permission": "restore_points.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/restore-points",
+      "permission": "restore_points.create"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/restore-points/page",
+      "permission": "restore_points.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/restore-points/{restore_point_id}",
+      "permission": "restore_points.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/restore-points/{restore_point_id}",
+      "permission": "restore_points.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/restore-points/{restore_point_id}/pin",
+      "permission": "restore_points.delete"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/restore-points/{restore_point_id}/restore",
+      "permission": "restore_points.restore"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/restore-points/{restore_point_id}/verify",
+      "permission": "restore_points.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/sectors/page",
+      "permission": "geo.read"
+    },
+    {
+      "method": "DELETE",
+      "mode": "CENTRAL",
+      "path": "/api/sectors/{sector_id}",
+      "permission": "geo.delete"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/sectors/{sector_id}",
+      "permission": "geo.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/sectors/{sector_id}",
+      "permission": "geo.update"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/sectors/{sector_id}/role-transition",
+      "permission": "geo.update"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/system-information",
+      "permission": "settings.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/telemetry/collect-now",
+      "permission": "telemetry.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/telemetry/devices/{device_id}/metrics/{metric_key}",
+      "permission": "telemetry.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/telemetry/profiles",
+      "permission": "telemetry.read"
+    },
+    {
+      "method": "PATCH",
+      "mode": "CENTRAL",
+      "path": "/api/telemetry/profiles/{profile_id}",
+      "permission": "telemetry.manage"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/telemetry/states",
+      "permission": "telemetry.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/telemetry/summary",
+      "permission": "telemetry.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/topology/groups/{group_id}",
+      "permission": "topology.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/topology/hierarchy/children",
+      "permission": "topology.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/topology/hierarchy/options",
+      "permission": "topology.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/topology/locations/{location_id}/devices",
+      "permission": "topology.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/topology/networks/{network_id}",
+      "permission": "topology.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/topology/scope-options",
+      "permission": "topology.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/topology/sectors/{sector_id}",
+      "permission": "topology.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/topology/sectors/{sector_id}/tree",
+      "permission": "topology.read"
+    }
+  ],
+  "schema": 1
+}

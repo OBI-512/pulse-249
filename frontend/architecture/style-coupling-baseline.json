@@ -1,0 +1,334 @@
+{
+  "schema": 1,
+  "css_files": 49,
+  "important_count": 515,
+  "hard_coded_color_count": 1404,
+  "selectors_defined_in_multiple_files": 365,
+  "top_cross_file_selectors": [
+    {
+      "selector": ".app-header",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/50-scale-management-workspaces.css",
+        "src/styles/90-final-header-overrides.css"
+      ]
+    },
+    {
+      "selector": ".content",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css"
+      ]
+    },
+    {
+      "selector": ".page-heading h2",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/100-inner-tab-refinement.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".workspace-nav-scroll",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css",
+        "src/styles/90-final-header-overrides.css"
+      ]
+    },
+    {
+      "selector": ".workspace-nav-strip",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/50-scale-management-workspaces.css",
+        "src/styles/90-final-header-overrides.css"
+      ]
+    },
+    {
+      "selector": ".app-menu-drawer",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/50-scale-management-workspaces.css"
+      ]
+    },
+    {
+      "selector": ".app-shell",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css"
+      ]
+    },
+    {
+      "selector": ".clickable-table tbody tr:hover",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".consolidated-card-head h4",
+      "files": [
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".device-workspace-tabs",
+      "files": [
+        "src/styles/100-inner-tab-refinement.css",
+        "src/styles/40-device-engineer-workflows.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".device-workspace-tabs button",
+      "files": [
+        "src/styles/100-inner-tab-refinement.css",
+        "src/styles/40-device-engineer-workflows.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".device-workspace-tabs button.active",
+      "files": [
+        "src/styles/100-inner-tab-refinement.css",
+        "src/styles/40-device-engineer-workflows.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".dialog-header h3",
+      "files": [
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".drawer-section-title",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".evidence-heading h4",
+      "files": [
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".header-health",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/50-scale-management-workspaces.css"
+      ]
+    },
+    {
+      "selector": ".header-menu-button",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/90-final-header-overrides.css"
+      ]
+    },
+    {
+      "selector": ".live-sector-heading h3",
+      "files": [
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".login-card",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/70-login-workspace.css"
+      ]
+    },
+    {
+      "selector": ".login-shell",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/70-login-workspace.css"
+      ]
+    },
+    {
+      "selector": ".muted",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/30-theme-system.css"
+      ]
+    },
+    {
+      "selector": ".overview-command-hero h2",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".page-heading",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/100-inner-tab-refinement.css",
+        "src/styles/30-theme-system.css"
+      ]
+    },
+    {
+      "selector": ".panel",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/30-theme-system.css"
+      ]
+    },
+    {
+      "selector": ".panel-header",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/30-theme-system.css"
+      ]
+    },
+    {
+      "selector": ".panel-header h3",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".panel-subsection",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/50-scale-management-workspaces.css"
+      ]
+    },
+    {
+      "selector": ".panel-subsection h4",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".selected-row",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".snmp-config-heading strong",
+      "files": [
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".view-tabs",
+      "files": [
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/100-inner-tab-refinement.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".view-tabs button",
+      "files": [
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/100-inner-tab-refinement.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".view-tabs button.active",
+      "files": [
+        "src/styles/10-discovery-dialog-topology.css",
+        "src/styles/100-inner-tab-refinement.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".workspace-nav-icon",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".workspace-nav-icon .shell-icon",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".workspace-nav-item",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".workspace-nav-item:hover:not(:disabled)",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".workspace-nav-item.active",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": ".workspace-nav-item.active .workspace-nav-icon",
+      "files": [
+        "src/styles/20-shell-overview-navigation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    },
+    {
+      "selector": "input",
+      "files": [
+        "src/styles/00-foundation.css",
+        "src/styles/30-theme-system.css",
+        "src/styles/60-theme-refinements.css"
+      ]
+    }
+  ]
+}

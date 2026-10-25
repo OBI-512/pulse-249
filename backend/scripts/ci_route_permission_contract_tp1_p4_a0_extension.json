@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "routes": [
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/access-templates/families",
+      "permission": "access_template.manage"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "policy_version": 1,
+  "source_commit_discovery": "728a0e44b3711dcddc29085e49a0b5cebcb86ec2",
+  "blocking": {
+    "any_secret": true,
+    "fixable_source_high_or_critical": true,
+    "unapproved_semgrep_warning_or_error": true,
+    "unapproved_high_misconfiguration": true,
+    "fixable_runtime_image_high_or_critical": true,
+    "sbom_required": true,
+    "license_inventory_required": true
+  },
+  "semgrep_exceptions": [
+    {
+      "rule": "python.lang.security.unverified-ssl-context.unverified-ssl-context",
+      "path_suffix": "backend/app/discovery/adapters/http.py",
+      "reason": "Network-device HTTPS discovery intentionally supports self-signed management endpoints; no credentials are sent and the target is an IPvAnyAddress-derived management IP."
+    },
+    {
+      "rule": "python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+      "path_suffix": "backend/app/discovery/adapters/http.py",
+      "reason": "Discovery URL is constructed from a validated IP address plus a fixed http/https scheme and root path, not an arbitrary user URL."
+    },
+    {
+      "rule": "python.lang.security.audit.insecure-file-permissions.insecure-file-permissions",
+      "path_suffix": "backend/app/services/restore_control.py",
+      "reason": "Semgrep flags mode 0700, but 0700 is intentionally restrictive owner-only access for restore working material."
+    },
+    {
+      "rule": "python.lang.security.audit.dynamic-urllib-use-detected.dynamic-urllib-use-detected",
+      "path_suffix": "backend/app/services/restore_control.py",
+      "reason": "Restore health URL is trusted operator configuration for the internal backend health endpoint, not request-controlled input."
+    }
+  ],
+  "misconfiguration_exceptions": [
+    {
+      "id": "DS-0002",
+      "target": "backend/Dockerfile",
+      "reason": "Development/CI image only; B3 production backend uses Dockerfile.prod and runtime non-root UID 10001."
+    },
+    {
+      "id": "DS-0002",
+      "target": "frontend/Dockerfile",
+      "reason": "Development image only; B3 production frontend uses nginx-unprivileged."
+    },
+    {
+      "id": "DS-0002",
+      "target": "frontend/Dockerfile.e2e",
+      "reason": "Disposable E2E runner image only."
+    },
+    {
+      "id": "DS-0002",
+      "target": "frontend/Dockerfile.prod",
+      "reason": "Static analyzer cannot infer the base image USER; Dockerfile now explicitly ends with USER 101 and B3 runtime validation proved non-root."
+    }
+  ],
+  "runtime_image_exceptions": {
+    "postgres": {
+      "target_contains": "usr/local/bin/gosu",
+      "type": "gobinary",
+      "package": "stdlib",
+      "allowed_fixable_high_critical_ids": [
+        "CVE-2025-61726",
+        "CVE-2025-61729",
+        "CVE-2025-68121",
+        "CVE-2026-25679",
+        "CVE-2026-27145",
+        "CVE-2026-32280",
+        "CVE-2026-32281",
+        "CVE-2026-32283",
+        "CVE-2026-33811",
+        "CVE-2026-33814",
+        "CVE-2026-33818",
+        "CVE-2026-39820",
+        "CVE-2026-39821",
+        "CVE-2026-39822",
+        "CVE-2026-39836",
+        "CVE-2026-42499",
+        "CVE-2026-42504",
+        "CVE-2026-56853",
+        "CVE-2026-56858",
+        "CVE-2026-56859",
+        "CVE-2026-56860",
+        "CVE-2026-56862"
+      ],
+      "reason": "Accepted upstream exception confined to gosu embedded in the pinned official PostgreSQL image. Any new ID fails until reviewed."
+    }
+  },
+  "license_obligation_review": {
+    "required": true,
+    "flag_categories": [
+      "restricted",
+      "reciprocal",
+      "unknown"
+    ],
+    "flag_commercial_or_proprietary_terms": true,
+    "interpretation": "Flags require documentation/review and are not automatic proof of non-compliance. Commercial-release legal clearance remains a later release responsibility."
+  }
+}

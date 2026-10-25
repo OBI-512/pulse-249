@@ -1,0 +1,64 @@
+{
+  "phase": "FR6-B4",
+  "purpose": "evidence_driven_legacy_table_style_retirement",
+  "baseline": "FR6-B3_DONE",
+  "retired_legacy_class_families": [
+    "table-sort",
+    "sort-indicator",
+    "sort-triangle",
+    "pagination-viewport",
+    "pagination-center-track",
+    "pagination-bar",
+    "pagination-size",
+    "pagination-icon",
+    "pagination-current",
+    "server-pagination",
+    "table-export-control",
+    "table-export-trigger",
+    "table-export-chevron",
+    "table-export-menu"
+  ],
+  "changed_global_css_files": [
+    "src/styles/10-discovery-dialog-topology.css",
+    "src/styles/30-theme-system.css",
+    "src/styles/50-scale-management-workspaces.css",
+    "src/styles/60-theme-refinements.css",
+    "src/styles/98-operations-ui-refinement.css"
+  ],
+  "style_debt_before": {
+    "important_count": 636,
+    "hard_coded_color_count": 1444,
+    "cross_file_duplicate_selectors": 376
+  },
+  "style_debt_after": {
+    "important_count": 515,
+    "hard_coded_color_count": 1426,
+    "cross_file_duplicate_selectors": 373
+  },
+  "reduction": {
+    "important": 121,
+    "hard_coded_colors": 18,
+    "cross_file_duplicate_selectors": 3
+  },
+  "preserved_active_compatibility": [
+    "table-wrap",
+    "pagination-table-row",
+    "table-toolbar-actions",
+    "management-table",
+    "customer-list-table",
+    "alarm-table",
+    "alarm-table-wrap",
+    "table-secondary",
+    "management-table-wrap",
+    "table-link",
+    "select-col",
+    "selection-column"
+  ],
+  "canonical_style_owners": [
+    "src/design-system/data/DataTable/DataTable.module.css",
+    "src/design-system/data/SortHeader/SortHeader.module.css",
+    "src/design-system/data/Pagination/Pagination.module.css",
+    "src/design-system/data/TableExport/TableExport.module.css"
+  ],
+  "intended_visual_change": "NONE"
+}

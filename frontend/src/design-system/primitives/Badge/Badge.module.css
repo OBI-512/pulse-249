@@ -1,0 +1,7 @@
+.root { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 999px; font-size: 10.5px; font-weight: 800; letter-spacing: .03em; }
+.neutral { background: var(--nms-surface-3); color: var(--nms-text-2); }
+.accent { background: var(--nms-accent-soft); color: var(--nms-accent-strong); }
+.success { background: var(--nms-success-soft); color: var(--nms-success); }
+.warning { background: var(--nms-warning-soft); color: var(--nms-warning); }
+.danger { background: var(--nms-danger-soft); color: var(--nms-danger); }
+.violet { background: var(--nms-violet-soft); color: var(--nms-violet); }

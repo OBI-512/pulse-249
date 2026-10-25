@@ -1,0 +1,7 @@
+.target { position: relative; }
+.menu { position: fixed; z-index: 9999; min-width: 190px; padding: 5px; border: 1px solid var(--nms-border); border-radius: 10px; background: var(--nms-surface); color: var(--nms-text); box-shadow: var(--nms-shadow-lg); }
+.menu button { display: block; width: 100%; border: 0; background: transparent; color: var(--nms-text); text-align: left; border-radius: 7px; padding: 9px 10px; font-size: 12px; }
+.menu button:hover:not(:disabled) { background: var(--nms-surface-hover); filter: none; transform: none; box-shadow: none; }
+.menu button:disabled { color: var(--nms-muted); background: transparent; opacity: .6; }
+.menu .danger { color: var(--nms-danger); }
+.menu .danger:hover:not(:disabled) { background: color-mix(in srgb, var(--nms-danger) 8%, var(--nms-surface)); }

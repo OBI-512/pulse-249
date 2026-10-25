@@ -1,0 +1,4 @@
+.page, .section { min-width: 0; }
+.copy { min-width: 0; }
+.description { color: var(--nms-text-2); font-size: 13px; line-height: 1.5; margin-top: 4px; }
+.actions { min-width: 0; }

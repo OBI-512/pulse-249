@@ -1,0 +1,230 @@
+.root {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 14px;
+  padding: 4px 6px;
+  overflow: hidden;
+  border: 1px solid var(--nms-border);
+  border-radius: 14px;
+  background: var(--nms-surface);
+  box-shadow:
+    0 5px 16px color-mix(in srgb, var(--nms-text-strong) 4.5%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--nms-border) 32%, transparent);
+}
+
+.item {
+  --tab-accent: var(--nms-accent);
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.tab {
+  position: relative;
+  isolation: isolate;
+  min-width: 145px;
+  min-height: 42px;
+  padding: 9px 22px 9px 24px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: color-mix(in srgb, var(--tab-accent) 48%, var(--nms-text-2));
+  box-shadow: none;
+  font-weight: 760;
+  cursor: pointer;
+  transition: background .16s ease, color .16s ease, box-shadow .16s ease;
+}
+
+.item:nth-child(6n + 1) { --tab-accent: var(--nms-accent); }
+.item:nth-child(6n + 2) { --tab-accent: color-mix(in srgb, var(--nms-success) 62%, var(--nms-accent)); }
+.item:nth-child(6n + 3) { --tab-accent: color-mix(in srgb, var(--nms-violet) 62%, var(--nms-accent)); }
+.item:nth-child(6n + 4) { --tab-accent: var(--nms-violet); }
+.item:nth-child(6n + 5) { --tab-accent: var(--nms-warning); }
+.item:nth-child(6n + 6) { --tab-accent: var(--nms-success); }
+
+.closableTab { padding-right: 44px; }
+.close {
+  position: absolute;
+  z-index: 8;
+  top: 50%;
+  right: 9px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: color-mix(in srgb, var(--tab-accent) 48%, var(--nms-text-2));
+  box-shadow: none;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .16s ease, text-shadow .16s ease;
+}
+.close:hover:not(:disabled) {
+  background: transparent;
+  color: color-mix(in srgb, var(--tab-accent) 78%, var(--nms-text-strong));
+  box-shadow: none;
+  filter: none;
+  transform: translateY(-50%);
+  text-shadow: 0 0 9px color-mix(in srgb, var(--tab-accent) 60%, transparent);
+}
+.close:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--tab-accent) 55%, transparent);
+  outline-offset: 1px;
+  transform: translateY(-50%);
+}
+
+.tab::before {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  border-left: 3px solid var(--tab-accent);
+  border-radius: 10px 0 0 10px;
+  background: transparent;
+  opacity: .82;
+  pointer-events: none;
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--tab-accent) 0%,
+    var(--tab-accent) 12%,
+    color-mix(in srgb, var(--tab-accent) 72%, transparent) 45%,
+    color-mix(in srgb, var(--tab-accent) 28%, transparent) 72%,
+    transparent 94%
+  );
+  opacity: .82;
+  pointer-events: none;
+}
+
+.tab:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--tab-accent) 8%, var(--nms-surface));
+  color: color-mix(in srgb, var(--tab-accent) 62%, var(--nms-text-strong));
+  filter: none;
+  transform: none;
+}
+
+.active {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--tab-accent) 24%, var(--nms-surface)) 0%,
+    color-mix(in srgb, var(--tab-accent) 24%, var(--nms-surface)) 12%,
+    color-mix(in srgb, var(--tab-accent) 17%, var(--nms-surface)) 45%,
+    color-mix(in srgb, var(--tab-accent) 7%, var(--nms-surface)) 72%,
+    var(--nms-surface) 94%
+  );
+  color: color-mix(in srgb, var(--tab-accent) 57%, var(--nms-text-strong));
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--tab-accent) 30%, transparent),
+    0 5px 13px color-mix(in srgb, var(--tab-accent) 12%, transparent);
+  font-weight: 850;
+}
+
+.active::before,
+.active::after {
+  opacity: 1;
+}
+
+.tab:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--tab-accent) 55%, transparent);
+  outline-offset: -2px;
+}
+
+.tab:disabled {
+  cursor: not-allowed;
+  opacity: .48;
+}
+
+@media (max-width: 760px) {
+  .root {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .item { flex: 0 0 auto; }
+
+  .tab {
+    flex: 0 0 auto;
+    min-width: 135px;
+    white-space: nowrap;
+  }
+}
+
+/* ============================================================
+   FR6-A2 THEME VARIANT
+   Light      -> approved structured/legacy visual treatment
+   Operations -> canonical minimal treatment above
+   Night      -> canonical minimal treatment above
+   Structure/behavior remain identical for every theme.
+   ============================================================ */
+
+:global(html[data-theme="light"]) .tab::before {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  height: auto;
+  border: 0;
+  border-radius: 9px 0 0 9px;
+  background: var(--tab-accent);
+  opacity: 1;
+}
+
+:global(html[data-theme="light"]) .tab::after {
+  left: 8px;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--tab-accent) 0%,
+    var(--tab-accent) 16%,
+    color-mix(in srgb, var(--tab-accent) 78%, transparent) 46%,
+    color-mix(in srgb, var(--tab-accent) 34%, transparent) 72%,
+    transparent 95%
+  );
+  opacity: 1;
+}
+
+:global(html[data-theme="light"]) .active {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--tab-accent) 24%, var(--nms-surface)) 0%,
+    color-mix(in srgb, var(--tab-accent) 22%, var(--nms-surface)) 16%,
+    color-mix(in srgb, var(--tab-accent) 14%, var(--nms-surface)) 48%,
+    color-mix(in srgb, var(--tab-accent) 7%, var(--nms-surface)) 74%,
+    var(--nms-surface) 96%
+  );
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--tab-accent) 30%, transparent),
+    0 5px 13px color-mix(in srgb, var(--tab-accent) 12%, transparent);
+}
+
+:global(html[data-theme="light"]) .tab:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--tab-accent) 34%, transparent),
+    0 10px 22px -16px color-mix(in srgb, var(--tab-accent) 55%, transparent),
+    0 0 18px -10px color-mix(in srgb, var(--tab-accent) 65%, transparent);
+}

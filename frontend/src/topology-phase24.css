@@ -1,0 +1,31 @@
+.topology-lazy-toolbar { margin-bottom: 12px; }
+.topology-filter-panel { display: grid; gap: 12px; margin-bottom: 12px; }
+.topology-filter-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.topology-filter-heading h3 { margin: 0; color: var(--nms-content-title, var(--nms-text-strong, #11243d)); }
+.topology-filter-heading span { display: block; margin-top: 3px; color: var(--nms-muted, #71839a); font-size: 12px; }
+.topology-keyword-row label, .topology-filter-field { display: grid; gap: 6px; font-size: 12px; font-weight: 700; color: var(--nms-content-title-2, var(--nms-text-2, #19324f)); }
+.topology-keyword-row input { width: min(620px, 100%); }
+.topology-filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; align-items: start; }
+.topology-filter-summary { padding-top: 2px; color: var(--nms-muted, #71839a); font-size: 12px; }
+
+
+.topology-lazy-tree { margin-top: 0; }
+.topology-source-root { width: 100%; border: 0; text-align: left; cursor: pointer; }
+.topology-source-root strong { display: flex; align-items: center; gap: 7px; }
+.topology-lazy-root-children, .topology-lazy-children { display: grid; gap: 7px; }
+.topology-lazy-root-children { margin-top: 9px; }
+.topology-lazy-children { margin-top: 7px; }
+.topology-lazy-empty { padding: 10px 12px; border: 1px dashed var(--nms-border, #d5dfe8); border-radius: 8px; color: var(--nms-muted, #71839a); background: var(--nms-surface-2, #f7fafc); font-size: 12px; }
+.topology-lazy-error { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 10px; border: 1px solid rgba(194, 61, 61, .28); border-radius: 8px; color: var(--nms-danger, #a82626); background: rgba(194, 61, 61, .06); font-size: 12px; }
+.topology-lazy-device-node { display: grid; gap: 6px; }
+.topology-lazy-device { width: 100%; text-align: left; border: 1px solid var(--nms-border, #d5dfe8); background: var(--nms-surface, #fff); cursor: default; }
+.topology-lazy-device.expandable { cursor: pointer; }
+.topology-lazy-device.context-only { border-style: dashed; background: var(--nms-surface-2, #f7fafc); }
+.topology-lazy-device > div { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+.topology-lazy-device strong { display: inline-flex; align-items: center; gap: 5px; }
+.topology-context-badge { display: inline-flex; align-items: center; min-height: 18px; padding: 1px 6px; border-radius: 999px; background: var(--nms-surface-hover, #eef4fa); color: var(--nms-muted, #71839a); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; }
+
+@media (max-width: 850px) {
+  .topology-filter-heading { align-items: stretch; flex-direction: column; }
+  .topology-keyword-row input { width: 100%; }
+}

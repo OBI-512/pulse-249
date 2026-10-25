@@ -1,0 +1,601 @@
+/* ===== FTTW MANDATORY PASSWORD CHANGE GATE START ===== */
+.password-change-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 28px;
+  overflow: auto;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(25, 115, 190, 0.16), transparent 32%),
+    radial-gradient(circle at 82% 78%, rgba(22, 91, 162, 0.12), transparent 34%),
+    linear-gradient(145deg, #020713 0%, #061326 52%, #020711 100%);
+}
+
+.password-change-atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(rgba(83, 160, 216, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(83, 160, 216, 0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(circle at center, #000 20%, transparent 82%);
+}
+
+.password-change-card {
+  position: relative;
+  width: min(100%, 610px);
+  border: 1px solid rgba(115, 178, 223, 0.22);
+  border-radius: 22px;
+  padding: 30px 34px 28px;
+  color: #eaf4fb;
+  background: linear-gradient(145deg, rgba(8, 23, 43, 0.97), rgba(4, 15, 31, 0.97));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+}
+
+.password-change-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(125, 184, 224, 0.13);
+}
+
+.password-change-logo { width: 54px; height: 54px; object-fit: contain; }
+.password-change-brand-copy { margin-top: 3px; font-weight: 700; color: #dceefa; letter-spacing: 0.015em; }
+
+.password-change-heading {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 16px;
+  align-items: start;
+  margin: 25px 0 18px;
+}
+
+.password-change-lock {
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 15px;
+  color: #7dd3fc;
+  background: rgba(23, 112, 169, 0.12);
+  border: 1px solid rgba(125, 211, 252, 0.2);
+}
+.password-change-lock svg { width: 25px; height: 25px; }
+.password-change-reason { margin-bottom: 5px; color: #68c5f0; font-size: 0.73rem; font-weight: 800; letter-spacing: 0.14em; }
+.password-change-heading h1 { margin: 0; color: #f2f8fc; font-size: clamp(1.55rem, 3vw, 2rem); line-height: 1.14; }
+.password-change-heading p { margin: 8px 0 0; color: #9eb6c8; line-height: 1.55; }
+
+.password-change-account {
+  margin: 0 0 18px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #a9c1d2;
+  background: rgba(80, 145, 185, 0.06);
+  border: 1px solid rgba(111, 175, 214, 0.1);
+}
+.password-change-account strong { color: #e6f2f9; }
+
+.password-change-form { display: grid; gap: 15px; }
+.password-change-form label { display: grid; gap: 7px; color: #c7d9e5; font-size: 0.88rem; font-weight: 650; }
+.password-change-form input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(113, 169, 208, 0.24);
+  outline: none;
+  color: #edf8fe;
+  background: rgba(2, 10, 22, 0.72);
+}
+.password-change-form input:focus {
+  border-color: rgba(68, 181, 236, 0.72);
+  box-shadow: 0 0 0 3px rgba(34, 153, 211, 0.11);
+}
+
+.password-change-policy {
+  padding: 14px 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(102, 170, 211, 0.13);
+  background: rgba(52, 112, 151, 0.055);
+}
+.password-change-policy > strong { display: block; margin-bottom: 10px; color: #dcecf6; font-size: 0.85rem; }
+.password-change-policy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px 14px; }
+.password-change-policy-grid span { display: flex; align-items: center; gap: 7px; color: #7892a5; font-size: 0.8rem; }
+.password-change-policy-grid span > span { width: 14px; color: #69869b; font-weight: 900; }
+.password-change-policy-grid span.met { color: #a9d8bc; }
+.password-change-policy-grid span.met > span { color: #4cc37d; }
+.password-change-policy small { display: block; margin-top: 10px; color: #738da0; line-height: 1.45; }
+
+.password-change-error {
+  padding: 9px 11px;
+  border-radius: 9px;
+  text-align: center;
+  color: #ffb5b5;
+  background: rgba(185, 45, 45, 0.09);
+  border: 1px solid rgba(239, 96, 96, 0.15);
+}
+
+.password-change-submit {
+  min-height: 45px;
+  border: 1px solid rgba(91, 201, 245, 0.3);
+  border-radius: 11px;
+  color: #ecf9ff;
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  background: linear-gradient(135deg, #0b79b7, #0d5e99);
+  cursor: pointer;
+}
+.password-change-submit:hover:not(:disabled) { filter: brightness(1.08); }
+.password-change-submit:disabled { opacity: 0.48; cursor: not-allowed; }
+
+.password-change-logout {
+  display: block;
+  margin: 15px auto 0;
+  border: 0;
+  padding: 6px 12px;
+  color: #8da8bb;
+  background: transparent;
+  cursor: pointer;
+}
+.password-change-logout:hover:not(:disabled) { color: #d8eaf5; }
+
+@media (max-width: 620px) {
+  .password-change-gate { padding: 14px; align-items: start; }
+  .password-change-card { margin-top: 10px; padding: 23px 19px 21px; border-radius: 17px; }
+  .password-change-heading { grid-template-columns: 44px 1fr; gap: 12px; }
+  .password-change-lock { width: 42px; height: 42px; border-radius: 12px; }
+  .password-change-policy-grid { grid-template-columns: 1fr; }
+}
+/* ===== FTTW MANDATORY PASSWORD CHANGE GATE END ===== */
+
+/* ===== FTTW SECURITY POLICY SETTINGS START ===== */
+.security-policy-grid { align-items: start; }
+.security-policy-grid label { display: grid; gap: 7px; }
+.security-policy-grid .muted { font-size: 0.78rem; line-height: 1.35; }
+.security-policy-toggle {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--border, rgba(120,140,160,.2));
+  border-radius: 10px;
+}
+.security-policy-toggle input { margin-top: 3px; }
+.security-policy-toggle span { display: grid; gap: 3px; }
+.security-policy-toggle small { color: var(--muted, #718096); }
+/* ===== FTTW SECURITY POLICY SETTINGS END ===== */
+
+
+/* ===== FTTW USER PERMISSIONS WORKSPACE START ===== */
+.permission-workspace { display: grid; gap: 18px; }
+.permission-workspace-header,
+.permission-workspace-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+.permission-workspace-header h3 { margin: 8px 0 6px; }
+.permission-back-link {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--muted, #718096);
+  cursor: pointer;
+  font: inherit;
+}
+.permission-back-link:hover { text-decoration: underline; }
+.permission-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.permission-summary-card {
+  display: grid;
+  gap: 4px;
+  min-height: 88px;
+  padding: 14px 16px;
+  border: 1px solid var(--border, rgba(120,140,160,.2));
+  border-radius: 12px;
+  background: var(--surface-2, rgba(120,140,160,.05));
+}
+.permission-summary-card > span,
+.permission-summary-card small { color: var(--muted, #718096); }
+.permission-summary-card strong { font-size: 1rem; overflow-wrap: anywhere; }
+.permission-access-note {
+  display: grid;
+  grid-template-columns: minmax(120px, auto) 1fr;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border, rgba(120,140,160,.2));
+  border-radius: 10px;
+}
+.permission-access-note span { color: var(--muted, #718096); line-height: 1.45; }
+.permission-toolbar {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(170px, 240px) minmax(170px, 240px) auto;
+  gap: 10px;
+  align-items: center;
+}
+.permission-result-count { color: var(--muted, #718096); white-space: nowrap; }
+.permission-legend { display: flex; flex-wrap: wrap; gap: 14px; color: var(--muted, #718096); font-size: .82rem; }
+.permission-legend > span { display: inline-flex; gap: 6px; align-items: center; }
+.permission-groups { display: grid; gap: 16px; }
+.permission-group {
+  border: 1px solid var(--border, rgba(120,140,160,.2));
+  border-radius: 12px;
+  overflow: hidden;
+}
+.permission-group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface-2, rgba(120,140,160,.05));
+  text-transform: capitalize;
+}
+.permission-group-title span { color: var(--muted, #718096); font-size: .8rem; }
+.permission-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+.permission-card {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 13px 14px;
+  border-top: 1px solid var(--border, rgba(120,140,160,.14));
+  cursor: pointer;
+}
+.permission-card:nth-child(odd) { border-right: 1px solid var(--border, rgba(120,140,160,.14)); }
+.permission-card:hover { background: var(--surface-2, rgba(120,140,160,.04)); }
+.permission-card.selected { background: var(--surface-2, rgba(120,140,160,.07)); }
+.permission-card.locked { cursor: default; }
+.permission-card input { margin-top: 3px; }
+.permission-card-body { display: grid; gap: 5px; min-width: 0; }
+.permission-card-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.permission-card-heading code { color: var(--muted, #718096); font-size: .72rem; overflow-wrap: anywhere; text-align: right; }
+.permission-card-body small { color: var(--muted, #718096); line-height: 1.4; }
+.permission-card-chips { display: flex; flex-wrap: wrap; gap: 5px; min-height: 18px; }
+.permission-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 18px;
+  padding: 1px 6px;
+  border: 1px solid var(--border, rgba(120,140,160,.2));
+  border-radius: 999px;
+  font-size: .65rem;
+  letter-spacing: .05em;
+}
+.permission-chip.role { opacity: .78; }
+.permission-chip.direct { font-weight: 800; }
+.permission-chip.required { border-style: dashed; }
+.permission-dependency { color: var(--muted, #718096); font-size: .72rem; line-height: 1.35; }
+.permission-empty { padding: 22px; text-align: center; color: var(--muted, #718096); }
+.permission-workspace-footer { align-items: center; padding-top: 4px; }
+
+
+.permission-tab-shell {
+  display: inline-flex;
+  align-items: stretch;
+  position: relative;
+}
+.permission-tab-shell > button:first-child { padding-right: 34px; }
+.permission-tab-close {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted, #718096);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.permission-tab-close:hover {
+  background: var(--surface-2, rgba(120,140,160,.1));
+  color: var(--text, inherit);
+}
+.permission-filter-dropdown { position: relative; min-width: 0; }
+.permission-filter-trigger {
+  width: 100%;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  text-align: left;
+}
+.permission-filter-menu {
+  position: absolute;
+  z-index: 80;
+  top: calc(100% + 6px);
+  left: 0;
+  width: min(360px, 92vw);
+  padding: 9px;
+  border: 1px solid var(--border, rgba(120,140,160,.2));
+  border-radius: 10px;
+  background: var(--surface, #fff);
+  box-shadow: 0 16px 34px rgba(0,0,0,.18);
+}
+.permission-filter-menu > input { width: 100%; }
+.permission-filter-options {
+  max-height: 250px;
+  margin-top: 8px;
+  overflow: auto;
+  display: grid;
+  gap: 3px;
+}
+.permission-filter-options > button {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+  padding: 8px 9px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.permission-filter-options > button:hover,
+.permission-filter-options > button.selected {
+  background: var(--surface-2, rgba(120,140,160,.08));
+}
+.permission-filter-options small,
+.permission-filter-more,
+.permission-filter-empty { color: var(--muted, #718096); font-size: .76rem; }
+.permission-filter-more,
+.permission-filter-empty { padding: 8px 9px; text-align: center; }
+
+@media (max-width: 1050px) {
+  .permission-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .permission-card-grid { grid-template-columns: 1fr; }
+  .permission-card:nth-child(odd) { border-right: 0; }
+}
+@media (max-width: 720px) {
+  .permission-workspace-header,
+  .permission-workspace-footer { flex-direction: column; align-items: stretch; }
+  .permission-summary-grid { grid-template-columns: 1fr; }
+  .permission-toolbar { grid-template-columns: 1fr; }
+  .permission-access-note { grid-template-columns: 1fr; }
+  .permission-card-heading { display: grid; }
+  .permission-card-heading code { text-align: left; }
+}
+/* ===== FTTW USER PERMISSIONS WORKSPACE END ===== */
+
+
+/* ===== FTTW UNIFIED PERMISSIONS TAB START ===== */
+
+/*
+ * One visual tab:
+ *   [ Permissions · username          × ]
+ *
+ * The title and close control remain separate semantic buttons,
+ * but the shell owns the background/border/radius.
+ */
+.permission-tab-shell {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: stretch !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: 1px solid rgba(120, 145, 170, 0.22) !important;
+  border-radius: 14px !important;
+
+  background: rgba(255, 255, 255, 0.04) !important;
+
+  overflow: hidden !important;
+
+  box-shadow: none !important;
+  transform: none !important;
+  translate: none !important;
+}
+
+/* Active Permissions tab owns the dark active appearance. */
+.permission-tab-shell.active {
+  background: #102b4f !important;
+  border-color: rgba(84, 145, 205, 0.40) !important;
+
+  box-shadow:
+    0 8px 18px rgba(12, 34, 60, 0.18) !important;
+}
+
+/*
+ * Remove the normal button styling from the title.
+ * Extra right padding reserves room for the X.
+ */
+.permission-tab-shell > button:first-child,
+.permission-tab-shell > button:first-child:hover,
+.permission-tab-shell > button:first-child:focus,
+.permission-tab-shell > button:first-child:focus-visible,
+.permission-tab-shell > button:first-child:active {
+  position: relative !important;
+
+  min-height: 48px !important;
+  padding: 0 48px 0 18px !important;
+  margin: 0 !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #425a73 !important;
+
+  font-weight: 750 !important;
+  white-space: nowrap !important;
+
+  transform: none !important;
+  translate: none !important;
+}
+
+.permission-tab-shell.active > button:first-child {
+  color: #ffffff !important;
+}
+
+/*
+ * X lives inside the tab's reserved right-hand area.
+ * No independent square/button background in the normal state.
+ */
+.permission-tab-close,
+.permission-tab-close:hover,
+.permission-tab-close:focus,
+.permission-tab-close:focus-visible,
+.permission-tab-close:active {
+  position: absolute !important;
+
+  right: 10px !important;
+  top: 50% !important;
+  left: auto !important;
+  bottom: auto !important;
+
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: grid !important;
+  place-items: center !important;
+
+  z-index: 5 !important;
+
+  border: 0 !important;
+  border-radius: 7px !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #71879c !important;
+
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+
+  transform: translateY(-50%) !important;
+  translate: none !important;
+
+  cursor: pointer !important;
+
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease !important;
+}
+
+.permission-tab-shell.active .permission-tab-close {
+  color: #cbdced !important;
+}
+
+/* Hover = highlight only. Position never changes. */
+.permission-tab-close:hover,
+.permission-tab-close:focus-visible {
+  transform: translateY(-50%) !important;
+
+  background: rgba(72, 139, 198, 0.12) !important;
+  color: #245b88 !important;
+
+  box-shadow:
+    0 0 0 3px rgba(72, 139, 198, 0.08) !important;
+}
+
+.permission-tab-shell.active .permission-tab-close:hover,
+.permission-tab-shell.active .permission-tab-close:focus-visible {
+  background: rgba(255, 255, 255, 0.13) !important;
+  color: #ffffff !important;
+
+  box-shadow:
+    0 0 0 3px rgba(135, 197, 244, 0.09) !important;
+}
+
+/* ===== FTTW UNIFIED PERMISSIONS TAB END ===== */
+
+
+/* ===== FTTW BACK TO USERS DARK BUTTON START ===== */
+
+.permission-back-link,
+.permission-back-link:hover,
+.permission-back-link:focus,
+.permission-back-link:focus-visible,
+.permission-back-link:active {
+  display: inline-flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+
+  min-height: 40px !important;
+  padding: 9px 16px !important;
+
+  border-radius: 10px !important;
+  border: 1px solid #23527e !important;
+
+  background: #326b9b !important;
+  color: #ffffff !important;
+
+  font-weight: 750 !important;
+  text-decoration: none !important;
+
+  cursor: pointer !important;
+
+  transform: none !important;
+  translate: none !important;
+
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease !important;
+}
+
+.permission-back-link:hover,
+.permission-back-link:focus-visible {
+  background: #24557f !important;
+  border-color: #193f62 !important;
+
+  box-shadow:
+    0 5px 14px rgba(24, 61, 94, 0.22) !important;
+}
+
+.permission-back-link:active {
+  background: #1f4b72 !important;
+}
+
+/* ===== FTTW BACK TO USERS DARK BUTTON END ===== */
+
+/* Scoped Access Control — direct WHERE assignments */
+.resource-scope-panel { display:grid; gap:14px; padding:16px; border:1px solid var(--border); border-radius:12px; background:var(--panel-alt, rgba(127,127,127,.035)); }
+.resource-scope-header, .resource-scope-footer { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.resource-scope-header > div:first-child { display:grid; gap:3px; }
+.resource-scope-header small { color:var(--muted); }
+.resource-scope-stats { display:flex; gap:10px; flex-wrap:wrap; }
+.resource-scope-stats span { padding:6px 9px; border:1px solid var(--border); border-radius:999px; font-size:.82rem; }
+.resource-scope-add { display:grid; grid-template-columns:140px minmax(280px,1fr) auto; gap:8px; align-items:end; }
+.resource-scope-list { display:grid; gap:7px; }
+.resource-scope-row { display:grid; grid-template-columns:90px minmax(160px,1fr) minmax(100px,.7fr) auto; gap:10px; align-items:center; padding:9px 10px; border:1px solid var(--border); border-radius:9px; }
+.resource-scope-row small { color:var(--muted); }
+@media (max-width: 900px) {
+  .resource-scope-header, .resource-scope-footer { align-items:stretch; flex-direction:column; }
+  .resource-scope-add { grid-template-columns:1fr; }
+  .resource-scope-row { grid-template-columns:1fr auto; }
+  .resource-scope-row span, .resource-scope-row small { grid-column:1 / -1; }
+}
+
+.resource-scope-global-choice { min-height:40px; display:grid; align-content:center; gap:1px; padding:7px 11px; border:1px solid var(--border); border-radius:9px; background:var(--surface, #fff); }
+.resource-scope-global-choice small { color:var(--muted); }

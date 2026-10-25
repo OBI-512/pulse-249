@@ -1,0 +1,6457 @@
+[
+  {
+    "dependencies": [
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "login",
+    "path": "/api/auth/login",
+    "response_model": "LoginResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "change_own_password",
+    "path": "/api/auth/password/change",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "get_authenticated_user",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "change_required_password",
+    "path": "/api/auth/password/change-required",
+    "response_model": "LoginResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "logout",
+    "path": "/api/auth/logout",
+    "response_model": "LogoutResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_authenticated_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "session_status",
+    "path": "/api/auth/session/status",
+    "response_model": "SessionStatusResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_authenticated_user",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "session_activity",
+    "path": "/api/auth/session/activity",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "get_authenticated_user",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "session_client_metadata",
+    "path": "/api/auth/session/client-metadata",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "get_authenticated_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "password_policy",
+    "path": "/api/auth/password-policy",
+    "response_model": "PasswordPolicyResponse",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_own_sessions",
+    "path": "/api/auth/sessions",
+    "response_model": "list[AuthSessionRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "revoke_own_session",
+    "path": "/api/auth/sessions/{session_id}",
+    "response_model": "RevokeSessionsResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "session_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "revoke_other_sessions",
+    "path": "/api/auth/sessions/revoke-others",
+    "response_model": "RevokeSessionsResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_authenticated_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "me",
+    "path": "/api/auth/me",
+    "response_model": "CurrentUserResponse",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "eligible_locations",
+    "path": "/api/assignment-options/locations",
+    "response_model": "PageResult[AssignmentOptionRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "eligible_logical_sectors",
+    "path": "/api/assignment-options/logical-sectors",
+    "response_model": "PageResult[AssignmentOptionRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "current_sector_device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "eligible_parent_devices",
+    "path": "/api/assignment-options/parent-devices",
+    "response_model": "PageResult[AssignmentOptionRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "child_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "current_child_device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "physical_sector_options",
+    "path": "/api/assignment-options/physical-sectors",
+    "response_model": "PageResult[AssignmentOptionRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "sector_display_options",
+    "path": "/api/assignment-options/sectors",
+    "response_model": "PageResult[AssignmentOptionRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "bound_only"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "customer_service_sectors",
+    "path": "/api/assignment-options/customer-service-sectors",
+    "response_model": "PageResult[AssignmentOptionRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_security_options",
+    "path": "/api/admin/security-options",
+    "response_model": "SecurityOptionsRead",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_users_page",
+    "path": "/api/admin/users/page",
+    "response_model": "PageResult[UserRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "role"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_dir"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_users",
+    "path": "/api/admin/users",
+    "response_model": "list[UserRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_user",
+    "path": "/api/admin/users",
+    "response_model": "UserRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_user",
+    "path": "/api/admin/users/{user_id}",
+    "response_model": "UserRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "reset_user_password",
+    "path": "/api/admin/users/{user_id}/password-reset",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_user",
+    "path": "/api/admin/users/{user_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_account_sessions",
+    "path": "/api/admin/users/{user_id}/sessions",
+    "response_model": "list[AdminSessionRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "revoke_account_session",
+    "path": "/api/admin/users/{user_id}/sessions/{session_id}",
+    "response_model": "SessionRevokeResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "session_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "revoke_all_account_sessions",
+    "path": "/api/admin/users/{user_id}/sessions/revoke-all",
+    "response_model": "SessionRevokeResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_online_sessions",
+    "path": "/api/admin/sessions/online",
+    "response_model": "PageResult[OnlineSessionRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "browser"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "operating_system"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_dir"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_settings",
+    "path": "/api/admin/settings",
+    "response_model": "list[SettingRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "get_current_user",
+      "get_db"
+    ],
+    "methods": [
+      "PUT"
+    ],
+    "name": "put_setting",
+    "path": "/api/admin/settings/{key}",
+    "response_model": "SettingRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "key"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_audit_logs",
+    "path": "/api/audit",
+    "response_model": "AuditLogPage",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "occurred_after"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "occurred_before"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor_user_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "action"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_key"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "result"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "audit_filter_options",
+    "path": "/api/audit/filter-options/{kind}",
+    "response_model": "PageResult[LogFilterOption]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "kind"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "export_audit_logs",
+    "path": "/api/audit/export",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "occurred_after"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "occurred_before"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor_user_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "action"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_key"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "result"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "retrieve_audit_log",
+    "path": "/api/audit/{audit_id}",
+    "response_model": "AuditLogRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "audit_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_networks",
+    "path": "/api/networks",
+    "response_model": "list[NetworkRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "offset"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_networks_page",
+    "path": "/api/networks/page",
+    "response_model": "PageResult[NetworkListRow]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status_filter"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_network",
+    "path": "/api/networks",
+    "response_model": "NetworkRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_network",
+    "path": "/api/networks/{network_id}",
+    "response_model": "NetworkRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_network",
+    "path": "/api/networks/{network_id}",
+    "response_model": "NetworkRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_network",
+    "path": "/api/networks/{network_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_geography_scope_options",
+    "path": "/api/geography/scope-options",
+    "response_model": "GeographyScopeOptionsRead",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_cities_page",
+    "path": "/api/cities/page",
+    "response_model": "PageResult[CityListRow]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status_filter"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_locations_page",
+    "path": "/api/locations/page",
+    "response_model": "PageResult[LocationListRow]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status_filter"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_sectors_page",
+    "path": "/api/sectors/page",
+    "response_model": "PageResult[SectorListRow]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "role"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status_filter"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "bound"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_cities",
+    "path": "/api/networks/{network_id}/cities",
+    "response_model": "list[CityRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_city",
+    "path": "/api/networks/{network_id}/cities",
+    "response_model": "CityRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_city",
+    "path": "/api/cities/{city_id}",
+    "response_model": "CityRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_city",
+    "path": "/api/cities/{city_id}",
+    "response_model": "CityRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_city",
+    "path": "/api/cities/{city_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_locations",
+    "path": "/api/cities/{city_id}/locations",
+    "response_model": "list[LocationRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_location",
+    "path": "/api/cities/{city_id}/locations",
+    "response_model": "LocationRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_location",
+    "path": "/api/locations/{location_id}",
+    "response_model": "LocationRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_location",
+    "path": "/api/locations/{location_id}",
+    "response_model": "LocationRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_location",
+    "path": "/api/locations/{location_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_sectors",
+    "path": "/api/locations/{location_id}/sectors",
+    "response_model": "list[SectorRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_sector",
+    "path": "/api/locations/{location_id}/sectors",
+    "response_model": "SectorRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_sector",
+    "path": "/api/sectors/{sector_id}",
+    "response_model": "SectorRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_sector",
+    "path": "/api/sectors/{sector_id}",
+    "response_model": "SectorRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_sector",
+    "path": "/api/sectors/{sector_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "change_sector_role",
+    "path": "/api/sectors/{sector_id}/role-transition",
+    "response_model": "SectorRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_device_types",
+    "path": "/api/devices/types",
+    "response_model": "list[DeviceTypeRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "device_operational_summary",
+    "path": "/api/devices/operational-summary",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_device_inventory_page",
+    "path": "/api/devices/inventory/page",
+    "response_model": "PageResult[DeviceInventoryRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_type_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "operational_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "lifecycle_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "vendor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "management_protocol"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_device_inventory",
+    "path": "/api/devices/inventory",
+    "response_model": "list[DeviceInventoryRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_type_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "operational_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "lifecycle_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "vendor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "management_protocol"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "offset"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_device_management_page",
+    "path": "/api/devices/management/page",
+    "response_model": "PageResult[DeviceManagementRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "physical_sector_device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_type_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_role"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "available_for_ap_parent"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "ap_child_device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "exclude_decommissioned"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "lifecycle_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "operational_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_device_management",
+    "path": "/api/devices/management",
+    "response_model": "list[DeviceManagementRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "physical_sector_device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_type_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "lifecycle_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "operational_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "offset"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_devices",
+    "path": "/api/devices",
+    "response_model": "list[DeviceRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_type_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "operational_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "lifecycle_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "vendor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "management_protocol"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "offset"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_device",
+    "path": "/api/devices",
+    "response_model": "DeviceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "test_device_accessibility",
+    "path": "/api/devices/{device_id}/test-accessibility",
+    "response_model": "DeviceAccessibilityResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_device",
+    "path": "/api/devices/{device_id}",
+    "response_model": "DeviceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_device",
+    "path": "/api/devices/{device_id}",
+    "response_model": "DeviceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_device_status",
+    "path": "/api/devices/{device_id}/status",
+    "response_model": "DeviceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "decommission_device",
+    "path": "/api/devices/{device_id}/decommission",
+    "response_model": "DeviceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "reactivate_device",
+    "path": "/api/devices/{device_id}/reactivate",
+    "response_model": "DeviceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_device",
+    "path": "/api/devices/{device_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_device_ips",
+    "path": "/api/devices/{device_id}/ips",
+    "response_model": "list[DeviceIPRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "add_device_ip",
+    "path": "/api/devices/{device_id}/ips",
+    "response_model": "DeviceIPRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_device_ip",
+    "path": "/api/devices/{device_id}/ips/{ip_id}",
+    "response_model": "DeviceIPRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "ip_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_device_ip",
+    "path": "/api/devices/{device_id}/ips/{ip_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "ip_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_device_interfaces",
+    "path": "/api/devices/{device_id}/interfaces",
+    "response_model": "list[DeviceInterfaceRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "add_device_interface",
+    "path": "/api/devices/{device_id}/interfaces",
+    "response_model": "DeviceInterfaceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_device_interface",
+    "path": "/api/devices/{device_id}/interfaces/{interface_id}",
+    "response_model": "DeviceInterfaceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "interface_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_device_interface",
+    "path": "/api/devices/{device_id}/interfaces/{interface_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "interface_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_device_summary",
+    "path": "/api/device-summary/{device_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_customers",
+    "path": "/api/customers",
+    "response_model": "list[CustomerRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "offset"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_customer",
+    "path": "/api/customers",
+    "response_model": "CustomerRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_customer_page",
+    "path": "/api/customers/page",
+    "response_model": "PageResult[CustomerListRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "customer_name"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service_code"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status_filter"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "customer_filter_options",
+    "path": "/api/customers/filter-options/{kind}",
+    "response_model": "PageResult[CustomerFilterOption]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "kind"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_service_endpoint_options",
+    "path": "/api/customers/service-options",
+    "response_model": "list[ServiceEndpointOption]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_customer",
+    "path": "/api/customers/{customer_id}",
+    "response_model": "CustomerRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "customer_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_customer",
+    "path": "/api/customers/{customer_id}",
+    "response_model": "CustomerRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "customer_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_customer",
+    "path": "/api/customers/{customer_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "customer_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_services",
+    "path": "/api/customers/{customer_id}/services",
+    "response_model": "list[ServiceRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "customer_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_service",
+    "path": "/api/customers/{customer_id}/services",
+    "response_model": "ServiceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "customer_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_service",
+    "path": "/api/customers/services/{service_id}",
+    "response_model": "ServiceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_service",
+    "path": "/api/customers/services/{service_id}",
+    "response_model": "ServiceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_service",
+    "path": "/api/customers/services/{service_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_service_topology",
+    "path": "/api/customers/services/{service_id}/topology",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_groups",
+    "path": "/api/device-groups",
+    "response_model": "list[DeviceGroupRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_groups_page",
+    "path": "/api/device-groups/page",
+    "response_model": "PageResult[DeviceGroupListRow]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_kind"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "membership_mode"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "scope_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_scope"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_role"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_eligible_child_groups_page",
+    "path": "/api/device-groups/eligible-children/page",
+    "response_model": "PageResult[DeviceGroupRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "parent_group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "scope_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_scope"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_role"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db",
+      "authorize_request"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_group",
+    "path": "/api/device-groups",
+    "response_model": "DeviceGroupRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_group",
+    "path": "/api/device-groups/{group_id}",
+    "response_model": "DeviceGroupRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db",
+      "authorize_request"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_group",
+    "path": "/api/device-groups/{group_id}",
+    "response_model": "DeviceGroupRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_group",
+    "path": "/api/device-groups/{group_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_group_devices_page",
+    "path": "/api/device-groups/{group_id}/devices/page",
+    "response_model": "PageResult[DeviceRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_group_items_page",
+    "path": "/api/device-groups/{group_id}/items/page",
+    "response_model": "GroupItemsPage",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "item_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "lifecycle_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "operational_state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "child_group_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "include_all_children"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_eligible_group_devices_page",
+    "path": "/api/device-groups/{group_id}/eligible-devices/page",
+    "response_model": "PageResult[DeviceRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_group_devices",
+    "path": "/api/device-groups/{group_id}/devices",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "add_device_to_group",
+    "path": "/api/device-groups/{group_id}/devices/{device_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "move_device_to_group",
+    "path": "/api/device-groups/{group_id}/devices/{device_id}/move",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "remove_device_from_group",
+    "path": "/api/device-groups/{group_id}/devices/{device_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_child_groups",
+    "path": "/api/device-groups/{group_id}/children",
+    "response_model": "list[DeviceGroupRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_parent_group",
+    "path": "/api/device-groups/{group_id}/parent",
+    "response_model": "UnionType[DeviceGroupRead,NoneType]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PUT"
+    ],
+    "name": "replace_group_children",
+    "path": "/api/device-groups/{group_id}/children",
+    "response_model": "list[DeviceGroupRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "add_group_child",
+    "path": "/api/device-groups/{group_id}/children/{child_group_id}",
+    "response_model": "DeviceGroupNestingRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "child_group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "remove_group_child",
+    "path": "/api/device-groups/{group_id}/children/{child_group_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "child_group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_effective_group_devices",
+    "path": "/api/device-groups/{group_id}/effective-devices",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_eligible_group_devices",
+    "path": "/api/device-groups/{group_id}/eligible-devices",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_relationships",
+    "path": "/api/device-relationships",
+    "response_model": "list[DeviceRelationshipRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "source_device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "target_device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "relationship_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_relationship",
+    "path": "/api/device-relationships",
+    "response_model": "DeviceRelationshipRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "delete_relationship",
+    "path": "/api/device-relationships/{relationship_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "relationship_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "reason"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmed"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_network_topology",
+    "path": "/api/topology/networks/{network_id}",
+    "response_model": "NetworkTopology",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_location_topology_devices",
+    "path": "/api/topology/locations/{location_id}/devices",
+    "response_model": "list[TopologyDevice]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_sector_topology_tree",
+    "path": "/api/topology/sectors/{sector_id}/tree",
+    "response_model": "TopologySector",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_sector_live_topology",
+    "path": "/api/topology/sectors/{sector_id}",
+    "response_model": "SectorLiveTopology",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_group_topology",
+    "path": "/api/topology/groups/{group_id}",
+    "response_model": "NetworkTopology",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "group_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_topology_filter_options",
+    "path": "/api/topology/hierarchy/options",
+    "response_model": "TopologyFilterOptionPage",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "source_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "source_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "kind"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "cpe_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "access_point_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_topology_hierarchy_children",
+    "path": "/api/topology/hierarchy/children",
+    "response_model": "TopologyHierarchyChildren",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "source_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "source_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "node_kind"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "node_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "keyword"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "network_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "city_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "location_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "cpe_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "access_point_ids"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "probe_device",
+    "path": "/api/onboarding/probe",
+    "response_model": "OnboardingProbeResult",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_candidate",
+    "path": "/api/onboarding/candidates",
+    "response_model": "OnboardingCandidateRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_candidates",
+    "path": "/api/onboarding/candidates",
+    "response_model": "list[OnboardingCandidateRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_candidate",
+    "path": "/api/onboarding/candidates/{candidate_id}",
+    "response_model": "OnboardingCandidateRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "candidate_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "register_candidate",
+    "path": "/api/onboarding/register",
+    "response_model": "OnboardingRegisterResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_device_placement",
+    "path": "/api/devices/{device_id}/placement",
+    "response_model": "DevicePlacementRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_device_placement_endpoint",
+    "path": "/api/devices/{device_id}/placement",
+    "response_model": "DevicePlacementRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "move_sector",
+    "path": "/api/physical-movements/sectors/{sector_id}",
+    "response_model": "SectorRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sector_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "move_cpe",
+    "path": "/api/physical-movements/cpes/{cpe_device_id}",
+    "response_model": "DeviceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "cpe_device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "move_access_point",
+    "path": "/api/physical-movements/access-points/{access_point_device_id}",
+    "response_model": "DeviceRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "access_point_device_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_recycle_batches",
+    "path": "/api/recycle-bin",
+    "response_model": "RecycleBinPage",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status_filter"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "deleted_after"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "deleted_before"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "purge_before"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_recycle_items",
+    "path": "/api/recycle-bin/items",
+    "response_model": "RecycleBinItemPage",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "batch_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "batch_status"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "preview_recycle_dependencies",
+    "path": "/api/recycle-bin/preview",
+    "response_model": "RecyclePreviewResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_type"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "entity_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "retrieve_recycle_batch",
+    "path": "/api/recycle-bin/{batch_id}",
+    "response_model": "RecycleBinBatchDetail",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "batch_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "restore_batch",
+    "path": "/api/recycle-bin/{batch_id}/restore",
+    "response_model": "RecycleBinBatchDetail",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "batch_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "permanently_purge_batch",
+    "path": "/api/recycle-bin/{batch_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "batch_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "force"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "confirmation"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_restore_points",
+    "path": "/api/restore-points",
+    "response_model": "list[RestorePointRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "page_restore_points",
+    "path": "/api/restore-points/page",
+    "response_model": "RestorePointPage",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "source"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "pinned"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "read_restore_point",
+    "path": "/api/restore-points/{restore_point_id}",
+    "response_model": "RestorePointRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "restore_point_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_manual_restore_point",
+    "path": "/api/restore-points",
+    "response_model": "RestorePointRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 201
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "verify_point",
+    "path": "/api/restore-points/{restore_point_id}/verify",
+    "response_model": "RestorePointRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "restore_point_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "restore_point",
+    "path": "/api/restore-points/{restore_point_id}/restore",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "restore_point_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "pin_restore_point",
+    "path": "/api/restore-points/{restore_point_id}/pin",
+    "response_model": "RestorePointRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "restore_point_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "DELETE"
+    ],
+    "name": "remove_restore_point",
+    "path": "/api/restore-points/{restore_point_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "restore_point_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 204
+  },
+  {
+    "dependencies": [
+      "authorize_request"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_operational_logs",
+    "path": "/api/operational-logs",
+    "response_model": "list[OperationalLogRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "level"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "logger"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "since"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "until"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "page_operational_logs",
+    "path": "/api/operational-logs/page",
+    "response_model": "OperationalLogPage",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "level"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "logger"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "since"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "until"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "operational_log_filter_options",
+    "path": "/api/operational-logs/filter-options/{kind}",
+    "response_model": "PageResult[LogFilterOption]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "kind"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "export_operational_logs",
+    "path": "/api/operational-logs/export",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "service"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "level"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "request_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "logger"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "user_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "since"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "until"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "read_system_information",
+    "path": "/api/system-information",
+    "response_model": "SystemInformationRead",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "discovery_flush_preview",
+    "path": "/api/discovery/flush/preview",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "flush_discovery",
+    "path": "/api/discovery/flush",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "actor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "discovery_methods",
+    "path": "/api/discovery/methods",
+    "response_model": null,
+    "signature": [],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "run_discovery",
+    "path": "/api/discovery/run",
+    "response_model": "DiscoveryRunResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "page_jobs",
+    "path": "/api/discovery/jobs/page",
+    "response_model": "PageResult[DiscoveryJobRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "status_filter"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "scope_type"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "page_size"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_jobs",
+    "path": "/api/discovery/jobs",
+    "response_model": "list[DiscoveryJobRead]",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "offset"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_job",
+    "path": "/api/discovery/jobs/{job_id}",
+    "response_model": "DiscoveryJobRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "job_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_job_results",
+    "path": "/api/discovery/jobs/{job_id}/results",
+    "response_model": "list[DiscoveryResultRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "job_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_job_aggregate",
+    "path": "/api/discovery/jobs/{job_id}/aggregate",
+    "response_model": "list[DiscoveryAggregateRead]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "job_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "create_batch_job",
+    "path": "/api/discovery/batch/jobs",
+    "response_model": "BatchDiscoveryCreateResponse",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": 202
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_batch_jobs",
+    "path": "/api/discovery/batch/jobs",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_batch_job",
+    "path": "/api/discovery/batch/jobs/{job_id}",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "job_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "candidate_summary",
+    "path": "/api/device-candidates/summary",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "list_candidates",
+    "path": "/api/device-candidates",
+    "response_model": "CandidatePage",
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "state"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "vendor"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "device_type_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_by"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "sort_direction"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "offset"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "candidate_location_options",
+    "path": "/api/device-candidates/placement-options/locations",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "candidate_logical_sector_options",
+    "path": "/api/device-candidates/placement-options/logical-sectors",
+    "response_model": null,
+    "signature": [
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "search"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "selected_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "current_sector_device_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "limit"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "get_candidate",
+    "path": "/api/device-candidates/{candidate_id}",
+    "response_model": "CandidateRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "candidate_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "PATCH"
+    ],
+    "name": "update_candidate",
+    "path": "/api/device-candidates/{candidate_id}",
+    "response_model": "CandidateRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "candidate_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "approve_candidate",
+    "path": "/api/device-candidates/{candidate_id}/approve",
+    "response_model": "CandidateRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "candidate_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "reject_candidate",
+    "path": "/api/device-candidates/{candidate_id}/reject",
+    "response_model": "CandidateRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "candidate_id"
+      },
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "payload"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "reopen_candidate",
+    "path": "/api/device-candidates/{candidate_id}/reopen",
+    "response_model": "CandidateRead",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "candidate_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "dependency",
+      "get_db"
+    ],
+    "methods": [
+      "POST"
+    ],
+    "name": "register_candidate",
+    "path": "/api/device-candidates/{candidate_id}/register",
+    "response_model": "CandidateRegistration",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "candidate_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  },
+  {
+    "dependencies": [
+      "authorize_request",
+      "get_db"
+    ],
+    "methods": [
+      "GET"
+    ],
+    "name": "candidate_audit",
+    "path": "/api/device-candidates/{candidate_id}/audit",
+    "response_model": "list[dict]",
+    "signature": [
+      {
+        "has_default": false,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "candidate_id"
+      },
+      {
+        "has_default": true,
+        "kind": "POSITIONAL_OR_KEYWORD",
+        "name": "db"
+      }
+    ],
+    "status_code": null
+  }
+]

@@ -1,0 +1,14 @@
+FROM python:3.12-slim@sha256:2c941e860699f878900b0edc2403613c234d4b32eda3cc9fa7036991a2a63c4a
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+COPY requirements.lock ./requirements.lock
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/* \
+    && pip install --no-cache-dir -r requirements.lock \
+    && openssl req -x509 -newkey rsa:2048 -nodes \
+       -keyout /tmp/mock-web-gui.key -out /tmp/mock-web-gui.crt -days 2 \
+       -subj '/CN=FTTW Mock Web GUI' >/dev/null 2>&1
+COPY scripts/mock_web_gui.py ./mock_web_gui.py
+EXPOSE 18080 18443
+CMD ["uvicorn", "mock_web_gui:app", "--host", "0.0.0.0", "--port", "18443", "--ssl-keyfile", "/tmp/mock-web-gui.key", "--ssl-certfile", "/tmp/mock-web-gui.crt", "--no-access-log"]

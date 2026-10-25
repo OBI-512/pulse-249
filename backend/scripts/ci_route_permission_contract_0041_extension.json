@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "routes": [
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-batches",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-batches",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "GET",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-batches/{batch_id}",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-batches/{batch_id}/abort",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-batches/{batch_id}/pause",
+      "permission": "device.configuration.read"
+    },
+    {
+      "method": "POST",
+      "mode": "CENTRAL",
+      "path": "/api/configuration-batches/{batch_id}/resume",
+      "permission": "device.configuration.read"
+    }
+  ]
+}

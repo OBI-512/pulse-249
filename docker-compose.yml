@@ -1,0 +1,334 @@
+services:
+  postgres:
+    image: postgres:16-alpine@sha256:cf78e76683b9ca8c5733cbbdce6c9262b45b6767934dd0a95e671f9a0fc20685
+    container_name: fttw-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-fttw}
+      POSTGRES_USER: ${POSTGRES_USER:-fttw}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - fttw_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-fttw} -d ${POSTGRES_DB:-fttw}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: fttw-backend
+    restart: unless-stopped
+    env_file:
+      - path: ${FTTW_INTEGRATION_ENV_FILE:-./.env.integrations}
+        required: false
+      # Artifact encryption key only. Do not place device credentials here.
+      - path: ${FTTW_CONFIGURATION_ARTIFACT_ENV_FILE:-./.env.configuration_artifacts}
+        required: false
+      # Shared Access Template master key. Never commit the real file/key.
+      - path: ${FTTW_ACCESS_TEMPLATE_ENV_FILE:-./.env.access_templates}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://fttw:change-me@postgres:5432/fttw}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      FTTW_ENV: ${FTTW_ENV:-development}
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-true}
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: backend
+      ENABLE_DATABASE_RESTORE: "true"
+      INTEGRATIONS_ENABLED: ${INTEGRATIONS_ENABLED:-false}
+      INTEGRATION_ALLOW_INSECURE_HTTP: ${INTEGRATION_ALLOW_INSECURE_HTTP:-false}
+      REMOTE_ACCESS_ENABLED: ${REMOTE_ACCESS_ENABLED:-false}
+      TELNET_ACCESS_ENABLED: ${TELNET_ACCESS_ENABLED:-false}
+      REMOTE_ACCESS_TICKET_TTL_SECONDS: ${REMOTE_ACCESS_TICKET_TTL_SECONDS:-60}
+      REMOTE_ACCESS_SESSION_MAX_SECONDS: ${REMOTE_ACCESS_SESSION_MAX_SECONDS:-1800}
+      REMOTE_ACCESS_IDLE_TIMEOUT_SECONDS: ${REMOTE_ACCESS_IDLE_TIMEOUT_SECONDS:-900}
+      REMOTE_ACCESS_ALLOWED_ORIGINS: ${REMOTE_ACCESS_ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:8080}
+      REMOTE_ACCESS_WEB_ALLOWED_PORTS: ${REMOTE_ACCESS_WEB_ALLOWED_PORTS:-80,443,8080,8443}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - configuration_artifacts:/app/data/configurations
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: fttw-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    depends_on:
+      - backend
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  redis:
+    image: redis:7-alpine@sha256:e7723ff73d963f5cc6d9c4643ea3d989527a402a319239054e9472a7fb9219a2
+    container_name: fttw-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  worker:
+    build:
+      context: ./backend
+    container_name: fttw-worker
+    restart: unless-stopped
+    command: python -m app.celery_worker
+    # Optional worker-only SNMP credentials. The file is git-ignored by .env.*
+    # and may define any FTTW_SNMP_* variables referenced as env://NAME.
+    env_file:
+      - path: ${FTTW_SNMP_ENV_FILE:-./.env.snmp}
+        required: false
+      # Access Template SNMP credentials are decrypted only inside the worker.
+      - path: ${FTTW_ACCESS_TEMPLATE_ENV_FILE:-./.env.access_templates}
+        required: false
+      # Optional worker-only notification secrets/destinations. Keep SMTP
+      # credentials and webhook env:// targets out of PostgreSQL/Celery.
+      - path: ${FTTW_NOTIFICATION_ENV_FILE:-./.env.notifications}
+        required: false
+      - path: ${FTTW_INTEGRATION_ENV_FILE:-./.env.integrations}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://fttw:change-me@postgres:5432/fttw}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: worker
+      INTEGRATIONS_ENABLED: ${INTEGRATIONS_ENABLED:-false}
+      INTEGRATION_ALLOW_INSECURE_HTTP: ${INTEGRATION_ALLOW_INSECURE_HTTP:-false}
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  scheduler:
+    build:
+      context: ./backend
+    container_name: fttw-scheduler
+    restart: unless-stopped
+    command: celery -A app.celery_app.config.celery_app beat --loglevel=INFO --schedule=/tmp/celerybeat-schedule
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://fttw:change-me@postgres:5432/fttw}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: scheduler
+      INTEGRATIONS_ENABLED: ${INTEGRATIONS_ENABLED:-false}
+      INTEGRATION_ALLOW_INSECURE_HTTP: ${INTEGRATION_ALLOW_INSECURE_HTTP:-false}
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  restore-control:
+    build:
+      context: ./backend
+    container_name: fttw-restore-control
+    restart: unless-stopped
+    command: celery -A app.celery_app.config.celery_app worker --loglevel=INFO --concurrency=1 -Q restore_control -n restore-control@%h
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://fttw:change-me@postgres:5432/fttw}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: maintenance
+      ENABLE_DATABASE_RESTORE: "true"
+      RESTORE_HEALTH_URL: http://backend:8000/api/health
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  configuration-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.configuration-worker
+    container_name: fttw-configuration-worker
+    restart: unless-stopped
+    command: celery -A app.celery_app.config.celery_app worker --loglevel=INFO --concurrency=1 -Q configuration -n configuration-worker@%h
+    # Device credentials remain server-side. Existing env:// references from
+    # the SSH remote-access profile can be reused here without entering Celery
+    # messages, browser responses or database plaintext.
+    env_file:
+      - path: ${FTTW_REMOTE_ACCESS_ENV_FILE:-./.env.remote_access}
+        required: false
+      # Managed Access Template secrets use the same installation master key.
+      - path: ${FTTW_ACCESS_TEMPLATE_ENV_FILE:-./.env.access_templates}
+        required: false
+      - path: ${FTTW_CONFIGURATION_DEVICE_ENV_FILE:-./.env.configuration_devices}
+        required: false
+      - path: ${FTTW_CONFIGURATION_ARTIFACT_ENV_FILE:-./.env.configuration_artifacts}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://fttw:change-me@postgres:5432/fttw}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: configuration-worker
+      CONFIGURATION_ARTIFACT_PUBLIC_BASE_URL: ${CONFIGURATION_ARTIFACT_PUBLIC_BASE_URL:-}
+      CONFIGURATION_ARTIFACT_LEASE_TTL_SECONDS: ${CONFIGURATION_ARTIFACT_LEASE_TTL_SECONDS:-90}
+      CONFIGURATION_ARTIFACT_LEASE_MAX_READS: ${CONFIGURATION_ARTIFACT_LEASE_MAX_READS:-4}
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - configuration_artifacts:/app/data/configurations
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+  configuration-artifact-gateway:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.configuration-artifact-gateway
+    container_name: fttw-configuration-artifact-gateway
+    restart: unless-stopped
+    env_file:
+      # Artifact key only. This gateway receives no SSH or Access Template secrets.
+      - path: ${FTTW_CONFIGURATION_ARTIFACT_ENV_FILE:-./.env.configuration_artifacts}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://fttw:change-me@postgres:5432/fttw}
+      REDIS_URL: redis://redis:6379/0
+      PYTHONPATH: /app
+      DATA_ROOT: /app/data
+      FTTW_SERVICE_NAME: configuration-artifact-gateway
+    ports:
+      - "${CONFIGURATION_ARTIFACT_GATEWAY_PORT:-8020}:8020"
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    volumes:
+      - configuration_artifacts:/app/data/configurations:ro
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  access-gateway:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.access-gateway
+    container_name: fttw-access-gateway
+    restart: unless-stopped
+    env_file:
+      - path: ${FTTW_REMOTE_ACCESS_ENV_FILE:-./.env.remote_access}
+        required: false
+      # SSH/Telnet Access Template credentials are decrypted inside the gateway.
+      - path: ${FTTW_ACCESS_TEMPLATE_ENV_FILE:-./.env.access_templates}
+        required: false
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://fttw:change-me@postgres:5432/fttw}
+      PYTHONPATH: /app
+      FTTW_SERVICE_NAME: access-gateway
+      REMOTE_ACCESS_ENABLED: ${REMOTE_ACCESS_ENABLED:-false}
+      TELNET_ACCESS_ENABLED: ${TELNET_ACCESS_ENABLED:-false}
+      REMOTE_ACCESS_SESSION_MAX_SECONDS: ${REMOTE_ACCESS_SESSION_MAX_SECONDS:-1800}
+      REMOTE_ACCESS_IDLE_TIMEOUT_SECONDS: ${REMOTE_ACCESS_IDLE_TIMEOUT_SECONDS:-900}
+      REMOTE_ACCESS_ALLOWED_ORIGINS: ${REMOTE_ACCESS_ALLOWED_ORIGINS:-http://localhost:3000,http://localhost:8080}
+      REMOTE_ACCESS_WEB_ALLOWED_PORTS: ${REMOTE_ACCESS_WEB_ALLOWED_PORTS:-80,443,8080,8443}
+      REMOTE_ACCESS_GATEWAY_TLS_ENABLED: ${REMOTE_ACCESS_GATEWAY_TLS_ENABLED:-false}
+      REMOTE_ACCESS_GATEWAY_EXTERNAL_TLS_TERMINATED: ${REMOTE_ACCESS_GATEWAY_EXTERNAL_TLS_TERMINATED:-false}
+    ports:
+      - "${REMOTE_ACCESS_PORT:-8010}:8010"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "5"
+
+volumes:
+  fttw_postgres_data:
+  redis_data:
+  configuration_artifacts:

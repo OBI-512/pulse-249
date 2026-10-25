@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+  <title>FTTW Remote Terminal</title>
+</head>
+<body>
+  <main class="ssh-shell">
+    <header class="ssh-header">
+      <div class="ssh-identity">
+        <div class="ssh-title-row">
+          <span id="connection-dot" class="connection-dot is-waiting" aria-hidden="true"></span>
+          <h1 id="device-title">Remote Terminal</h1>
+          <span id="legacy-badge" class="legacy-badge" hidden>Legacy access</span>
+        </div>
+        <div class="ssh-session-summary" aria-live="polite">
+          <span id="connection-status">Starting terminal session…</span>
+          <span id="elapsed" hidden>00:00</span>
+        </div>
+      </div>
+
+      <div class="ssh-actions" aria-label="Terminal actions">
+        <button id="search-button" type="button" title="Search terminal output (Ctrl+Shift+F)">Search</button>
+        <button id="settings-button" type="button" title="Terminal appearance settings">Settings</button>
+        <button id="paste-button" type="button" title="Paste from clipboard">Paste</button>
+        <button id="download-button" type="button" title="Download visible terminal history">Download log</button>
+        <button id="fullscreen-button" type="button" title="Toggle fullscreen">Fullscreen</button>
+        <button id="more-button" type="button" aria-haspopup="menu" title="More terminal actions">More</button>
+        <button id="close-button" type="button" class="danger-button">Close session</button>
+      </div>
+    </header>
+
+    <section id="search-panel" class="search-panel" hidden aria-label="Search terminal output">
+      <input id="search-input" type="search" autocomplete="off" spellcheck="false" placeholder="Search terminal output" />
+      <button id="search-previous" type="button" title="Previous result (Shift+Enter)">Previous</button>
+      <button id="search-next" type="button" title="Next result (Enter)">Next</button>
+      <label class="search-option"><input id="search-case" type="checkbox" /> Match case</label>
+      <button id="search-close" type="button" aria-label="Close search">Close</button>
+    </section>
+
+    <section id="terminal-frame" class="terminal-frame" aria-label="Remote terminal">
+      <div id="terminal" class="terminal-host"></div>
+      <div id="terminal-overlay" class="terminal-overlay">Waiting for terminal session…</div>
+    </section>
+
+    <div id="context-menu" class="context-menu" role="menu" hidden>
+      <button type="button" data-action="copy" role="menuitem">Copy</button>
+      <button type="button" data-action="paste" role="menuitem">Paste</button>
+      <button type="button" data-action="select-all" role="menuitem">Select all</button>
+      <div class="menu-divider" role="separator"></div>
+      <button type="button" data-action="search" role="menuitem">Search</button>
+      <button type="button" data-action="clear-scrollback" role="menuitem">Clear scrollback</button>
+      <button type="button" data-action="clear-screen" role="menuitem">Clear remote screen</button>
+      <div class="menu-divider" role="separator"></div>
+      <button type="button" data-action="font-increase" role="menuitem">Increase text size</button>
+      <button type="button" data-action="font-decrease" role="menuitem">Decrease text size</button>
+      <button type="button" data-action="font-reset" role="menuitem">Reset text size</button>
+      <button type="button" data-action="settings" role="menuitem">Appearance settings…</button>
+      <div class="menu-divider" role="separator"></div>
+      <button type="button" data-action="download" role="menuitem">Download log</button>
+      <button type="button" data-action="fullscreen" role="menuitem">Fullscreen</button>
+      <button type="button" data-action="help" role="menuitem">Keyboard shortcuts</button>
+    </div>
+
+    <dialog id="settings-dialog" class="settings-dialog">
+      <div class="dialog-header">
+        <div>
+          <h2>Terminal appearance</h2>
+          <p class="dialog-subtitle">These preferences are saved only in this browser.</p>
+        </div>
+        <button id="settings-close" type="button">Done</button>
+      </div>
+      <div class="settings-grid">
+        <label for="font-family">Font</label>
+        <select id="font-family">
+          <option value="system">System monospace</option>
+          <option value="cascadia">Cascadia Mono</option>
+          <option value="consolas">Consolas</option>
+          <option value="menlo">Menlo / Monaco</option>
+          <option value="courier">Courier New</option>
+        </select>
+
+        <label for="font-size">Font size</label>
+        <div class="font-size-control">
+          <input id="font-size" type="range" min="10" max="28" step="1" />
+          <output id="font-size-value" for="font-size">14 px</output>
+        </div>
+
+        <label for="font-color">Font color</label>
+        <input id="font-color" type="color" value="#e7eef7" />
+
+        <label for="background-color">Background color</label>
+        <input id="background-color" type="color" value="#07101a" />
+      </div>
+      <div class="settings-footer">
+        <button id="settings-reset" type="button">Reset defaults</button>
+      </div>
+    </dialog>
+
+    <dialog id="help-dialog" class="help-dialog">
+      <div class="dialog-header">
+        <h2>Terminal shortcuts</h2>
+        <button id="help-close" type="button">Close</button>
+      </div>
+      <div class="shortcut-grid">
+        <kbd>Ctrl+A</kbd><span>Beginning of command line</span>
+        <kbd>Ctrl+E</kbd><span>End of command line</span>
+        <kbd>Ctrl+B / Ctrl+F</kbd><span>Move one character left / right</span>
+        <kbd>Alt+B / Alt+F</kbd><span>Move one word left / right</span>
+        <kbd>Ctrl+C</kbd><span>Interrupt the running command</span>
+        <kbd>Ctrl+R</kbd><span>Search command history</span>
+        <kbd>Tab</kbd><span>Command/path completion</span>
+        <kbd>Backspace / Delete</kbd><span>Delete before / at the cursor</span>
+        <kbd>Ctrl+Shift+C</kbd><span>Copy selection</span>
+        <kbd>Ctrl+Shift+V</kbd><span>Paste clipboard</span>
+        <kbd>Ctrl+Shift+F</kbd><span>Search terminal output</span>
+        <kbd>Shift+Insert</kbd><span>Paste clipboard</span>
+      </div>
+      <p class="dialog-note">Line-editing shortcuts are sent as standard terminal key sequences; the remote device shell decides which bindings it supports.</p>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </main>
+  <script type="module" src="/src/remote-ssh/main.ts"></script>
+</body>
+</html>
